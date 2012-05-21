@@ -20,9 +20,9 @@ Ajile is compatible with the following specifications and HTML browsers:
 
 ### Specifications
 
-+ ECMA-262, Edition 3+
-+ JavaScript 1.3+
-+ JScript 3.0+
++ [ECMA-262](http://www.ecma-international.org/publications/standards/Ecma-262.htm), [Edition 3](http://www.ecma-international.org/publications/files/ECMA-ST-ARCH/ECMA-262,%203rd%20edition,%20December%201999.pdf)[+](http://www.ecma-international.org/publications/standards/Ecma-262.htm)
++ [JavaScript](https://developer.mozilla.org/en/JavaScript) [1.3](https://developer.mozilla.org/en/JavaScript/New_in_JavaScript/1.3)[+](https://developer.mozilla.org/en/JavaScript)
++ [JScript 3.0+](http://msdn.microsoft.com/en-us/library/hbxc2t98(v=vs.84\))
 
 ### Desktop Browsers
 
