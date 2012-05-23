@@ -1,0 +1,41 @@
+/*
+   Author:      Michael Lee [ http://ajile.net/ ]
+   Description: iSkitz.com's content style.
+*/
+*{
+	 color: #444;
+	 font-family: Tahoma, Verdana, Courier, Georgia, Serif;
+	 font-size: 13px;
+}
+a {
+   color: #080;
+}
+a:focus, a:hover {
+   background-color: #E8E8FF;
+}
+
+body{
+	 background-color: #fff;
+	 padding: 8px 0;
+}
+
+code {
+   behavior: url(../htcs/star-js.htc) url(../htcs/star-light.htc);
+   -moz-binding: url(htcs/bindings.xml#star-js.htc|star-light.htc);
+   text-indent: 1em;
+   white-space: pre;
+}
+
+h1 {
+   margin: 0 auto;
+}
+hr {
+   border: #aaa 1px dotted;/*
+   margin-left: 0;
+   margin-right: 5%;
+   text-align: left;
+   width: 95%;*/
+}
+img {
+	border: none;
+}

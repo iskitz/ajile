@@ -1,0 +1,65 @@
+body {
+   background-color: #6986D2;
+   font-family: tahoma, Verdana, Geneva, Arial, Helvetica, sans-serif;
+   font-size: 13px;
+}
+
+a {
+   font-weight: bold;
+   text-decoration: none;
+}
+a.titleBar {
+   background-color: #444;/*#efefef;*/
+   border: 1px solid #333;/*#777;*/
+   color: #fefefe;/*#6986D2;*/
+   display: block;
+   font-weight: bold;
+   line-height: 125%;
+   margin: auto 3px;
+   padding: 3px;
+   text-align: center;
+   text-decoration: none;
+}
+a.titleBar:active,
+a.titleBar:focus,
+a.titleBar:hover {
+   background-color: #5B1;/*#E7FEB6;/*#6CE26C;*/
+   color: #fefefe;
+}
+
+div.section {
+   background: none #fff;/*#efefef;*/
+   border: 1px solid #99cc00;
+   margin: 20px 20px 0px 20px;
+   overflow: auto;
+   padding: 5px;
+   width: 95%;
+}
+
+img {
+	border: none;
+}
+
+pre {
+   background-color: #fefefe;
+   border: none;
+   color: #6986D2;
+   display: block;
+   font: 11px Courier!important;
+   line-height: 150%;
+   margin: 5px auto!important;
+   padding: 5px;
+}
+pre, 
+div.dp-highlighter {
+   margin: auto 0.25%!important;
+   width: 99%!important;
+}
+div.dp-highlighter ol li {
+   white-space: nowrap!important;
+}
+
+/*Rounded Borders*/
+ol, pre, div.section, a.titleBar, div.section > div {
+  -moz-border-radius: 5px;
+}

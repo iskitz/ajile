@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+   <meta http-equiv="Content-Language"    content="en">
+   <meta http-equiv="Content-Script-Type" content="text/javascript">
+   <meta http-equiv="Content-Type"        content="text/html;charset=UTF-8">
+
+   <title>..::[  Ajile FAQ - Why Use Namespace?  ]::..</title>
+
+   <meta name="Description" content="Namespace FAQ :: Ajile - Advanced JavaScript Importing &amp; Loading Extension">
+   <meta name="Keywords"    content="Ajile,AJILE,JavaScript inject,JavaScript include,JavaScript Namespace,JavaScript Namespacing,Javascript Import,JavaScript On-Demand,JavaScript Package,JavaScript Packaging,Unobtrusive JavaScript,namespace,package,import,include,use,require,ajax,JSPackaging,JSLoad,JSPackage,JSImport">
+   <meta name="copyright"   content="Copyright &copy; 2003-2012 Michael Lee, http://ajile.net/">
+
+   <link type="image/ico" rel="icon"          href="http://ajile.sourceforge.net/favicon.ico">
+   <link type="image/ico" rel="shortcut icon" href="http://ajile.sourceforge.net/favicon.ico">
+   <link type="text/css"  rel="stylesheet"    href="../iskitz-content.css" title="iSkitz Content">
+</head>
+<body>
+<h1><a name="Index">Ajile FAQ :: Why Use Namespace?</a></h1>
+<br><br>
+Back to <a href="../Ajile-Help.htm">Documentation</a>
+<br><br>
+<p>
+<hr>
+<a name="WhyNamespace"><b>Q2</b>: Is the <b>Namespace</b> directive necessary to define a namespace'd script?</a>
+<hr>
+<BR>
+<b>A2-General</b>: 
+Yes.<BR><BR><b>A2-Part 1</b>: The <b>Namespace </b>directive affects the global 
+environment. That is to say, when the Namespace directive is used, it creates a 
+namespace within the global environment, the browser’s window. So for 
+example:<BR><BR>
+<code>Namespace ("com.iskitz.examples");</code>
+<BR>creates the <b>com.iskitz.examples</b> 
+namespace in the global environment so that a script may be defined as 
+follows:<BR><BR>
+<code>
+com.iskitz.ajile.examples.Simple = function()
+{
+   this.toString = function toString()
+   {
+      return "[Simple]";
+   };
+};
+</code>
+<BR>Without the <b>Namespace</b> directive the browser would throw 
+an Exception stating that <b>com.iskitz.ajile.examples</b> is undefined/null.
+<BR><BR
+><b>A2-Part 2</b>: When multiple scripts that claim membership to the same 
+namespace are loaded within the same environment, the first script loaded
+defines the common namespace. Subsequently loaded scripts within the same 
+namespace will work without using the <b>Namespace </b>directive because the 
+namespace would have already been defined in the global environment by the first 
+loaded script.<br><br>This effect is evident in the <b>Complex</b> and 
+<b>Simple</b> example scripts. Complex defines the namespace 
+<b>com.iskitz.ajile.examples</b> in the global environment so commenting out the
+ <b>Namespace</b> statement in the imported Simple script has no negative effect
+  on the Simple script’s definition and operation.
+<br><br><br>
+Back to <a href="../Ajile-Help.htm">Documentation</a>
+</p>
+<br /><a id="lnkSFLogo" href="http://sourceforge.net/projects/ajile/"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=149163&type=1" border="0" alt="SourceForge.net Logo" title="Ajile @ SourceForge" /></a>
+</BODY>
+</HTML>

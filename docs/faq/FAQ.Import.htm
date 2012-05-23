@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+   <meta http-equiv="Content-Language"    content="en">
+   <meta http-equiv="Content-Script-Type" content="text/javascript">
+   <meta http-equiv="Content-Type"        content="text/html;charset=UTF-8">
+
+   <title>..::[  Ajile FAQ - Load vs. Import  ]::..</title>
+
+   <meta name="Description" content="Load/Import FAQ :: Ajile - Advanced JavaScript Importing &amp; Loading Extension">
+   <meta name="Keywords"    content="Ajile,AJILE,JavaScript inject,JavaScript include,JavaScript Namespace,JavaScript Namespacing,Javascript Import,JavaScript On-Demand,JavaScript Package,JavaScript Packaging,Unobtrusive JavaScript,namespace,package,import,include,use,require,ajax,JSPackaging,JSLoad,JSPackage,JSImport">
+   <meta name="copyright"   content="Copyright &copy; 2003-2012 Michael Lee, http://ajile.net/">
+
+   <link type="image/ico" rel="icon"          href="http://ajile.sourceforge.net/favicon.ico">
+   <link type="image/ico" rel="shortcut icon" href="http://ajile.sourceforge.net/favicon.ico">
+   <link type="text/css"  rel="stylesheet"    href="../iskitz-content.css" title="iSkitz Content">
+</head>
+<body>
+<h1><a name="Index">Ajile FAQ :: Load vs. Import</a></h1>
+<br><br>
+Back to <a href="../Ajile-Help.htm">Documentation</a>
+<br><br>
+<p><hr>
+<a name="WhyLoad"><b>Q1</b>: What's the difference between <b>Load</b> and <b>Import</b>?</a>
+<hr><BR>
+<b>A1-General</b>: The Load and Import directives are 
+both designed to allow scripts to programmatically define their 
+dependencies.<BR><BR><b>A1-Part 1</b>: The 
+purpose of the <b>Load </b>directive is to 
+provide developers with a means to programmatically load other arbitrarily named 
+scripts. The Load directive should be used when you simply want to load an 
+external script file from a known location.<BR><BR><b>A1-Part 2</b>: The 
+<b>Import </b>directive serves two purposes. The first 
+being to provide developers with a means to programmatically load "
+<i>namespace'd</i>" scripts. Namespace'd means that a script has 
+been named in a manner, or stored in a directory structure that reflects the 
+namespace it programmatically defines. Ajile allows developers to package 
+namespace'd scripts by:<BR><BR>&nbsp;&nbsp; 1. Using a directory structure that 
+reflects the namespace. For example:<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+<b>/com/iskitz/ajile.js</b> indicates that this script 
+defines the namespace<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>com.iskitz</b> and
+ the type/object <b>ajile</b> within it.<BR><BR>&nbsp;&nbsp; 2. Naming 
+the script in a manner that reflects the namespace. For 
+example:<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>com.iskitz.ajile.js</b> indicates 
+that this script defines the namespace<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+<b>com.iskitz</b> and the type/object <b>ajile</b> within 
+it.<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <BR>The two approaches are made available 
+to accommodate developers' different organizational styles, either one can be 
+used; the choice is the developer's. When the <b>Import </b>directive is used 
+without its optional <i>url </i>and <i>packaging style</i> parameters it 
+automatically determines the script's packaging style and location based on those
+ of previously loaded scripts with a common namespace, or if no others have been 
+loaded, then the location and packaging style of Ajile itself.<BR><BR>
+<b>A1-Part 3</b>: The second purpose of the <b>Import </b>directive is to 
+provide "short-name" access to types/objects defined within loaded scripts. 
+After the namespace'd script is loaded its short-name is mapped to its 
+fully-qualified name. For example:<BR><BR>
+<code>Import ("com.iskitz.examples.Site");</code>
+<BR>instructs Ajile to load 
+<b>com.iskitz.examples.Site.js</b> and map its contained 
+<b>com.iskitz.examples.Site</b> object to the short-name <b>Site</b>.<BR><BR>
+For an overview of the <b>Import </b>directive with examples, see Ajile's 
+Wikipedia entry at <A 
+href="http://en.wikipedia.org/wiki/AJILE#Namespace_Importing">http://en.wikipedia.org/wiki/AJILE#Namespace_Importing</A>.
+<br><br>
+Back to <a href="../Ajile-Help.htm">Documentation</a>
+</p>
+<br /><a id="lnkSFLogo" href="http://sourceforge.net/projects/ajile/"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=149163&type=1" border="0" alt="SourceForge.net Logo" title="Ajile @ SourceForge" /></a>
+</BODY>
+</HTML>
