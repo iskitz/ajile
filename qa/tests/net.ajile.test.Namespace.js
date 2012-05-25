@@ -2,7 +2,7 @@
  About   : ajile's Namespace Tests Package.
  Author  : Michael Lee (iskitz.com)
  Created : 2011.12.17 @ 11:34 PM PT
- Updated : 2011.05.23 @ 07:18 AM PDT
+ Updated : 2012.05.25 @ 05:42 AM PDT
  */
 
 Namespace ("net.ajile.test");			// Define ajile's core tests' namespace.
@@ -17,7 +17,7 @@ Namespace ("net.ajile.test");			// Define ajile's core tests' namespace.
 		};
 	}
 
-	describe ("ajile: Namespace Exists", function defineAjileNamespaceExistsTests () {
+	describe ("ajile: Namespace: Exists", function defineAjileNamespaceExistsTests () {
 		it ("Namespace: exists", function testAjileNamespaceExists () {
 			expect (Namespace).toBeDefined();
 			expect (Namespace).not.toBeNull();
