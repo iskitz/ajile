@@ -2,7 +2,7 @@
  About   : ajile's Namespace Tests Package.
  Author  : Michael Lee (iskitz.com)
  Created : 2011.12.17 @ 11:34 PM PT
- Updated : 2012.05.25 @ 06:04 AM PDT
+ Updated : 2012.05.25 @ 10:37 AM PDT
  */
 
 Namespace ("net.ajile.test");			// Define ajile's core tests' namespace.
@@ -36,7 +36,7 @@ Namespace ("net.ajile.test");			// Define ajile's core tests' namespace.
 		});
 		it ("Namespace: reuse single-level", function testAjileNamespaceSingleLevelReuse () {
 			global.nstesting = function nstesting() {
-				// Manually create dthe "nstesting" namespace.
+				// Manually created the "nstesting" namespace.
 				return "nstesting";
 			};
 
