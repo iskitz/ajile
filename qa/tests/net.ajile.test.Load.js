@@ -2,7 +2,7 @@
  About   : ajile's Load Tests Package.
  Author  : Michael Lee (iskitz.com)
  Created : 2011.12.17 @ 11:34 PM PT
- Updated : 2012.05.25 @ 11:48 PM PDT
+ Updated : 2012.05.26 @ 01:33 AM PDT
  */
 
 Namespace ("net.ajile.test");
@@ -29,7 +29,7 @@ Namespace ("net.ajile.test");
 
          waitsFor (function didExternalLoadWork () {
             return (works = !!(net.ajile.test.Load.external && net.ajile.test.Load.external.works));
-         }, "Load: External script failed", 2000);
+         }, "Load: External script failed", 250);
 
          runs (function completeLoadWorksTest() {
             expect (works).toBe (true);
