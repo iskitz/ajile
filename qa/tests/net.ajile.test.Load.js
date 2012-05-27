@@ -29,7 +29,7 @@ Namespace ("net.ajile.test");
 
          waitsFor (function didExternalLoadWork () {
             return (works = !!(net.ajile.test.Load.external && net.ajile.test.Load.external.works));
-         }, "Load: External script failed", 250);
+         }, "Load: External script failed", 2000);
 
          runs (function completeLoadWorksTest() {
             expect (works).toBe (true);
