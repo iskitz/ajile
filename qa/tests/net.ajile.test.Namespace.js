@@ -2,7 +2,7 @@
  About   : ajile's Namespace Tests Package.
  Author  : Michael Lee (iskitz.com)
  Created : 2011.12.17 @ 11:34 PM PT
- Updated : 2012.05.25 @ 10:37 AM PDT
+ Updated : 2012.06.04 @ 06:30 AM PDT
  */
 
 Namespace ("net.ajile.test");			// Define ajile's core tests' namespace.
@@ -17,24 +17,23 @@ Namespace ("net.ajile.test");			// Define ajile's core tests' namespace.
 		};
 	}
 
-	describe ("ajile: Namespace: Exists", function defineAjileNamespaceExistsTests () {
-		it ("Namespace: exists", function testAjileNamespaceExists () {
+	describe ("ajile: Namespace", function defineAjileNamespaceTests () {
+		it ("Exists in the global scope.", function testAjileNamespaceExists () {
 			expect (Namespace).not.toBeNull();
 			expect (Namespace).not.toBeUndefined();
          expect (global.Namespace).toBeDefined();
 			expect (global.Namespace).toBe (Namespace);
 		});
-	});
-	
-	describe ("ajile: Namespace: Works", function testAjileGetVersion () {
-		it ("Namespace: new single-level", function testAjileNamespaceSingleLevel () {
+
+		it ("Supports single-level namespace creation.", function testAjileNamespaceSingleLevel () {
 			delete global.nstesting;				// Make sure the namespace doesn't exist.
 			Namespace ("nstesting");				// Create the namespace.
 			nstesting.constructor;					// Error if the namespace isn't defined.
  			expect (nstesting).toBeDefined();
 			delete this.nstesting;					// Cleanup.
 		});
-		it ("Namespace: reuse single-level", function testAjileNamespaceSingleLevelReuse () {
+
+		it ("Supports single-level namespace reuse.", function testAjileNamespaceSingleLevelReuse () {
 			global.nstesting = function nstesting() {
 				// Manually created the "nstesting" namespace.
 				return "nstesting";
