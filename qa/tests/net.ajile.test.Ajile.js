@@ -1,35 +1,58 @@
 /*
  About   : ajile's core Tests Package.
- Author  : Michael I. Lee
+ Author  : Michael Lee [iskitz.com]
  Created : 2011.12.17 @ 10:30 PM PT
- Updated : 2012.05.25 @ 05:41 AM PT
+ Updated : 2012.06.05 @ 03:52 AM PT
  */
 
-Namespace ("net.ajile.test");			// Define ajile's core tests' namespace.
+Namespace ("net.ajile.test");
 
 (net.ajile.test.Ajile = function defineAjileTests (global, undefined) {
 
-   describe ("ajile: com.iskitz.ajile", function testAjileNamespaceExists () {
-      it ("com.iskitz.ajile: exists", function testAjileExistsAsAjile () {
-         expect (com.iskitz.ajile).not.toBeNull();
-         expect (com.iskitz.ajile).not.toBeUndefined();
-         expect (global.com.iskitz.ajile).toBeDefined();
-         expect (global.com.iskitz.ajile).toBe (com.iskitz.ajile);
-      });
-   });
-
-	describe ("ajile: Ajile", function testAjileExists () {
-		it ("Ajile: exists", function testAjileExistsAsAjile () {
+   describe ("ajile:", function testAjileNamespaceExists () {
+		it ("Exists globally as Ajile.", function testAjileExistsAsAjile () {
 			expect (Ajile).not.toBeNull();
 			expect (Ajile).not.toBeUndefined();
 			expect (global.Ajile).toBeDefined();
          expect (global.Ajile).toBe (Ajile);
 		});
+
+      it ("Exists globally as com.iskitz.ajile.", function testAjileExistsAsComIskitzAjile () {
+         expect (com.iskitz.ajile).not.toBeNull();
+         expect (com.iskitz.ajile).not.toBeUndefined();
+         expect (global.com.iskitz.ajile).toBeDefined();
+         expect (global.com.iskitz.ajile).toBe (com.iskitz.ajile);
+      });
 	});
 
    describe ("ajile: Ajile.AddImportListener()", function testAjileAddImportListener () {
-      it ("AddImportListener: exists", function testAjileAddImportListenerExists () {
+      it ("Exists on global Ajile object.", function testAjileAddImportListenerExists () {
          expect (Ajile.AddImportListener).toBeDefined();
+      });
+
+      it ("Works with in-memory Imports.", function testAjileAddImportListenerWorks () {
+         var  itWorked  = false
+            , namespace = "net.ajile.test.Ajile.AddImportListener"
+            ;
+         net.ajile.test.Ajile.AddImportListener = {InMemoryWorks: Math.random()};
+
+         Ajile.AddImportListener (namespace, function importListenerWorks (moduleName) {
+            Ajile.RemoveImportListener (moduleName, arguments.callee);
+            itWorked = true;
+         });
+
+         runs (function importSomething() {
+            Import (namespace);
+         });
+
+         waitsFor (function didAddImportListenerWork () {
+            return itWorked; 
+         }, "AddImportListener failed with in-memory Import.", 500);
+
+         runs (function reportResult () {
+            expect (AddImportListener).toBe (net.ajile.test.Ajile.AddImportListener);
+            itWorked && delete (global.AddImportListener) && Ajile.Unload (namespace);
+         });
       });
    });
 
