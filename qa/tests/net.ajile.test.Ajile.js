@@ -2,7 +2,7 @@
  About   : ajile's core Tests Package.
  Author  : Michael Lee [iskitz.com]
  Created : 2011.12.17 @ 10:30 PM PT
- Updated : 2012.06.09 @ 10:36 PM PDT
+ Updated : 2012.06.09 @ 10:56 PM PDT
  */
 
 Namespace ("net.ajile.test");
@@ -10,18 +10,18 @@ Namespace ("net.ajile.test");
 (net.ajile.test.Ajile = function defineAjileTests (global, undefined) {
 
    describe ("ajile:", function testAjileNamespaceExists () {
-		it ("Exists globally as Ajile.", function testAjileExistsAsAjile () {
-			expect (Ajile).toBeDefined();
-			expect (global.Ajile).toBeDefined();
+      it ("Exists globally as Ajile.", function testAjileExistsAsAjile () {
+         expect (Ajile).toBeDefined();
+         expect (global.Ajile).toBeDefined();
          expect (global.Ajile).toBe (Ajile);
-		});
-
+      });
+      
       it ("Exists globally as com.iskitz.ajile.", function testAjileExistsAsCIA () {
          expect (com.iskitz.ajile).toBeDefined();
          expect (global.com.iskitz.ajile).toBeDefined();
          expect (global.com.iskitz.ajile).toBe (com.iskitz.ajile);
       });
-	});
+   });
 
    describe ("ajile: Ajile.AddImportListener()", function testAjileAddImportListener () {
       it ("Is a method on the global Ajile object.", function testAjileAddImportListenerExists () {
@@ -80,7 +80,7 @@ Namespace ("net.ajile.test");
             var ns = net.ajile.test.Ajile.AddImportListener;
             expect (import1).toBe (ns.import1);
             expect (import2).toBe (ns.import2);
-            itWorked && delete (ns.import1) && delete (ns.import2) && Ajile.Unload (namespace[0]);
+            itWorked && delete (global.import1) && delete (global.import2) && Ajile.Unload (namespace[0]);
          });
       });//End: All In-Memory Imports.
    });
