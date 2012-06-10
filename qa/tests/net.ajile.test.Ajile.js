@@ -2,7 +2,7 @@
  About   : ajile's core Tests Package.
  Author  : Michael Lee [iskitz.com]
  Created : 2011.12.17 @ 10:30 PM PT
- Updated : 2012.06.05 @ 03:52 AM PT
+ Updated : 2012.06.09 @ 10:36 PM PDT
  */
 
 Namespace ("net.ajile.test");
@@ -11,30 +11,28 @@ Namespace ("net.ajile.test");
 
    describe ("ajile:", function testAjileNamespaceExists () {
 		it ("Exists globally as Ajile.", function testAjileExistsAsAjile () {
-			expect (Ajile).not.toBeNull();
-			expect (Ajile).not.toBeUndefined();
+			expect (Ajile).toBeDefined();
 			expect (global.Ajile).toBeDefined();
          expect (global.Ajile).toBe (Ajile);
 		});
 
-      it ("Exists globally as com.iskitz.ajile.", function testAjileExistsAsComIskitzAjile () {
-         expect (com.iskitz.ajile).not.toBeNull();
-         expect (com.iskitz.ajile).not.toBeUndefined();
+      it ("Exists globally as com.iskitz.ajile.", function testAjileExistsAsCIA () {
+         expect (com.iskitz.ajile).toBeDefined();
          expect (global.com.iskitz.ajile).toBeDefined();
          expect (global.com.iskitz.ajile).toBe (com.iskitz.ajile);
       });
 	});
 
    describe ("ajile: Ajile.AddImportListener()", function testAjileAddImportListener () {
-      it ("Exists on global Ajile object.", function testAjileAddImportListenerExists () {
+      it ("Is a method on the global Ajile object.", function testAjileAddImportListenerExists () {
          expect (Ajile.AddImportListener).toBeDefined();
       });
 
-      it ("Works with in-memory Imports.", function testAjileAddImportListenerWorks () {
+      it ("Can observe namespaced, in-memory Imports.", function testAjileAddImportListenerNII () {
          var  itWorked  = false
             , namespace = "net.ajile.test.Ajile.AddImportListener"
             ;
-         net.ajile.test.Ajile.AddImportListener = {InMemoryWorks: Math.random()};
+         net.ajile.test.Ajile.AddImportListener = {};
 
          Ajile.AddImportListener (namespace, function importListenerWorks (moduleName) {
             Ajile.RemoveImportListener (moduleName, arguments.callee);
@@ -47,13 +45,44 @@ Namespace ("net.ajile.test");
 
          waitsFor (function didAddImportListenerWork () {
             return itWorked; 
-         }, "AddImportListener failed with in-memory Import.", 500);
+         }, "AddImportListener failed to observe namespaced in-memory Imports.", 500);
 
          runs (function reportResult () {
             expect (AddImportListener).toBe (net.ajile.test.Ajile.AddImportListener);
             itWorked && delete (global.AddImportListener) && Ajile.Unload (namespace);
          });
-      });
+      });//End: Namespaced In-memory Imports.
+
+      it ("Can observe all, in-memory Imports.", function testAjileAddImportListenerAII () {
+         var itWorked  = false;
+         var namespace =
+             [ "net.ajile.test.Ajile.AddImportListener"
+             , "net.ajile.test.Ajile.AddImportListener.import1"
+             , "net.ajile.test.Ajile.AddImportListener.import2"
+             ];
+         net.ajile.test.Ajile.AddImportListener = {import1:{}, import2:{}};
+
+         Ajile.AddImportListener (function importListenerWorks (moduleName) {
+            itWorked =  !!(global.import1 && global.import2);
+            itWorked && Ajile.RemoveImportListener (arguments.callee);
+         });
+
+         runs (function importNamespacedObjects() {
+            Import (namespace[1]);
+            Import (namespace[2]);
+         });
+
+         waitsFor (function didAddImportListenerWork () {
+            return itWorked; 
+         }, "AddImportListener failed to observe all in-memory Imports.", 500);
+
+         runs (function reportResult () {
+            var ns = net.ajile.test.Ajile.AddImportListener;
+            expect (import1).toBe (ns.import1);
+            expect (import2).toBe (ns.import2);
+            itWorked && delete (ns.import1) && delete (ns.import2) && Ajile.Unload (namespace[0]);
+         });
+      });//End: All In-Memory Imports.
    });
 
    describe ("ajile: Ajile.EnableCloak()", function testAjileEnableCloak () {
