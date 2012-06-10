@@ -2,7 +2,7 @@
  About   : ajile's core Tests Package.
  Author  : Michael Lee [iskitz.com]
  Created : 2011.12.17 @ 10:30 PM PT
- Updated : 2012.06.09 @ 10:56 PM PDT
+ Updated : 2012.06.09 @ 11:51 PM PDT
  */
 
 Namespace ("net.ajile.test");
@@ -54,7 +54,9 @@ Namespace ("net.ajile.test");
       });//End: Namespaced In-memory Imports.
 
       it ("Can observe all, in-memory Imports.", function testAjileAddImportListenerAII () {
-         var itWorked  = false;
+         var count     = 0
+           , itWorked  = false
+           ;
          var namespace =
              [ "net.ajile.test.Ajile.AddImportListener"
              , "net.ajile.test.Ajile.AddImportListener.import1"
@@ -63,7 +65,7 @@ Namespace ("net.ajile.test");
          net.ajile.test.Ajile.AddImportListener = {import1:{}, import2:{}};
 
          Ajile.AddImportListener (function importListenerWorks (moduleName) {
-            itWorked =  !!(global.import1 && global.import2);
+            itWorked =  (++count == 2) && !!(global.import1 && global.import2);
             itWorked && Ajile.RemoveImportListener (arguments.callee);
          });
 
