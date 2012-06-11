@@ -2,26 +2,34 @@
  About   : Launch script for ajile's Jasmine Tests.
  Author  : Michael Lee (iskitz.com)
  Created : 2011.12.17 @ 10:15 PM PT
- Updated : 2012.06.04 @ 04:44 AM PDT
+ Updated : 2012.06.11 @ 03:38 AM PDT
 */
 
 (function (Ignore, Listen, undefined) {
 
-   Include ("jasmine", "../../lib/jasmine/");
-   Listen  ("jasmine", function jasmineCoreLoaded (moduleName) {
-   
-      Ignore (moduleName, arguments.callee);
-      Load   ("../../lib/jasmine/jasmine-html.js");
-   
-      setTimeout (function(){ Include ("jasmine.HtmlReporter"); }, 0);
-   
-      Listen ("jasmine.HtmlReporter", function jasmineHTMLLoaded (moduleName) {
-   
-         Ignore  (moduleName, arguments.callee);
+   Include  ("jasmine", "../../lib/jasmine/");
+   Listen   ("jasmine", function jasmineCoreLoaded (moduleName) {
+
+      Ignore   (moduleName, arguments.callee);
+      Load     ("../../lib/jasmine/jasmine-html.js");
+
+      Ajile.nextInline = function includeJasmineHTML() {
+         var callee = arguments.callee;
+         callee.timer && clearTimeout (callee.timer);
+
+         jasmine.HtmlReporter
+         ?  (delete (callee.timer) && Include ("jasmine.HtmlReporter"))
+         :  (callee.timer = setTimeout (callee, 0))
+         ;
+      };
+
+      Load     ("./InlineLoader.js");
+      Listen   ("jasmine.HtmlReporter", function jasmineHTMLLoaded (moduleName) {
+
+         Ignore   (moduleName, arguments.callee);
          Include  ("net.ajile.test.*", "./");  
-   
-         Listen  (function initializeJasmine (moduleName) {
-   
+
+         Listen  (function initializeJasmine (moduleName) {   
             var ns = net.ajile.test;
    
             if (!(ns.Load && ns.Namespace)) {
