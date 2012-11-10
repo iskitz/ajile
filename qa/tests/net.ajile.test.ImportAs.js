@@ -1,8 +1,8 @@
 /*
  About   : ajile's ImportAs Tests Package.
  Author  : Michael Lee (iskitz.com)
- Created : 2011.12.17 @ 23:34 PM PT
- Updated : 2012.11.10 @ 02:42 AM PDT
+ Created : 2011.12.17 @ 23:34 PST
+ Updated : 2012.11.10 @ 02:42 PST
  */
 
 Namespace ("net.ajile.test");       // Define ajile's core tests' namespace.

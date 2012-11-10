@@ -1,8 +1,8 @@
 /*
  About   : ajile's core Tests Package.
  Author  : Michael Lee [iskitz.com]
- Created : 2011.12.17 @ 10:30 PM PT
- Updated : 2012.06.09 @ 11:51 PM PDT
+ Created : 2011.12.17 @ 22:30 PST
+ Updated : 2012.11.10 @ 04:01 PST
  */
 
 Namespace ("net.ajile.test");
@@ -144,10 +144,35 @@ Namespace ("net.ajile.test");
       });
    });
 
-   describe ("ajile: Ajile.Unload()", function testAjileUnload () {
-      it ("Unload: exists", function testAjileUnloadExists () {
+   describe ("ajile: Ajile.Unload():", function testAjileUnload () {
+      it ("Exists in global scope.", function testAjileUnloadExists () {
          expect (Ajile.Unload).toBeDefined();
       });
+
+      it ('Ajile.Unload ("My.Namespace"); removes My.Namespace from the global scope.', function testAjileUnloadNS () {
+         net.ajile.test.Unload = {Member: true};
+         Ajile.Unload ("net.ajile.test.Unload.Member");
+         expect (net.ajile.test.Unload.Member).not.toBeDefined();
+         expect (net.ajile.test.Unload).toBeDefined();
+      });
+
+      it ('Ajile.Unload ("My.*"); removes the My namespace and its members from the global scope.', function testAjileUnloadNSMembers () {
+         net.ajile.test.Unload = {Member: {works: true}};
+         Ajile.Unload ("net.ajile.test.Unload.*");
+         expect (net.ajile.test.Unload).not.toBeDefined();
+      });
+
+//      it ('Ajile.Unload(); removes Ajile and com.iskitz.ajile from the global scope.', function testAjileUnloadAll () {
+//         /* Todo:
+//          * Figure out how to reload Ajile since Ajile.Unload() removes it and reloading here fails
+//          * because the other Included tests are interpreted before the reloaded Ajile is.
+//          */
+////         Load ("../../lib/ajile/com.iskitz.ajile.js?debug,mvcoff,mvcshareoff");
+//         net.ajile.test.Unload = {Member: {works: true}};
+//         Ajile.Unload ();
+//         expect (global.Ajile).not.toBeDefined();
+//         expect (com.iskitz.ajile).not.toBeDefined();
+//      });
    });
 
 })(this);
