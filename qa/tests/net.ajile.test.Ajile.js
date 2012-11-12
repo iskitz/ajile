@@ -2,7 +2,7 @@
  About   : ajile's core Tests Package.
  Author  : Michael Lee [iskitz.com]
  Created : 2011.12.17 @ 22:30 PST
- Updated : 2012.11.12 @ 00:32 PST
+ Updated : 2012.11.11 @ 23:13 PST
  */
 
 Namespace ("net.ajile.test");
@@ -86,49 +86,49 @@ Namespace ("net.ajile.test");
          });
       });//End: All In-Memory Imports.
 
-      it ("Can listen for pre-listener global members", function canListenForPreListenerGlobalMembers () {
-         var canListen = false;
-         global.somethingAddedBefore = true;
+      it ("Can listen for anything in the global scope", function testListeningToGlobalScope () {
+         var canListen   = false
+           , globalThing = "my_global_thing"
+           ;
 
-         function foundGlobalThing (name) {
-             canListen = !!global.somethingAddedBefore;
+         Ajile.AddImportListener (globalThing, function foundGlobalThing (name) {
+             canListen = !!global [globalThing];
              canListen && Ajile.RemoveImportListener (name, arguments.callee);
-         }
+         });
 
-         Ajile.AddImportListener ("somethingAddedBefore", foundGlobalThing);
+         runs (function addThingToGlobalScope () {
+            global [globalThing] = true;
+         });
 
-         waitsFor (function didAddImportListenerWork () {
-            return !!canListen; 
-         }, "AddImportListener to find pre-listener global members.", 500);
+         waitsFor (function wasGlobalThingAdded () {
+            return !!global [globalThing];
+         }, "Failed to put something into the global scope", 500);
 
          runs (function canListenToGlobalScope() {
             expect (canListen).toBe (true);
-            delete global.somethingAddedBefore;
-            Ajile.RemoveImportListener ("somethingAddedBefore", foundGlobalThing);
          });
-      });//End: Listening for pre-listener  global members.
+      });//End: Listen to global scope.
 
-      it ("Can listen for post-listener global members", function canListenForPostListenerGlobalMembers () {
+      it ("Can listen for scripts loaded via Load", function testListeningForLoadedScripts () {
          var canListen = false;
 
-         function foundGlobalThing (name) {
-             canListen = !!global.somethingAddedLater;
+         Ajile.AddImportListener ("net.ajile.test.Load.external", function foundLoadedScript (name) {
+             canListen = !!net.ajile.test.Load.external.works;
              canListen && Ajile.RemoveImportListener (name, arguments.callee);
-         }
-
-         Ajile.AddImportListener ("somethingAddedLater", foundGlobalThing);
-         global.somethingAddedLater = true;
-
-         waitsFor (function didAddImportListenerWork () {
-            return !!canListen; 
-         }, "AddImportListener to find post-listener global members.", 500);
-
-         runs (function canListenToGlobalScope() {
-            expect (canListen).toBe (true);
-            delete global.somethingAddedLater;
-            Ajile.RemoveImportListener ("somethingAddedLater", foundGlobalThing);
          });
-      });//End: Listening for post-listener global members.
+
+         runs (function loadScript () {
+            Load ("net.ajile.test.Load.external.works.js");
+         });
+
+         waitsFor (function didScriptLoad () {
+            return !!(net.ajile.test.Load.external && net.ajile.test.Load.external.works);
+         }, "Failed to load the external script.", 2000);
+
+         runs (function canListenToLoadedScripts() {
+            expect (canListen).toBe (true);
+         });
+      });//End: Listen for Load
    });
 
    describe ("ajile: Ajile.EnableCloak():", function testAjileEnableCloak () {
