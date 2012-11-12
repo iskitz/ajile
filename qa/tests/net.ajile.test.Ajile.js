@@ -2,7 +2,7 @@
  About   : ajile's core Tests Package.
  Author  : Michael Lee [iskitz.com]
  Created : 2011.12.17 @ 22:30 PST
- Updated : 2012.11.10 @ 04:01 PST
+ Updated : 2012.11.12 @ 00:32 PST
  */
 
 Namespace ("net.ajile.test");
@@ -10,25 +10,25 @@ Namespace ("net.ajile.test");
 (net.ajile.test.Ajile = function defineAjileTests (global, undefined) {
 
    describe ("ajile:", function testAjileNamespaceExists () {
-      it ("Exists globally as Ajile.", function testAjileExistsAsAjile () {
+      it ("Exists globally as Ajile", function testAjileExistsAsAjile () {
          expect (Ajile).toBeDefined();
          expect (global.Ajile).toBeDefined();
          expect (global.Ajile).toBe (Ajile);
       });
       
-      it ("Exists globally as com.iskitz.ajile.", function testAjileExistsAsCIA () {
+      it ("Exists globally as com.iskitz.ajile", function testAjileExistsAsCIA () {
          expect (com.iskitz.ajile).toBeDefined();
          expect (global.com.iskitz.ajile).toBeDefined();
          expect (global.com.iskitz.ajile).toBe (com.iskitz.ajile);
       });
    });
 
-   describe ("ajile: Ajile.AddImportListener()", function testAjileAddImportListener () {
-      it ("Is a method on the global Ajile object.", function testAjileAddImportListenerExists () {
+   describe ("ajile: Ajile.AddImportListener():", function testAjileAddImportListener () {
+      it ("Exists globally as Ajile.AddImportListener", function testAjileAddImportListenerExists () {
          expect (Ajile.AddImportListener).toBeDefined();
       });
 
-      it ("Can observe namespaced, in-memory Imports.", function testAjileAddImportListenerNII () {
+      it ("Can listen for namespaced, in-memory Imports", function testAjileAddImportListenerNII () {
          var  itWorked  = false
             , namespace = "net.ajile.test.Ajile.AddImportListener"
             ;
@@ -45,7 +45,7 @@ Namespace ("net.ajile.test");
 
          waitsFor (function didAddImportListenerWork () {
             return itWorked; 
-         }, "AddImportListener failed to observe namespaced in-memory Imports.", 500);
+         }, "AddImportListener failed to listen for namespaced in-memory Imports.", 500);
 
          runs (function reportResult () {
             expect (AddImportListener).toBe (net.ajile.test.Ajile.AddImportListener);
@@ -53,7 +53,7 @@ Namespace ("net.ajile.test");
          });
       });//End: Namespaced In-memory Imports.
 
-      it ("Can observe all, in-memory Imports.", function testAjileAddImportListenerAII () {
+      it ("Can listen for all in-memory Imports", function testAjileAddImportListenerAII () {
          var count     = 0
            , itWorked  = false
            ;
@@ -76,7 +76,7 @@ Namespace ("net.ajile.test");
 
          waitsFor (function didAddImportListenerWork () {
             return itWorked; 
-         }, "AddImportListener failed to observe all in-memory Imports.", 500);
+         }, "AddImportListener failed to listen to all in-memory Imports", 500);
 
          runs (function reportResult () {
             var ns = net.ajile.test.Ajile.AddImportListener;
@@ -85,9 +85,53 @@ Namespace ("net.ajile.test");
             itWorked && delete (global.import1) && delete (global.import2) && Ajile.Unload (namespace[0]);
          });
       });//End: All In-Memory Imports.
+
+      it ("Can listen for pre-listener global members", function canListenForPreListenerGlobalMembers () {
+         var canListen = false;
+         global.somethingAddedBefore = true;
+
+         function foundGlobalThing (name) {
+             canListen = !!global.somethingAddedBefore;
+             canListen && Ajile.RemoveImportListener (name, arguments.callee);
+         }
+
+         Ajile.AddImportListener ("somethingAddedBefore", foundGlobalThing);
+
+         waitsFor (function didAddImportListenerWork () {
+            return !!canListen; 
+         }, "AddImportListener to find pre-listener global members.", 500);
+
+         runs (function canListenToGlobalScope() {
+            expect (canListen).toBe (true);
+            delete global.somethingAddedBefore;
+            Ajile.RemoveImportListener ("somethingAddedBefore", foundGlobalThing);
+         });
+      });//End: Listening for pre-listener  global members.
+
+      it ("Can listen for post-listener global members", function canListenForPostListenerGlobalMembers () {
+         var canListen = false;
+
+         function foundGlobalThing (name) {
+             canListen = !!global.somethingAddedLater;
+             canListen && Ajile.RemoveImportListener (name, arguments.callee);
+         }
+
+         Ajile.AddImportListener ("somethingAddedLater", foundGlobalThing);
+         global.somethingAddedLater = true;
+
+         waitsFor (function didAddImportListenerWork () {
+            return !!canListen; 
+         }, "AddImportListener to find post-listener global members.", 500);
+
+         runs (function canListenToGlobalScope() {
+            expect (canListen).toBe (true);
+            delete global.somethingAddedLater;
+            Ajile.RemoveImportListener ("somethingAddedLater", foundGlobalThing);
+         });
+      });//End: Listening for post-listener global members.
    });
 
-   describe ("ajile: Ajile.EnableCloak()", function testAjileEnableCloak () {
+   describe ("ajile: Ajile.EnableCloak():", function testAjileEnableCloak () {
       it ("EnableCloak: exists", function testAjileEnableCloakExists () {
          expect (Ajile.EnableCloak).toBeDefined();
       });
