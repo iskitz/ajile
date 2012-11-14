@@ -2,7 +2,7 @@
 (function ajileSimplified (global, ns, on, off, free, undefined) {
    /*
     * Who   : Michael Lee, iskitz.com
-    * When  : 2012.11.10...2012.11.13.04.46.PST
+    * When  : 2012.11.10...2012.11.14.07.53.PST
     * 
     * What  : ajile Simplified API Experiment
     * Why   : ajile's API is too wordy (i.e. Ajile.RemoveImportListener). 
@@ -27,7 +27,7 @@
         off (name, arguments.callee);
 
         var space = "com.iskitz.ajile.examples"
-          , path  = "///ajile.net/examples/scripts/"
+          , path  = "../examples/scripts/"
           ;
 
         ns  (space, path);                                              // Namespace

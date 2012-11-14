@@ -3,63 +3,13 @@
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 
-    <title>iSkitz: Experiments: 2012.11.10</title>
+    <title>ajile Ideas: onDOMReady & new function Module</title>
 
     <style type="text/css">pre {margin:0px;}</style>
 
-    <script type="text/javascript" src="///ajile.net/lib/ajile/com.iskitz.ajile.src.js#debug,mvcoff,mvcshareoff"></script>
-
+    <script type="text/javascript" src="../lib/ajile/com.iskitz.ajile.src.js?cloakoff,debug,mvc,mvcshareoff"></script>
     <script type="text/javascript">
     //<![CDATA[
-
-    // Listen for DOM's content ready and onload events:
-    var time;
-    !addEventListener && (addEventListener = function(){}); !this.console && (console = {log: function(){}});
-    addEventListener ("load", function onLoad () { console.log ((time=new Date),time.getMilliseconds(),"Doc Ready!"); }, false);
-    onload = function onLoad () { console.log ((time=new Date),time.getMilliseconds(),"Doc Loaded!"); };
-    addEventListener ("DOMContentLoaded", function DOMContentLoaded () { console.log ((time=new Date),time.getMilliseconds(),"DOM Ready!"); }, false);
-
-    Ajile.AddImportListener ("document", function onDocumentReady () {
-        /* Once the DOM is ready this function activates: */
-
-        console.log ((time=new Date),time.getMilliseconds(), "Body Ready!", !!document.body);
-
-        undefined = "polluted!";   // Change the global undefined reference.
-
-        Namespace ("my");          // Create a global "my" namespace.
-
-        my.space = new (function space (global, undefined) {
-            /* A globally accessible my.space module with private & public
-               members, and access to the global scope and a protected
-               undefined reference.
-            */
-
-            // Private member variables:
-            var win  = global
-            ,   doc  = win.document
-            ,   body = doc.body
-            ,   log
-            ;
-
-            // Public member method:
-            this.log = log = function log (text) {
-                body.innerHTML += "<"+"pre>" + (text || " ") + "<\/pre>";
-                return log;
-            };
-
-            log ()("iSkitz's Experiments:")();
-            log ("  When      : " + "2012.11.10");
-            log ("  global    : " + (!global ? "in" : "") + "accessible");
-            log ("  DOM       : " + (!(doc && body) ? "not ":"") + "ready");
-            log ("  undefined : " + (undefined || "protected"));
-        })(this);
-
-        my.space.log ("  public    : " + !!my.space.log);
-        my.space.log ("  private   : " + !my.space.win);
-        my.space.log ("  ajile     : " + Ajile.GetVersion())();
-        my.space.log ("    " + arguments.callee)();
-    });
-
     //]]>
     </script>
 </head>
