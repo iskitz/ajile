@@ -1,11 +1,11 @@
 /*
  About   : Launch script for ajile's Jasmine Tests.
  Author  : Michael Lee (iskitz.com)
- Created : 2011.12.17 @ 10:15 PM PT
- Updated : 2012.06.11 @ 03:38 AM PDT
+ Created : 2011.12.17 @ 22:15 PT
+ Updated : 2012.11.17 @ 04:07 PST
 */
 
-(function (Ignore, Listen, undefined) {
+(function (global, Ignore, Listen, undefined) {
 
    Include  ("jasmine", "../../lib/jasmine/");
    Listen   ("jasmine", function jasmineCoreLoaded (moduleName) {
@@ -29,25 +29,25 @@
          Ignore   (moduleName, arguments.callee);
          Include  ("net.ajile.test.*", "./");  
 
-         Listen  (function initializeJasmine (moduleName) {   
-            var ns = net.ajile.test;
-   
-            if (!(ns.Load && ns.Namespace)) {
+         Listen  ("net.ajile.test.Namespace", function initializeJasmine (moduleName) {
+            var ns = global.net && net.ajile && net.ajile.test;
+
+            if (!(ns && ns.Load && ns.Namespace)) {                 //BUG: Need Listen ("...*",...);
                return;
             }
-   
-            Ignore (arguments.callee);
-   
+
+            Ignore (moduleName, arguments.callee);
+
             var jasmineEnv = jasmine && jasmine.getEnv();
             jasmineEnv.updateInterval = 1000;
-            
+
             var htmlReporter = new jasmine.HtmlReporter();
             jasmineEnv.addReporter (htmlReporter);
-            
+
             jasmineEnv.specFilter = function jasmineSpecFilter (spec) {
                return htmlReporter.specFilter (spec);
             };
-            
+
             try {
                jasmineEnv.execute();
             }
@@ -63,4 +63,4 @@
       });//End:jasmineHTMLLoaded()
    });//End:jasmineCoreLoaded()
 
-})(Ajile.RemoveImportListener, Ajile.AddImportListener);
+})(this, Ajile.RemoveImportListener, Ajile.AddImportListener);

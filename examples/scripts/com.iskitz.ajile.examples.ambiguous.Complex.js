@@ -1,21 +1,26 @@
-Namespace ("com.iskitz.ajile.examples.ambiguous");
-Import    ("com.iskitz.ajile.examples.Simple");
 
-com.iskitz.ajile.examples.ambiguous.Complex = function()
-{
-   var simple = new Simple();
+Import ("com.iskitz.ajile.examples.Simple");
 
-   this.sayHello = function sayHello()
-   {
-      var message = "Hello World!\n\nThis is an " + this.toString() + " object"
-                  + " that imported and is\nusing a " + simple.toString()
-                  + " object!";
+Ajile.AddImportListener ("Simple", function onSimple (name) {
 
-      alert(message);
-   };
+    Namespace ("com.iskitz.ajile.examples.ambiguous");
 
-   this.toString = function toString()
-   {
-      return "[ambiguous.Complex]";
-   };
-};
+    com.iskitz.ajile.examples.ambiguous.Complex = function Complex ()
+    {
+       var simple = new Simple();
+
+       this.sayHello = function sayHello()
+       {
+          var message = "Hello World!\n\nThis is an " + this.toString() + " object"
+                      + " that imported and is\nusing a " + simple.toString()
+                      + " object!";
+
+          alert(message);
+       };
+
+       this.toString = function toString()
+       {
+          return "[ambiguous.Complex]";
+       };
+    };
+});

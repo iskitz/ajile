@@ -1,7 +1,7 @@
 // Author:      Michael Lee [ http:/ajile.net/ ]
 //
 // Created:     2006.07.30
-// Modified:    2007.07.29
+// Modified:    2012.11.17
 //
 // Description: Example of how to define all of a namespace's members within a
 //              single container object for later import like:
@@ -11,7 +11,7 @@
 Namespace ("com.iskitz.ajile.examples.ImportModule");
 
 
-com.iskitz.ajile.examples.ImportModule = new function()
+com.iskitz.ajile.examples.ImportModule = new function ImportModule ()
 {
    var THIS = this;
 

@@ -2,7 +2,7 @@
 (function ajileSimplified (global, ns, on, off, free, undefined) {
    /*
     * Who   : Michael Lee, iskitz.com
-    * When  : 2012.11.10...2012.11.14.07.53.PST
+    * When  : 2012.11.10...2012.11.17.02.41.PST
     * 
     * What  : ajile Simplified API Experiment
     * Why   : ajile's API is too wordy (i.e. Ajile.RemoveImportListener). 
@@ -35,34 +35,32 @@
         get ({name:space+".IncludeExample"});                           // Include
         get (space+".Complex");                                         // Import
         get ({name:space+".ambiguous.Complex", alias:"ComplexToo"});    // ImportAs
-        
-        on (space, function onLoad (name) {
-            var examples = com.iskitz.ajile.examples;
 
-            on (space+".LoadExample", function onLoad (name) {
-                off (name, arguments.callee);
-                log (name+" = "+examples.LoadExample)();
-                examples.LoadExample();
-            });//end:on:...LoadExample
+        var examples = com.iskitz.ajile.examples;
 
-            on (space+".IncludeExample", function onInclude (name) {
-                off (name, arguments.callee);
-                log (name+" = "+examples.IncludeExample)();
-                examples.IncludeExample();
-            });//end:on:...IncludeExample
+        on (space+".LoadExample", function onLoad (name) {
+            off (name, arguments.callee);
+            log (name+" = "+examples.LoadExample)();
+            examples.LoadExample();
+        });//end:on:...LoadExample
 
-            on (space+".Complex", function onDependency (name) {
-                off (name, arguments.callee);
-                log (name+" = "+Complex)();
-                new Complex().sayHello();
-            });//end:on:...Complex
+        on (space+".IncludeExample", function onInclude (name) {
+            off (name, arguments.callee);
+            log (name+" = "+examples.IncludeExample)();
+            examples.IncludeExample();
+        });//end:on:...IncludeExample
 
-            on (space+".ambiguous.Complex", function onConflict (name) {
-                off (name, arguments.callee);
-                log (name+" = "+ComplexToo)();
-                new ComplexToo().sayHello();
-            });//end:on:...ambiguous.Complex
-        });//end:on:..LoadExample
+        on ("Complex", function onDependency (name) {
+            off (name, arguments.callee);
+            log (name+" = "+Complex)();
+            new Complex().sayHello();
+        });//end:on:...Complex
+
+        on ("ComplexToo", function onConflict (name) {
+            off (name, arguments.callee);
+            log (name+" = "+ComplexToo)();
+            new ComplexToo().sayHello();
+        });//end:on:...ambiguous.Complex
 
         ns      ("my.success");
         Include ("my.success");

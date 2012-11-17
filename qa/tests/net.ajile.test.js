@@ -1,11 +1,10 @@
+
 /*
  About   : ajile's Jasmine Tests Package.
  Author  : Michael Lee (iskitz.com)
- Created : 2011.12.17 @ 10:20 PM PT
- Updated : 2012.05.25 @ 11:41 PM PDT
+ Created : 2011.12.17 @ 22:20 PT
+ Updated : 2012.11.17 @ 04:03 PST
  */
-
-Namespace ("net.ajile.test");					// Define ajile's tests' namespace.
 
 Include ("net.ajile.test.Ajile");			// Ajile.* (i.e. Ajile.Unload) tests.
 Include ("net.ajile.test.Import.*");		// Import directive tests.
@@ -13,4 +12,3 @@ Include ("net.ajile.test.ImportAs.*");		// ImportAs directive tests.
 Include ("net.ajile.test.Include.*");     // Include directive tests.
 Include ("net.ajile.test.Load.*");        // Load directive tests.
 Include ("net.ajile.test.Namespace.*");   // Namespace directive tests.
-
