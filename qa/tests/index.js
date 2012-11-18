@@ -2,7 +2,7 @@
  About   : Launch script for ajile's Jasmine Tests.
  Author  : Michael Lee (iskitz.com)
  Created : 2011.12.17 @ 22:15 PT
- Updated : 2012.11.17 @ 04:07 PST
+ Updated : 2012.11.17 @ 06:03 PST
 */
 
 (function (global, Ignore, Listen, undefined) {
@@ -59,6 +59,15 @@
                   jasmineEnv.execute();
                };
             }
+            
+            setTimeout (function showAllResults () {
+                /* Jasmine 1.2.0 defaults to showing only failures, this toggles to show both
+                 * failures and successes.
+                 */
+                var link = document.getElementById ("HTMLReporter").getElementsByTagName("a")[0];
+                (typeof link.onclick == "function") && link.onclick();
+            }, 1500);
+
          });//End:initializeJasmine()
       });//End:jasmineHTMLLoaded()
    });//End:jasmineCoreLoaded()
