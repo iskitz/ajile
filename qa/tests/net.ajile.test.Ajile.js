@@ -166,7 +166,7 @@ Namespace ("net.ajile.test");
          expect (Ajile.GetVersion).toBeDefined();
       });
       it ("GetVersion: works", function testAjileGetVersionWorks () {
-         expect (Ajile.GetVersion()).toEqual ("1.3.1");
+         expect (Ajile.GetVersion()).toEqual ("1.3.7");
       });
    });
 
