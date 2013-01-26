@@ -67,7 +67,7 @@
     });//end:on:my.utils
 
 
-    on ("document", function onDocumentReady (name) {
+    on ("document.body", function onDocumentReady (name) {
         off (name, arguments.callee);
         ns  ("my");
 
