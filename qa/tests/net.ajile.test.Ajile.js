@@ -1,8 +1,8 @@
 /*
  About   : ajile's core Tests Package.
  Author  : Michael Lee [iskitz.com]
- Created : 2011.12.17 @ 22:30 PST
- Updated : 2012.11.17 @ 04:31 PST
+ Created : 2011.12.17 @ 22:30-08.00
+ Updated : 2013.01.27 @ 01:30-08.00
  */
 
 Namespace ("net.ajile.test");
@@ -166,7 +166,7 @@ Namespace ("net.ajile.test");
          expect (Ajile.GetVersion).toBeDefined();
       });
       it ("GetVersion: works", function testAjileGetVersionWorks () {
-         expect (Ajile.GetVersion()).toEqual ("1.3.7");
+         expect (Ajile.GetVersion()).toEqual ("1.3.8");
       });
    });
 
