@@ -5,19 +5,19 @@
    <meta http-equiv="Content-Script-Type" content="text/javascript">
    <meta http-equiv="Content-Type"        content="text/html;charset=UTF-8">
 
-   <title>..::[ Ajile Options ]::..</title>
+   <title>..::[ ajile Options ]::..</title>
 
-   <meta name="Description" content="Options API :: Ajile - Advanced JavaScript Importing &amp; Loading Extension">
-   <meta name="Keywords"    content="Ajile,AJILE,JavaScript inject,JavaScript include,JavaScript Namespace,JavaScript Namespacing,Javascript Import,JavaScript On-Demand,JavaScript Package,JavaScript Packaging,Unobtrusive JavaScript,namespace,package,import,include,use,require,ajax,JSPackaging,JSLoad,JSPackage,JSImport">
-   <meta name="copyright"   content="Copyright &copy; 2003-2012 Michael Lee, http://ajile.net/">
+   <meta name="Description" content="Options API :: ajile - Advanced JavaScript Importing &amp; Loading Extension">
+   <meta name="Keywords"    content="ajile,Ajile,AJILE,JavaScript inject,JavaScript include,JavaScript Namespace,JavaScript Namespacing,Javascript Import,JavaScript On-Demand,JavaScript Package,JavaScript Packaging,Unobtrusive JavaScript,namespace,package,import,include,use,require,ajax,JSPackaging,JSLoad,JSPackage,JSImport">
+   <meta name="copyright"   content="Copyright &copy; 2003-2013 Michael Lee, http://ajile.net/">
 
    <link type="image/ico" rel="icon"          href="http://ajile.sourceforge.net/favicon.ico">
    <link type="image/ico" rel="shortcut icon" href="http://ajile.sourceforge.net/favicon.ico">
    <link type="text/css"  rel="stylesheet"    href="../iskitz-content.css" title="iSkitz Content">
 </head>
 <body>
-<h1><a name="Index">Ajile Options</a></h1><br>
-The following are the various options that can be turned on/off when loading Ajile:
+<h1><a name="Index">ajile Options</a></h1><br>
+The following are the various options that can be turned on/off when loading <strong>ajile</strong>:
 
 <pre>Syntax:
    &lt;script src="<u>com.iskitz.ajile.js?<b>option,option,option,...</b></u>" type="text/javascript"&gt;&lt;/script&gt;
@@ -42,10 +42,10 @@ The following are the various options that can be turned on/off when loading Aji
 
 
 States:
-   <b>cloak</b>     - Activates Ajile's source code hiding functionality for all
+   <b>cloak</b>     - Activates <strong>ajile</strong>'s source code hiding functionality for all
                scripts and modules used within the current page.
 
-   <b>cloakoff</b>  - Deactivates Ajile's source code hiding functionality allowing
+   <b>cloakoff</b>  - Deactivates <strong>ajile</strong>'s source code hiding functionality allowing
                normal source code viewing.
 
 Examples:
@@ -61,16 +61,16 @@ Back to <a href="#Index">Top</a> or <a href="../Ajile-Help.htm">Documentation</a
 
 <br><hr><br>
 <a name="debug">debug:</a>
-   The <b>debug</b> option is provided to allow developers to observe Ajile's debug
+   The <b>debug</b> option is provided to allow developers to observe <strong>ajile</strong>'s debug
    information.
    
    The <b>debug</b> option is disabled by default.
 
 States:
-   <b>debug</b>     - Activates Ajile's debugging functionality enabling logging of all
-               operations performed using any of Ajile's <a href="Directives.htm">Directives</a> or <a href="Functions.htm">Functions</a>.
+   <b>debug</b>     - Activates <strong>ajile</strong>'s debugging functionality enabling logging of all
+               operations performed using any of <strong>ajile</strong>'s <a href="Directives.htm">Directives</a> or <a href="Functions.htm">Functions</a>.
 
-   <b>debugoff</b>  - Deactivates Ajile's debugging functionality.
+   <b>debugoff</b>  - Deactivates <strong>ajile</strong>'s debugging functionality.
 
 Examples:
    &lt;script src="<u>com.iskitz.ajile.js</u>"               type="text/javascript"&gt;&lt;/script&gt;  // Disable debugging
@@ -92,11 +92,11 @@ Back to <a href="#Index">Top</a> or <a href="../Ajile-Help.htm">Documentation</a
    The <b>legacy</b> option is disabled by default.
 
 States:
-   <b>legacy</b>    - Activates Ajile's functionality to support deprecated features
+   <b>legacy</b>    - Activates <strong>ajile</strong>'s functionality to support deprecated features
                such as the JSImport, JSLoad, JSPackage, Import, Load, and
                Package directives and other deprecated functions and data types.
 
-   <b>legacyoff</b> - Deactivates Ajile's functionality to support use of deprecated
+   <b>legacyoff</b> - Deactivates <strong>ajile</strong>'s functionality to support use of deprecated
                <a href="Directives.htm">Directives</a>, <a href="Functions.htm">Functions</a>, or data types.
 
 Examples:
@@ -116,21 +116,21 @@ Back to <a href="#Index">Top</a> or <a href="../Ajile-Help.htm">Documentation</a
    design pattern and support developers already implementing it.
    
    This option simplifies web development by allowing developers to separate the
-   view (HTML &amp; CSS) from the controller (JavaScript). When used, Ajile
+   view (HTML &amp; CSS) from the controller (JavaScript). When used, <strong>ajile</strong>
    automatically loads the containing page's corresponding JavaScript controller
-   script. That script may also use Ajile's <a href="Directives.htm">Directives</a> to <a href="Directives.htm#Import">Import</a> and <a href="Directives.htm#Load">Load</a> other
+   script. That script may also use <strong>ajile</strong>'s <a href="Directives.htm">Directives</a> to <a href="Directives.htm#Import">Import</a> and <a href="Directives.htm#Load">Load</a> other
    scripts and modules.
 
    The <b>mvc</b> option is enabled by default.
 
 States:
-   <b>mvc</b>    - Activates Ajile's <a href="http://www.wikipedia.org/wiki/Model-view-controller"><abbr title="Model View Controller">MVC</abbr></a> support functionality, automatically loading
+   <b>mvc</b>    - Activates <strong>ajile</strong>'s <a href="http://www.wikipedia.org/wiki/Model-view-controller"><abbr title="Model View Controller">MVC</abbr></a> support functionality, automatically loading
             the containing page's externally defined controller script. The
             <a href="../../examples/Examples.htm">Examples.htm</a> page's controller logic is externally defined in 
             the <a href="../../examples/Examples.js">Examples.js</a> file that is automatically loaded whenever
             the Examples page is requested.
 
-   <b>mvcoff</b> - Deactivates Ajile's <a href="http://www.wikipedia.org/wiki/Model-view-controller"><abbr title="Model View Controller">MVC</abbr></a> functionality.
+   <b>mvcoff</b> - Deactivates <strong>ajile</strong>'s <a href="http://www.wikipedia.org/wiki/Model-view-controller"><abbr title="Model View Controller">MVC</abbr></a> functionality.
 
 Examples:
    &lt;script src="<u>com.iskitz.ajile.js</u>"             type="text/javascript"&gt;&lt;/script&gt;  // Disable mvc
@@ -146,21 +146,21 @@ Back to <a href="#Index">Top</a> or <a href="../Ajile-Help.htm">Documentation</a
    design pattern and support developers already implementing it.
    
    This option simplifies web development by allowing developers to separate the
-   view (HTML &amp; CSS) from the controller (JavaScript). When used, Ajile
+   view (HTML &amp; CSS) from the controller (JavaScript). When used, <strong>ajile</strong>
    automatically loads the site's shared JavaScript controller script
-   (<b>index.js</b>) found in the same location as the Ajile module. The index.js
+   (<b>index.js</b>) found in the same location as the <strong>ajile</strong> module. The index.js
    script may be used to provide data or perform operations common to multiple
-   pages within a given site. The index.js script may also use Ajile's
+   pages within a given site. The index.js script may also use <strong>ajile</strong>'s
    <a href="Directives.htm">Directives</a> to <a href="Directives.htm#Import">Import</a> and <a href="Directives.htm#Load">Load</a> other
    scripts and modules.
 
    The <b>mvcshare</b> option is enabled by default.
 
 States:
-   <b>mvcshare</b>    - Activates Ajile's shared <a href="http://www.wikipedia.org/wiki/Model-view-controller"><abbr title="Model View Controller">MVC</abbr></a> functionality, automatically loading
+   <b>mvcshare</b>    - Activates <strong>ajile</strong>'s shared <a href="http://www.wikipedia.org/wiki/Model-view-controller"><abbr title="Model View Controller">MVC</abbr></a> functionality, automatically loading
                   the site's shared externally defined controller script, index.js.
 
-   <b>mvcshareoff</b> - Deactivates Ajile's shared <a href="http://www.wikipedia.org/wiki/Model-view-controller"><abbr title="Model View Controller">MVC</abbr></a> functionality.
+   <b>mvcshareoff</b> - Deactivates <strong>ajile</strong>'s shared <a href="http://www.wikipedia.org/wiki/Model-view-controller"><abbr title="Model View Controller">MVC</abbr></a> functionality.
 
 Examples:
    &lt;script src="<u>com.iskitz.ajile.js</u>"                        type="text/javascript"&gt;&lt;/script&gt;  // Disable mvcshare
@@ -178,10 +178,10 @@ Back to <a href="#Index">Top</a> or <a href="../Ajile-Help.htm">Documentation</a
    By default overriding is disabled.
 
 States:
-   override    - Activates Ajile's functionality to suppress naming conflicts,
+   override    - Activates <strong>ajile</strong>'s functionality to suppress naming conflicts,
                  allowing similarly named types to override each other.
 
-   overrideoff - Deactivates Ajile's functionality to suppress naming conflicts
+   overrideoff - Deactivates <strong>ajile</strong>'s functionality to suppress naming conflicts
                  prohibiting similarly named types from overriding each other
                  and logging any such occurrences.
 
@@ -205,11 +205,11 @@ Back to <a href="#Index">Top</a> or <a href="../Ajile-Help.htm">Documentation</a
    The <b>refresh</b> option is disabled by default.
 
 States:
-   <b>refresh</b>    - Activates Ajile's refresh functionality that generates fresh
+   <b>refresh</b>    - Activates <strong>ajile</strong>'s refresh functionality that generates fresh
                 requests for each subsequently loaded script and imported
                 module.
 
-   <b>refreshoff</b> - Deactivates Ajile's refresh functionality allowing the browse
+   <b>refreshoff</b> - Deactivates <strong>ajile</strong>'s refresh functionality allowing the browse
                 to control script/module caching.
 
 Examples:
@@ -223,6 +223,6 @@ See:
 
 Back to <a href="#Index">Top</a> or <a href="../Ajile-Help.htm">Documentation</a>
 </pre>
-<br /><a id="lnkSFLogo" href="http://sourceforge.net/projects/ajile/"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=149163&type=1" border="0" alt="SourceForge.net Logo" title="Ajile @ SourceForge" /></a>
+<br /><a id="lnkSFLogo" href="http://sourceforge.net/projects/ajile/"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=149163&type=1" border="0" alt="SourceForge.net Logo" title="ajile @ SourceForge" /></a>
 </body>
 </html>
