@@ -2,7 +2,7 @@
 (function ajileSimplified (global, ns, on, off, free, undefined) {
    /*
     * Who   : Michael Lee, iskitz.com
-    * When  : 2012.11.10...2012.11.17.02.41.PST
+    * When  : 2012.11.10...2013.01.28.18.31-08.00
     * 
     * What  : ajile Simplified API Experiment
     * Why   : ajile's API is too wordy (i.e. Ajile.RemoveImportListener). 
@@ -62,8 +62,8 @@
             new ComplexToo().sayHello();
         });//end:on:...ambiguous.Complex
 
-        ns      ("my.success");
-        Include ("my.success");
+        ns  ("my.success");
+        get ({name:"my.success"});
     });//end:on:my.utils
 
 
