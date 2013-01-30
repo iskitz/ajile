@@ -2,7 +2,8 @@
 
 __A__dvanced __J__avaScript __I__mporting & __L__oading __E__xtension enables namespace creation and on-demand script loading in browser-based JavaScript environments.
 
-See [Ajile's Wiki](https://github.com/iskitz/ajile/wiki) for more information.
++ [Release History](https://github.com/iskitz/ajile/wiki/Release-History)
++ [More...](https://github.com/iskitz/ajile/wiki)
 
 
 ## Features
@@ -16,7 +17,7 @@ See [Ajile's Wiki](https://github.com/iskitz/ajile/wiki) for more information.
 
 ## Compatibility
 
-Ajile is compatible with the following specifications and HTML browsers:
+__ajile__ is compatible with the following specifications and HTML browsers:
 
 ### Specifications
 
@@ -45,7 +46,6 @@ Ajile is compatible with the following specifications and HTML browsers:
 + Blazer 3.0 on Treo 600
 + Opera Mini 2.0+
 + Safari
-
 
 
 
