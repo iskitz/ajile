@@ -2,7 +2,7 @@
 (function ajileSimplified (global, ns, on, off, free, undefined) {
    /*
     * Who   : Michael Lee, iskitz.com
-    * When  : 2012.11.10...2013.01.28.18.31-08.00
+    * When  : 2012.11.10...2013.01.28.19.36-08.00
     * 
     * What  : ajile Simplified API Experiment
     * Why   : ajile's API is too wordy (i.e. Ajile.RemoveImportListener). 
@@ -14,7 +14,7 @@
 
             log ()("iSkitz's Experiments:")();
             log ("  who        : " + "Michael Lee");
-            log ("  when       : " + "2012.11.13");
+            log ("  when       : " + "2012.11.10");
             log ("  ajile      : " + Ajile.GetVersion());
             log ("  my.utils   : " + !!my.utils);
             log ("  my.success : " + !!my.success);
@@ -63,7 +63,6 @@
         });//end:on:...ambiguous.Complex
 
         ns  ("my.success");
-        get ({name:"my.success"});
     });//end:on:my.utils
 
 
@@ -102,7 +101,6 @@
         })();//end:my.utils
 
         Import ("my.utils.*");
-        free   ("my.utils.*");
     });//end:on:document
 
 })(this, Namespace, Ajile.AddImportListener, Ajile.RemoveImportListener, Ajile.Unload);
