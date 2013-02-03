@@ -1,0 +1,323 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+   <meta http-equiv="Content-Language"    content="en">
+   <meta http-equiv="Content-Script-Type" content="text/javascript">
+   <meta http-equiv="Content-Type"        content="text/html;charset=UTF-8">
+
+   <title>ajile: Learn: API: Methods</title>
+
+   <meta name="Description" content="Methods API: ajile: Advanced JavaScript Importing &amp; Loading Extension">
+   <meta name="Keywords"    content="ajile,Ajile,AJILE,JavaScript inject,JavaScript include,JavaScript Namespace,JavaScript Namespacing,Javascript Import,JavaScript On-Demand,JavaScript Package,JavaScript Packaging,Unobtrusive JavaScript,namespace,package,import,include,use,require,ajax,JSPackaging,JSLoad,JSPackage,JSImport">
+   <meta name="copyright"   content="Copyright &copy; 2003-2013 Michael Lee, http://ajile.net/">
+
+   <link type="image/ico" rel="icon"          href="http://ajile.sourceforge.net/favicon.ico">
+   <link type="image/ico" rel="shortcut icon" href="http://ajile.sourceforge.net/favicon.ico">
+   <link type="text/css"  rel="stylesheet"    href="../iskitz-content.css" title="iSkitz Content">
+</head>
+<body>
+<h1><a name="Index">ajile Methods</a></h1><br>
+The following are the various methods provided by <strong>ajile</strong>:
+
+<ul>
+   <li><a href="#Ajile.AddImportListener">Ajile.AddImportListener()</a>
+   <li><a href="#Ajile.EnableCloak">Ajile.EnableCloak()</a>
+   <li><a href="#Ajile.EnableDebug">Ajile.EnableDebug()</a>
+   <li><a href="#Ajile.EnableLegacy">Ajile.EnableLegacy()</a>
+   <li><a href="#Ajile.EnableOverride">Ajile.EnableOverride()</a>
+   <li><a href="#Ajile.EnableRefresh">Ajile.EnableRefresh()</a>
+   <li><a href="#Ajile.GetVersion">Ajile.GetVersion()</a>
+   <li><a href="#Ajile.RemoveImportListener">Ajile.RemoveImportListener()</a>
+   <li><a href="#Ajile.ShowLog">Ajile.ShowLog()</a>
+   <li><a href="#Ajile.Unload">Ajile.Unload()</a>
+</ul>
+<br>Back to <a href="../Ajile-Help.htm">Documentation</a>
+<pre>
+<br><hr><br>
+<a name="Ajile.AddImportListener">Ajile.AddImportListener:</a>
+   The Ajile.AddImportListener([moduleName,] listener) method is provided to
+   allow developers to add event listeners for import events.
+   
+Syntax:
+   <code>Ajile.AddImportListener([moduleName,] listener);</code>
+
+Parameters:
+   moduleName  - An optional parameter that is expected to be a String. When
+                 this parameter is specified, it must be the fully-qualified
+                 name of a module that was or will be imported.
+
+                 When this parameter is omitted, <strong>ajile</strong> adds the supplied listener
+                 function as a generic listener for all import events.
+                 
+                 NOTE: When <strong>ajile</strong> notifies import event listeners, it first
+                 notifies specific listeners (listeners for specifically named
+                 modules) then the generic (non-module-specific) import event
+                 listeners.
+
+   listener    - A required parameter that must be a reference to a function.
+                 The function should be defined to accept at least one
+                 parameter, a String representing the imported module's
+                 fully-qualified name.
+                 
+                 When this listener function is called by <strong>ajile</strong>, the imported
+                 module's fully-qualifed name is sent as a parameter.
+                 
+                 Generic import listeners can use the parameter to determine if
+                 all of the required module have been successfully imported
+                 before attempting to use them.
+
+Examples:
+   <code>Ajile.AddImportListener(moduleName, listener); // Notifies listener of import event for specified module.</code>
+   <code>Ajile.AddImportListener(listener);             // Notifies listener of all import events.</code>
+
+See:
+   - <a href="#Ajile.RemoveImportListener">Ajile.RemoveImportListener()</a>
+
+
+Back to <a href="#Index">Top</a> or <a href="../Ajile-Help.htm">Documentation</a>
+
+<br><hr><br>
+<a name="Ajile.EnableCloak">Ajile.EnableCloak:</a>
+   The Ajile.EnableCloak([cloakState]) method is provided to allow developers
+   to conceal their code at runtime.
+   
+   Cloaking is enabled by default.
+   
+Syntax:
+   <code>Ajile.EnableCloak([cloakState]);</code>
+
+Parameters:
+   cloakState  - An optional parameter that when omitted or set to true,
+                 instructs <strong>ajile</strong> to conceal the source code for modules imported
+                 or loaded after the option is set. Otherwise when set to false
+                 instructs <strong>ajile</strong> to allow subsequently imported/loaded modules
+                 source code to be seen.
+
+Examples:
+   <code>Ajile.EnableCloak();      // Enables cloaking.</code>
+   <code>Ajile.EnableCloak(true);  // Enables cloaking.</code>
+   <code>Ajile.EnableCloak(false); // Disables cloaking.</code>
+
+See:
+   - <a href="Options.htm#cloak">cloak option</a>
+
+
+Back to <a href="#Index">Top</a> or <a href="../Ajile-Help.htm">Documentation</a>
+
+<br><hr><br>
+<a name="Ajile.EnableDebug">Ajile.EnableDebug:</a>
+   The Ajile.EnableDebug([debugState]) method is provided to allow
+   developers to observe <strong>ajile</strong>'s debug information. The optional debugState
+   parameter indicates whether to generate or supress debug information.
+   
+   The Debug log contains detailed information about the execution process for
+   operations performed using any of <strong>ajile</strong>'s <a href="Directives.htm">Directives</a> or <a href="Methods.htm">Methods</a>.
+   
+   Debugging is disabled by default.
+   
+Syntax:
+   <code>Ajile.EnableDebug([debugState]);</code>
+
+Parameters:
+   debugState  - An optional parameter that when omitted or set to true,
+                 instructs <strong>ajile</strong> to generate debug information. Otherwise when
+                 set to false instructs <strong>ajile</strong> to suppress debug information.
+
+Examples:
+   <code>Ajile.EnableDebug();      // Enables debug information.</code>
+   <code>Ajile.EnableDebug(true);  // Enables debug information.</code>
+   <code>Ajile.EnableDebug(false); // Disables debug information.</code>
+
+See:
+   - <a href="Options.htm#debug">debug option</a>
+   - <a href="#Ajile.ShowLog">Ajile.ShowLog()</a>
+
+
+Back to <a href="#Index">Top</a> or <a href="../Ajile-Help.htm">Documentation</a>
+
+<br><hr><br>
+<a name="Ajile.EnableLegacy">Ajile.EnableLegacy():</a>
+   The Ajile.EnableLegacy([legacyState]) method is provided to enable/disable
+   support for legacy (deprecated) <a href="Directives.htm">Directives</a>, <a href="Methods.htm">Methods</a>, and data types.
+   
+   Legacy support is disabled by default.
+   
+Syntax:
+   <code>Ajile.EnableLegacy([legacyState]);</code>
+
+Parameters:
+   legacyState  - An optional parameter that when omitted or set to true,
+                  instructs <strong>ajile</strong> to support deprecated features such as the
+                  JSImport, JSLoad, JSPackage, Import, Load, and Package
+                  directives and other deprecated methods and data types. When
+                  legacyState is set to false <strong>ajile</strong> is instructed to disallow
+                  legacy support and will not process legacy directives,
+                  methods, or datatypes.
+
+Examples:
+   <code>Ajile.EnableLegacy();      // Enables legacy support.</code>
+   <code>Ajile.EnableLegacy(true);  // Enables legacy support.</code>
+   <code>Ajile.EnableLegacy(false); // Disables legacy support.</code>
+
+See:
+   - <a href="Options.htm#legacy">legacy option</a>
+
+
+Back to <a href="#Index">Top</a> or <a href="../Ajile-Help.htm">Documentation</a>
+
+<br><hr><br>
+<a name="Ajile.EnableOverride">Ajile.EnableOverride:</a>
+   The Ajile.EnableOverride([overrideState]) method is provided to allow
+   similarly named types to override/cancel-out each other.
+   
+   Overriding is disabled by default.
+   
+Syntax:
+   <code>Ajile.EnableOverride([overrideState]);</code>
+
+Parameters:
+   overrideState  - An optional parameter that when omitted or set to true,
+                    instructs <strong>ajile</strong> to suppress naming conflicts and allow
+                    similarly named types to override each other. Otherwise when
+                    set to false instructs <strong>ajile</strong> to disallow type overrings and
+                    generate logged warnings about the naming conflict.
+
+Examples:
+   <code>Ajile.EnableOverride();      // Enables overriding.</code>
+   <code>Ajile.EnableOverride(true);  // Enables overriding.</code>
+   <code>Ajile.EnableOverride(false); // Disables overriding.</code>
+
+See:
+   - <a href="Options.htm#override">override option</a>
+
+
+Back to <a href="#Index">Top</a> or <a href="../Ajile-Help.htm">Documentation</a>
+
+<br><hr><br>
+<a name="Ajile.EnableRefresh">Ajile.EnableRefresh:</a>
+   The Ajile.EnableRefresh([refreshState]) method is provided to support
+   managing the refreshing/caching of loaded scripts and imported modules.
+   
+   Refreshing is disabled by default.
+   
+Syntax:
+   <code>Ajile.EnableRefresh([refreshState]);</code>
+
+Parameters:
+   refreshState - An optional parameter that when omitted or set to true,
+                  instructs <strong>ajile</strong> to generate fresh requests for each
+                  subsequently loaded script and imported module. When set to
+                  false, <strong>ajile</strong> will rely on the browser's caching mechanism to
+                  determine when to make fresh requests.
+                  
+                  This option can be used to either work with or circumvent
+                  the browser's caching mechanism.
+
+Examples:
+   <code>Ajile.EnableRefresh();      // Enables refreshing.</code>
+   <code>Ajile.EnableRefresh(true);  // Enables refreshing.</code>
+   <code>Ajile.EnableRefresh(false); // Disables refreshing.</code>
+
+See:
+   - <a href="Options.htm#refresh">refresh option</a>
+
+
+Back to <a href="#Index">Top</a> or <a href="../Ajile-Help.htm">Documentation</a>
+
+<br><hr><br>
+<a name="Ajile.GetVersion">Ajile.GetVersion:</a>
+   The Ajile.GetVersion() method is provided to allow developers to retrieve
+   <strong>ajile</strong>'s version information. The method returns a string representing the
+   available version information.
+   
+Syntax:
+   <code>Ajile.GetVersion();</code>
+
+Returns:
+   A string representing <strong>ajile</strong>'s version information.
+
+Examples:<code>
+   var ajileVersion = Ajile.GetVersion();
+   alert("ajile's version is: "+ ajileVersion);</code>
+
+
+Back to <a href="#Index">Top</a> or <a href="../Ajile-Help.htm">Documentation</a>
+
+<br><hr><br>
+<a name="Ajile.RemoveImportListener">Ajile.RemoveImportListener:</a>
+   The Ajile.RemoveImportListener([moduleName,] listener) method is provided
+   to allow developers to remove a previously added import event listener.
+   
+Syntax:
+   <code>Ajile.RemoveImportListener([moduleName,] listener);</code>
+
+Parameters:
+   moduleName  - An optional parameter that when specified is expected to be a
+                 String value representing the fully-qualified name of a module.
+                 This parameter allows multiple listeners to receive import
+                 notification for a single module.
+
+                 This parameter can be omitted if it was also omitted when the
+                 <a href="#Ajile.AddImportListener">Ajile.AddImportListener()</a> method was used.
+
+   listener    - A required parameter that must be the same function reference
+                 that was supplied to the <a href="#Ajile.AddImportListener">Ajile.AddImportListener()</a> method.
+
+Examples:
+   <code>Ajile.RemoveImportListener(moduleName, listener); // Removes the listener from list of moduleName import observers.</code>
+   <code>Ajile.RemoveImportListener(listener);             // Removes the listener from list of generic import observers.</code>
+
+See:
+   - <a href="#Ajile.AddImportListener">Ajile.AddImportListener()</a>
+
+
+Back to <a href="#Index">Top</a> or <a href="../Ajile-Help.htm">Documentation</a>
+
+<br><hr><br>
+<a name="Ajile.ShowLog">Ajile.ShowLog:</a>
+   The Ajile.ShowLog() method provides access to <strong>ajile</strong>'s debug log. When
+   debugging is enabled, operation details are continuosly written to the log.
+   Use Ajile.ShowLog() at any time to display a snapshot of the log's output.
+   
+Syntax:
+   <code>Ajile.ShowLog();</code>
+Examples:
+   <code>Ajile.ShowLog(); // Opens a new window/tab displaying <strong>ajile</strong>'s debug log.</code>
+See:
+   - <a href="#Ajile.EnableDebug">Ajile.EnableDebug()</a>
+
+
+Back to <a href="#Index">Top</a> or <a href="../Ajile-Help.htm">Documentation</a>
+
+<br><hr><br>
+<a name="Ajile.Unload">Ajile.Unload:</a>
+   The Ajile.Unload() method is provided to support memory management,
+   allowing containers to unload specific modules, namespaces or <strong>ajile</strong> and its
+   resources from memory.
+   
+   Calling this method with no parameters will remove <strong>ajile</strong>'s <a href="Directives.htm">Directives</a>,
+   <a href="Methods.htm">Methods</a>, and <a href="DataTypes.htm">Properties &amp; Dataypes</a> from memory, making all unavailable
+   to the current container.
+   
+Syntax:
+   <code>Ajile.Unload([moduleName|namespace]);</code>
+
+Parameters:
+   moduleName - An optional parameter that can be used to specify the name of
+                a specific module to remove from memory. When omitted <strong>ajile</strong>
+                will remove itself (com.iskitz.ajile and Ajile) from memory.
+
+   namespace  - An optional parameter that can be used to specify a namespace
+                to remove from memory. When omitted <strong>ajile</strong> will remove itself
+                (com.iskitz.ajile and Ajile) from memory.
+
+Examples:
+   <code>Ajile.Unload();                                         // Unloads <strong>ajile</strong> from memory.</code>
+   <code>Ajile.Unload("com.iskitz.ajile.Examples");   // Unloads Examples module from memory.</code>
+   <code>Ajile.Unload("com.iskitz.ajile.examples.*"); // Unloads examples namespace and members from memory.</code>
+
+Back to <a href="#Index">Top</a> or <a href="../Ajile-Help.htm">Documentation</a>
+</pre>
+<br /><a id="lnkSFLogo" href="http://sourceforge.net/projects/ajile/"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=149163&type=13" border="0" alt="SourceForge.net Logo" title="ajile @ SourceForge" /></a>
+</body>
+</html>

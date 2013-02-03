@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+   <meta http-equiv="Content-Language"    content="en">
+   <meta http-equiv="Content-Script-Type" content="text/javascript">
+   <meta http-equiv="Content-Type"        content="text/html;charset=UTF-8">
+
+   <title>ajile: Learn: FAQ: Browser Caching</title>
+
+   <meta name="Description" content="Cache FAQ: ajile: Advanced JavaScript Importing &amp; Loading Extension">
+   <meta name="Keywords"    content="ajle,Ajile,AJILE,JavaScript inject,JavaScript include,JavaScript Namespace,JavaScript Namespacing,Javascript Import,JavaScript On-Demand,JavaScript Package,JavaScript Packaging,Unobtrusive JavaScript,namespace,package,import,include,use,require,ajax,JSPackaging,JSLoad,JSPackage,JSImport">
+   <meta name="copyright"   content="Copyright &copy; 2003-2013 Michael Lee, http://ajile.net/">
+
+   <link type="image/ico" rel="icon"          href="http://ajile.sourceforge.net/favicon.ico">
+   <link type="image/ico" rel="shortcut icon" href="http://ajile.sourceforge.net/favicon.ico">
+   <link type="text/css"  rel="stylesheet"    href="../iskitz-content.css" title="iSkitz Content">
+</head>
+<body>
+<h1><a name="Index">ajile: Learn: FAQ: Browser Caching</a></h1>
+<br><br>
+Back to <a href="../Ajile-Help.htm">Documentation</a>
+<br><br>
+<p><hr>
+<a name="CacheManagement"><b>Q</b>: Can Ajile manage the browser's caching of loaded scripts and imported modules?</a>
+<hr><BR>
+<b>A-General</b>:
+<br><br>
+Yes. Ajile 0.7+ provides 
+<a href="../api/Methods.htm#Ajile.EnableRefresh">Ajile.EnableRefresh()</a> and
+the refresh load-time option to support forcing the browser to generate fresh
+requests for loaded scripts and imported modules. Ajile 0.6.5 and earlier
+versions don't explicitly manage the browsers caching of loaded or imported 
+scripts.
+<br>
+<br>
+<b>A-Detail: Caching and the Load and Import processes:</b>
+<br>
+<br>
+The following describes the behavior of Ajile's Load and Import directives as 
+they relate to browser caching:
+<br>
+<br>
+1. Load instructs the browser to load the specified script file from the 
+specified location.<br><br>
+2. Import uses Load to load the corresponding script file for the specified 
+module or namespace.<br><br>
+3. Import only uses Load if the specified module or namespace isn't already in 
+memory. For example, the
+<br><br>
+<code>Import("com.iskitz.ajile.examples.ImportExample");</code>
+<br>
+statement will only instruct the browser to load the script file if the 
+<b>ImportExample</b> object or property is undefined or equal to null.
+<br>
+<br>
+When <a href="../api/Methods.htm#Ajile.EnableRefresh">Ajile.EnableRefresh()</a> 
+or the refresh load-time option are used, the browser will be forced to load
+the specified script from its source location. When they are not used, the 
+browser will use it's own cache settings to determine whether to load a script 
+from its source location. If the script resides on a web server, the web server 
+may set headers that instruct your browser to serve the script from its cache 
+rather than reloading it from the web server.
+<br><br><br>
+Back to <a href="../Ajile-Help.htm">Documentation</a>
+</p>
+<br /><a id="lnkSFLogo" href="http://sourceforge.net/projects/ajile/"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=149163&type=13" border="0" alt="SourceForge.net Logo" title="Ajile @ SourceForge" /></a>
+</BODY>
+</HTML>

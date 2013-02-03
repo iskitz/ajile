@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--************************************************************************-->
+<!--* JavaScript Crunchinator Demo                                         *-->
+<!--*                                                                      *-->
+<!--* Copyright 2001 by Mike Hall                                          *-->
+<!--* Please see http://www.brainjar.com for terms of use.                 *-->
+<!--************************************************************************-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>BrainJar.com: JavaScript Crunchinator 2.0 Demo</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link href="default.css" rel="stylesheet" type="text/css" />
+<link href="crunchinator.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="crunchinator.js"></script>
+</head>
+<body>
+
+<div id="demoBox">
+
+<h3>JavaScript Crunchinator Demo</h3>
+
+<p>You can condense JavaScript code using the form below. Just cut and paste
+any script code into the text area marked 'Input', press the 'Crunch' button
+and the condensed version will appear under 'Output.'</p>
+
+<p>You can then use the 'Select' button to quickly highlight the output for
+easy cut and paste into a new source file.</p>
+
+<p>Use your browser's <code>View Source</code> option to see the full source
+code.</p>
+
+</div>
+
+<p></p>
+
+<form action="">
+
+<table border="0">
+<tr>
+  <th colspan="3">Input</th>
+</tr>
+<tr>
+  <td colspan="3"><textarea name="codeIn" rows="10" cols="80"></textarea></td>
+</tr>
+<tr>
+  <td><b>Bytes:</b>  <input name="sizeIn"    type="text" size="10" disabled="disabled" /></td>
+  <td><b>Status:</b> <input name="statusMsg" type="text" size="30" disabled="disabled" /></td>
+  <td style="text-align:right;">
+    <input class="button" type="submit" value="Crunch" />
+    <input class="button" type="reset" value="Clear" />
+  </td>
+</tr>
+</table>
+
+<p></p>
+
+<table border="0">
+<tr>
+  <th colspan="4">
+     <span style="float:left;">Output</span>
+     <label for="realtime" style="float:right;font-weight:normal;">Real-time Statistics</label>
+     <input id="realtime" name="realtime" type="checkbox" style="background-color:transparent;float:right;" />
+  </th>
+</tr>
+<tr>
+  <td colspan="4"><textarea name="codeOut" rows="10" cols="80"></textarea></td>
+</tr>
+<tr>
+  <td><b>Bytes:</b>   <input name="sizeOut"  type="text" size="10" disabled="disabled" /></td>
+  <td><b>Saved:</b>   <input name="sizeDiff" type="text" size="10" disabled="disabled" /></td>
+  <td><b>% Saved:</b> <input name="pctOut"   type="text" size="10" disabled="disabled" /></td>
+  <td style="text-align:right;"><input name="btnSelect" class="button" type="button" value="Select" /></td>
+</tr>
+</table>
+
+</form>
+
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+   <meta http-equiv="Content-Language"    content="en">
+   <meta http-equiv="Content-Script-Type" content="text/javascript">
+   <meta http-equiv="Content-Type"        content="text/html;charset=UTF-8">
+
+   <title>ajile: Learn: API: Datatypes</title>
+
+   <meta name="Description" content="Data Types API: ajile: Advanced JavaScript Importing &amp; Loading Extension">
+   <meta name="Keywords"    content="ajile,Ajile,AJILE,JavaScript inject,JavaScript include,JavaScript Namespace,JavaScript Namespacing,Javascript Import,JavaScript On-Demand,JavaScript Package,JavaScript Packaging,Unobtrusive JavaScript,namespace,package,import,include,use,require,ajax,JSPackaging,JSLoad,JSPackage,JSImport">
+   <meta name="copyright"   content="Copyright &copy; 2003-2013 Michael Lee, http://ajile.net/">
+
+   <link type="image/ico" rel="icon"          href="http://ajile.sourceforge.net/favicon.ico">
+   <link type="image/ico" rel="shortcut icon" href="http://ajile.sourceforge.net/favicon.ico">
+   <link type="text/css"  rel="stylesheet"    href="../iskitz-content.css" title="iSkitz Content">
+</head>
+<body>
+<h1><a name="Index">ajile Properties &amp; Data Types</a></h1><br>
+The following are the properties and data types <strong>ajile</strong> provides:
+
+<ul>
+   <li><a href="#Ajile.USE_NAME">Ajile.USE_NAME</a>
+   <li><a href="#Ajile.USE_PATH">Ajile.USE_PATH</a>
+   <li><a href="#NamespaceException">NamespaceException</a>
+</ul>
+<br>Back to <a href="../Ajile-Help.htm">Documentation</a>
+<pre>
+<br><hr><br>
+<a name="Ajile.USE_NAME">Ajile.USE_NAME</a>
+   The Ajile.USE_NAME property is provided for use with the Import and
+   ImportAs directives. When used it instructs <strong>ajile</strong> to load the requested
+   module using dot-notation style file naming.
+   
+   DEPRECATED: Instead, use a quoted character to indicate the packaging style
+               (i.e. ".", "/", "-", "_", "'", etc.)
+
+Syntax:
+   <code>Ajile.USE_NAME</code>
+
+Examples:
+   <code>Import ("com.mysite.ImportTest", null, ".");</code>
+   
+   The Import statement instructs <strong>ajile</strong> to import the ImportTest module from
+   &lt;modules-location&gt;/com.mysite.ImportTest.js where &lt;modules-location&gt;
+   represents the location for the com.mysite namespace or the Ajile namespace
+   if the com.mysite namespace has not already been defined.
+   
+See:
+   - <a href="#Ajile.USE_PATH">Ajile.USE_PATH</a>
+   - <a href="Directives.htm#Import">Import</a>
+   - <a href="Directives.htm#ImportAs">ImportAs</a>
+
+
+Back to <a href="#Index">Top</a> or <a href="../Ajile-Help.htm">Documentation</a>
+
+<br><hr><br>
+<a name="Ajile.USE_PATH">Ajile.USE_PATH:</a>
+   The Ajile.USE_PATH property is provided for use with the Import and
+   ImportAs directives. When used it instructs <strong>ajile</strong> to load the requested
+   module using directory style naming.
+   
+   DEPRECATED: Instead, use a quoted character to indicate the packaging style
+               (i.e. ".", "/", "-", "_", "'", etc.)
+   
+Syntax:
+   <code>Ajile.USE_PATH</code>
+
+Examples:
+   <code>Import ("com.mysite.ImportTest", null, "/");</code>
+   
+   The Import statement instructs <strong>ajile</strong> to import the ImportTest module from
+   &lt;modules-location&gt;/com/mysite/ImportTest.js where &lt;modules-location&gt;
+   represents the location for the com.mysite namespace, or the Ajile namespace
+   if com.mysite has not already been defined.
+   
+See:
+   - <a href="#Ajile.USE_NAME">Ajile.USE_NAME</a>
+   - <a href="Directives.htm#Import">Import</a>
+   - <a href="Directives.htm#ImportAs">ImportAs</a>
+
+
+Back to <a href="#Index">Top</a> or <a href="../Ajile-Help.htm">Documentation</a>
+
+<br><hr><br>
+<a name="NamespaceException">NamespaceException:</a>
+   The NamespaceException is an <strong>ajile</strong> specific exception type used to indicate
+   that a namespace error has occured. This exception is thrown by the Import
+   and ImportAs directives when an invalid namespace is specified.
+   
+   NamespaceException can be created, caught, and thrown.
+   
+   DEPRECATED: This type is no longer used.
+
+Syntax:
+   <code>NamespaceException</code>
+
+Constructor:
+   <code>NamespaceException(namespace)</code>
+
+Public API:
+   <code>NamespaceException.name    // The exception's fully-qualified name.</code>
+   <code>NamespaceException.message // The exception's message.</code>
+   
+Examples:
+   The following statement:
+   
+      <code>throw new NamespaceException("com.mysite.NonExistentNamespace");</code>
+   
+   creates and throws a NamespaceException for the
+   com.mysite.NonExistentNamespace namespace.
+
+See:
+   - <a href="Directives.htm#Import">Import</a>
+   - <a href="Directives.htm#ImportAs">ImportAs</a>
+
+
+Back to <a href="#Index">Top</a> or <a href="../Ajile-Help.htm">Documentation</a>
+
+<br><hr><br>
+</pre>
+<br /><a id="lnkSFLogo" href="http://sourceforge.net/projects/ajile/"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=149163&type=13" border="0" alt="SourceForge.net Logo" title="Ajile @ SourceForge" /></a>
+</body>
+</html>

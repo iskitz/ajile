@@ -1,0 +1,299 @@
+<html><head><title></title></head>
+<body>
+<script>
+(function isIncompatible()
+   {
+      if(typeof document == "undefined") /*not web compatible*/return;
+      
+      isSimple =  "undefined" != typeof document.write;
+      
+      isDOM  =  isSimple
+               && "undefined" != typeof document.createElement
+               ;
+
+      var head;
+      
+      isDOM05  =  isDOM
+               && "undefined" != typeof document.childNodes
+               && "undefined" != typeof document.createTextNode
+               && "undefined" != typeof document.getElementsByTagName
+               && "undefined" != typeof (head = document.getElementsByTagName("head")[0]).appendChild
+               && "undefined" != typeof head.innerHTML
+               && "undefined" != typeof head.insertBefore
+               && "undefined" != typeof head.replaceChild
+               && "undefined" != typeof head.removeChild
+               && "undefined" != typeof head.replaceChild
+               ;
+      
+      isDOM1   =  isDOM05
+               && "undefined" != typeof document.createAttribute
+               && "undefined" != typeof document.firstChild
+               && "undefined" != typeof document.lastChild
+               && "undefined" != typeof document.parentNode
+               ;
+               
+      isDOM2   =  isDOM1
+               && "undefined" != typeof document.getElementById
+               && "undefined" != typeof document.isSupported
+               && "undefined" != typeof document.normalize
+               && "undefined" != typeof document.ownerDocument
+               ;
+               
+      alert("isSimple: "+isSimple+"\nisDOM: "+isDOM+"\nisDOM05: "+isDOM05+"\nisDOM1: "+isDOM1+"\nisDOM2: "+isDOM2);
+      
+      return !(isSimple || isDOM || isDOM05 || isDOM1 || isDOM2);
+   })();
+</script>
+<script type="text/javascript">
+<!-- 
+
+// document properties that are used to determine
+// support levels
+var _FEATURES = 
+{
+	'DOMCORE1': [ 
+		{name: 'childNodes', 'supported': false},
+		{name: 'firstChild', 'supported': false},
+		{name: 'lastChild', 'supported': false},
+		{name: 'parentNode', 'supported': false},
+		{name: 'doctype', 'supported': false},
+		{name: 'implementation', 'supported': false},
+		{name: 'documentElement', 'supported': false},
+		{name: 'createElement', 'supported': false},
+		{name: 'createDocumentFragment', 'supported': false},
+		{name: 'createTextNode', 'supported': false},
+		{name: 'createComment', 'supported': false},
+		{name: 'createCDATASection', 'supported': false},
+		{name: 'createProcessingInstruction', 'supported': false},
+		{name: 'createAttribute', 'supported': false},
+		{name: 'createEntityReference', 'supported': false},
+		{name: 'getElementsByTagName',  'supported': false}
+	],
+	
+	'DOMHTML': [ 
+		{name: 'documentElement', 'supported': false},
+		{name: 'createElement', 'supported': false},
+		{name: 'createDocumentFragment', 'supported': false},
+		{name: 'createTextNode', 'supported': false},
+		{name: 'createComment', 'supported': false},
+		{name: 'createAttribute', 'supported': false},
+		{name: 'getElementsByTagName',  'supported': false},
+		{name: 'title', 'supported': false},
+		{name: 'referrer', 'supported': false},
+		{name: 'domain', 'supported': false},
+		{name: 'URL', 'supported': false},
+		{name: 'body', 'supported': false},
+		{name: 'images', 'supported': false},
+		{name: 'applets', 'supported': false},
+		{name: 'links', 'supported': false},
+		{name: 'forms', 'supported': false},
+		{name: 'anchors', 'supported': false},
+		{name: 'cookie', 'supported': false},
+		{name: 'open', 'supported': false},
+		{name: 'close', 'supported': false},
+		{name: 'write', 'supported': false},
+		{name: 'writeln', 'supported': false},
+		{name: 'getElementById', 'supported': false},
+		{name: 'getElementsByName', 'supported': false}
+	],
+
+	'DOMCORE2': [ 
+		{name: 'doctype', 'supported': false},
+		{name: 'implementation', 'supported': false},
+		{name: 'documentElement', 'supported': false},
+		{name: 'createElement', 'supported': false},
+		{name: 'createDocumentFragment', 'supported': false},
+		{name: 'createTextNode', 'supported': false},
+		{name: 'createComment', 'supported': false},
+		{name: 'createCDATASection', 'supported': false},
+		{name: 'createProcessingInstruction', 'supported': false},
+		{name: 'createAttribute', 'supported': false},
+		{name: 'createEntityReference', 'supported': false},
+		{name: 'getElementsByTagName',  'supported': false},
+		{name: 'importNode', 'supported': false},
+		{name: 'createElementNS', 'supported': false},
+		{name: 'createAttributeNS', 'supported': false},
+		{name: 'getElementsByTagNameNS', 'supported': false},
+		{name: 'getElementById', 'supported': false}
+	],
+
+	'DOMCSS1': [
+		{name: 'background', 'supported': false},
+		{name: 'backgroundAttachment', 'supported': false},
+		{name: 'backgroundColor', 'supported': false},
+		{name: 'backgroundImage', 'supported': false},
+		{name: 'backgroundRepeat', 'supported': false},
+		{name: 'border', 'supported': false},
+		{name: 'borderSpacing', 'supported': false},
+		{name: 'borderStyle', 'supported': false},
+		{name: 'borderTop', 'supported': false},
+		{name: 'borderRight', 'supported': false},
+		{name: 'borderBottom', 'supported': false},
+		{name: 'borderLeft', 'supported': false},
+		{name: 'borderTopWidth', 'supported': false},
+		{name: 'borderRightWidth', 'supported': false},
+		{name: 'borderBottomWidth', 'supported': false},
+		{name: 'borderLeftWidth', 'supported': false},
+		{name: 'borderWidth', 'supported': false},
+		{name: 'clear', 'supported': false},
+		{name: 'color', 'supported': false},
+		{name: 'display', 'supported': false},
+		{name: 'cssFloat', 'supported': false},
+		{name: 'font', 'supported': false},
+		{name: 'fontFamily', 'supported': false},
+		{name: 'fontSize', 'supported': false},
+		{name: 'fontStyle', 'supported': false},
+		{name: 'fontVariant', 'supported': false},
+		{name: 'fontWeight', 'supported': false},
+		{name: 'height', 'supported': false},
+		{name: 'letterSpacing', 'supported': false},
+		{name: 'lineHeight', 'supported': false},
+		{name: 'listStyle', 'supported': false},
+		{name: 'listStyleImage', 'supported': false},
+		{name: 'listStylePosition', 'supported': false},
+		{name: 'listStyleType', 'supported': false},
+		{name: 'margin', 'supported': false},
+		{name: 'marginTop', 'supported': false},
+		{name: 'marginRight', 'supported': false},
+		{name: 'marginBottom', 'supported': false},
+		{name: 'marginLeft', 'supported': false},
+		{name: 'padding', 'supported': false},
+		{name: 'paddingTop', 'supported': false},
+		{name: 'paddingRight', 'supported': false},
+		{name: 'paddingBottom', 'supported': false},
+		{name: 'paddingLeft', 'supported': false},
+		{name: 'textAlign', 'supported': false},
+		{name: 'textDecoration', 'supported': false},
+		{name: 'textIndent', 'supported': false},
+		{name: 'textTransform', 'supported': false},
+		{name: 'verticalAlign', 'supported': false},
+		{name: 'whiteSpace', 'supported': false},
+		{name: 'width', 'supported': false},
+		{name: 'wordSpacing', 'supported': false}
+	],
+	
+	'DOMCSS2': [
+		{name: 'azimuth', 'supported': false},
+		{name: 'backgroundPosition', 'supported': false},
+		{name: 'borderCollapse', 'supported': false},
+		{name: 'borderSpacing', 'supported': false},
+		{name: 'borderTopColor', 'supported': false},
+		{name: 'borderRightColor', 'supported': false},
+		{name: 'borderBottomColor', 'supported': false},
+		{name: 'borderLeftColor', 'supported': false},
+		{name: 'borderTopStyle', 'supported': false},
+		{name: 'borderRightStyle', 'supported': false},
+		{name: 'borderBottomStyle', 'supported': false},
+		{name: 'borderLeftStyle', 'supported': false},
+		{name: 'bottom', 'supported': false},
+		{name: 'captionSide', 'supported': false},
+		{name: 'clear', 'supported': false},
+		{name: 'clip', 'supported': false},
+		{name: 'content', 'supported': false},
+		{name: 'counterIncrement', 'supported': false},
+		{name: 'counterReset', 'supported': false},
+		{name: 'cue', 'supported': false},
+		{name: 'cueAfter', 'supported': false},
+		{name: 'cueBefore', 'supported': false},
+		{name: 'cursor', 'supported': false},
+		{name: 'direction', 'supported': false},
+		{name: 'elevation', 'supported': false},
+		{name: 'emptyCells', 'supported': false},
+		{name: 'fontSizeAdjust', 'supported': false},
+		{name: 'fontStretch', 'supported': false},
+		{name: 'left', 'supported': false},
+		{name: 'markerOffset', 'supported': false},
+		{name: 'marks', 'supported': false},
+		{name: 'maxHeight', 'supported': false},
+		{name: 'maxWidth', 'supported': false},
+		{name: 'minHeight', 'supported': false},
+		{name: 'minWidth', 'supported': false},
+		{name: 'orphans', 'supported': false},
+		{name: 'outline', 'supported': false},
+		{name: 'outlineColor', 'supported': false},
+		{name: 'outlineStyle', 'supported': false},
+		{name: 'outlineWidth', 'supported': false},
+		{name: 'overflow', 'supported': false},
+		{name: 'page', 'supported': false},
+		{name: 'pageBreakAfter', 'supported': false},
+		{name: 'pageBreakBefore', 'supported': false},
+		{name: 'pageBreakInside', 'supported': false},
+		{name: 'pause', 'supported': false},
+		{name: 'pauseAfter', 'supported': false},
+		{name: 'pauseBefore', 'supported': false},
+		{name: 'pitch', 'supported': false},
+		{name: 'pitchRange', 'supported': false},
+		{name: 'playDuring', 'supported': false},
+		{name: 'position', 'supported': false},
+		{name: 'quotes', 'supported': false},
+		{name: 'richness', 'supported': false},
+		{name: 'right', 'supported': false},
+		{name: 'size', 'supported': false},
+		{name: 'speak', 'supported': false},
+		{name: 'speakHeader', 'supported': false},
+		{name: 'speakNumeral', 'supported': false},
+		{name: 'speakPunctuation', 'supported': false},
+		{name: 'speechRate', 'supported': false},
+		{name: 'stress', 'supported': false},
+		{name: 'tableLayout', 'supported': false},
+		{name: 'textShadow', 'supported': false},
+		{name: 'top', 'supported': false},
+		{name: 'unicodeBidi', 'supported': false},
+		{name: 'visibility', 'supported': false},
+		{name: 'voiceFamily', 'supported': false},
+		{name: 'volume', 'supported': false},
+		{name: 'widows', 'supported': false},
+		{name: 'zIndex', 'supported': false}
+	]
+};
+
+function supports(object, featureSet)
+{
+	var i;
+	var features = _FEATURES[featureSet];
+	var level = 0;
+	
+	if (!features)
+		return level;
+		
+	for (i = 0; i < features.length; i++)
+		if (typeof(object[features[i].name]) != 'undefined')
+		{
+			features[i].supported = true;
+			++level;
+		}
+
+	return Math.floor( (100 *  level) / features.length );
+}
+
+function generateReport(object, featureSet, description)
+{
+	var i;
+	var features = _FEATURES[featureSet];
+
+	document.write('<p><b>' + featureSet + ' support for properties/methods in ' + description + ', percentage of names defined = ' + supports(object, featureSet) + '%<\/b><\/p>');
+
+	document.write('<table cellspacing="0">');
+	for (i = 0; i < features.length; i++) 
+      {
+		if (features[i].supported)
+ 		     document.write('<tr><td>' + features[i].name + '<\/td><td>' + features[i].supported + '<\/td><\/tr>');
+		else
+			document.write('<tr><td>' + features[i].name + '<\/td><td style="background-color:red">' + features[i].supported + '<\/td><\/tr>');
+      }
+	document.write('<\/table>');
+}
+
+var oldonerror = window.onerror; // suppress error messages...
+window.onerror = null;
+document.write('<p><b> Your browser ' + navigator.userAgent + '<\/b><\/p>');
+generateReport(document,			'DOMCORE1', 'document');
+generateReport(document,			'DOMCORE2', 'document');
+generateReport(document,			'DOMHTML',  'document');
+generateReport(document.body.style,	'DOMCSS1',  'document.body.style');
+generateReport(document.body.style,	'DOMCSS2',  'document.body.style');
+window.onerror = oldonerror;
+
+//-->
+</script>
+</body></html>
