@@ -11,7 +11,7 @@
 #
 #           Copyright (c) 2003-2013 Michael A. I. Lee  [iskitz.com]
 #
-# Created: 2013.02.02.14.43-08.00              Updated: 2013.02.04.03.55-08.00
+# Created: 2013.02.02.14.43-08.00              Updated: 2013.02.04.17.50-08.00
 #------------------------------------------------------------------------------#
 
 # TODO: Create pure JavaScript build script and use ajile to get it's own version.
@@ -65,6 +65,7 @@
 	cat ../../build/stage/header.js ./use/com.iskitz.ajile.$1.js > ./use/com.iskitz.ajile.$1.min.js
 	cat ../../build/stage/header.js ./use/com.iskitz.ajile.$1.js > ./use/com.iskitz.ajile.js
 	mv ./use/com.iskitz.ajile.$1.min.js ./use/com.iskitz.ajile.$1.js
+    cp -f ./use/*.* ../../use/.
 	cd ..
 	echo "ajile $1: creating ajile.$1.zip..."
 	zip -9 -o -r -T ajile.$1.zip ajile.$1
