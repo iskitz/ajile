@@ -2,7 +2,7 @@
  About   : Launch script for ajile's Jasmine Tests.
  Author  : Michael Lee [iskitz.com]
  Created : 2011.12.17 @ 22:15-08.00
- Updated : 2013.01.27 @ 15:39-08.00
+ Updated : 2013.02.04 @ 07:49-08.00
 */
 
 (function (global, Ignore, Listen, undefined) {
@@ -34,7 +34,7 @@
 //HACK: Need Listen ("net.ajile.test.*", ...);
             var ns = global.net && net.ajile && net.ajile.test;
 
-            if (!(ns && ns.Ajile && ns.Import && ns.ImportAs && ns.Include && ns.Load && ns.Namespace)) {
+            if (!(ns && ns.Ajile && ns.Ajile.AddImportListener && ns.Import && ns.ImportAs && ns.Include && ns.Load && ns.Namespace)) {
                return;
             }
 //HACK: Need Listen ("net.ajile.test.*", ...);

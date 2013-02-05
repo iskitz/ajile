@@ -11,7 +11,7 @@
 #
 #           Copyright (c) 2003-2013 Michael A. I. Lee  [iskitz.com]
 #
-# Created: 2013.02.02.14.43-08.00              Updated: 2013.02.02.17.03-08.00
+# Created: 2013.02.02.14.43-08.00              Updated: 2013.02.04.03.55-08.00
 #------------------------------------------------------------------------------#
 
 # TODO: Create pure JavaScript build script and use ajile to get it's own version.
@@ -19,7 +19,7 @@
 # NODE.JS?
 
 	if command -v node >/dev/null 2>&1; then
-        echo "ajile $1: building with node.js..."
+		echo "ajile $1: building with node.js..."
 		node <tbd.js.builder> $@
 		exit 1
 	else
@@ -41,30 +41,30 @@
 	cd ajile.$1
 	cp -r ../../code .
 	cp -r ../../learn .
-    mkdir play
+	mkdir play
 	cp -r ../../play/api play/.
-    cp -r ../../play/google play/.
-    mkdir play/ideas
-    cp -r ../../play/ideas/ajile.ondom* play/ideas/.
-    cp -r ../../play/ideas/ajile.simpl* play/ideas/.
-    cp -r ../../test .
+	cp -r ../../play/google play/.
+	mkdir play/ideas
+	cp -r ../../play/ideas/ajile.ondom* play/ideas/.
+	cp -r ../../play/ideas/ajile.simpl* play/ideas/.
+	cp -r ../../test .
 	mkdir use
 	cp -r ../../use/jasmine ./use/.
 	cp -r ../../use/syntax* ./use/.
 	cp ./code/* ./use/.
 	mv ./use/com.iskitz.ajile.src.js ./use/com.iskitz.ajile.$1.src.js
 	rm -rf **/.git
-    rm -rf **/.DS_Store
-	cp ../../build/index.htm .
-	cp ../../build/README.txt .
+	rm -rf **/.DS_Store
+	cp ../../build/stage/index.htm .
+	cp ../../build/stage/README.txt .
 
 #  COMPRESS:
 	echo "ajile $1: minifying source code..."
 	java -jar ../../build/yuic/yuicompressor-2.2.4.jar --charset UTF-8 --warn -o ./use/com.iskitz.ajile.$1.js ./code/com.iskitz.ajile.src.js 
    #java -jar ../../build/yuic/yuicompressor-2.2.4.jar --charset UTF-8 --nomunge -o ./use/com.iskitz.ajile.$1.flat.js ./code/com.iskitz.ajile.src.js
-    cat ../../build/header.js ./use/com.iskitz.ajile.$1.js > ./use/com.iskitz.ajile.$1.min.js
-    cat ../../build/header.js ./use/com.iskitz.ajile.$1.js > ./use/com.iskitz.ajile.js
-    mv ./use/com.iskitz.ajile.$1.min.js ./use/com.iskitz.ajile.$1.js
+	cat ../../build/stage/header.js ./use/com.iskitz.ajile.$1.js > ./use/com.iskitz.ajile.$1.min.js
+	cat ../../build/stage/header.js ./use/com.iskitz.ajile.$1.js > ./use/com.iskitz.ajile.js
+	mv ./use/com.iskitz.ajile.$1.min.js ./use/com.iskitz.ajile.$1.js
 	cd ..
 	echo "ajile $1: creating ajile.$1.zip..."
 	zip -9 -o -r -T ajile.$1.zip ajile.$1

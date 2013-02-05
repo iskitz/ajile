@@ -1,11 +1,11 @@
 /**----------------------------------------------------------------------------+
 | Product:  ajile [com.iskitz.ajile]
-| @version  1.5.5
+| @version  1.6.1
 |+-----------------------------------------------------------------------------+
 | @author   Michael A. I. Lee [iskitz.com]
 |
 | Created:  Tuesday,   November   4, 2003    [2003.11.04]
-| Updated:  Friday,    February   1, 2013    [2013.02.01.09.36-08.00]
+| Updated:  Monday,    February   4, 2013    [2013.02.04.16.17-08.00]
 |+-----------------------------------------------------------------------------+
 |
 | [ajile] - Advanced JavaScript Importing & Loading Extension is a JavaScript
@@ -133,7 +133,7 @@
 
       if(!isDOM)
       {  INFO.fullName  = QNAME;
-         INFO.path      = "../lib/ajile/";
+         INFO.path      = "/use/";
          INFO.shortName = ALIAS;
       }
 
@@ -187,49 +187,66 @@
    }
 
 
-   function AddImportListener(moduleName, listener)
+   function AddImportListener (moduleName, listener)
    {
       ensureFailSafe();
 
-      if(!listener || !isFunction(listener))
-         if(isFunction(moduleName))
-         {
+      var groupListener
+        , notify = []
+        ;
+
+      switch (true) {
+         case !listener || !isFunction (listener):
+            if (!isFunction (moduleName)) {
+               return false;
+            }
             listener   = moduleName;
             moduleName = undefined;
-         }
-         else return false;
+            break;
 
-      else if(moduleName && !isString(moduleName))
-         return false;
+         case !!moduleName && !isString (moduleName):
+            if (!isArray (moduleName) || !isFunction (listener)) {
+               return false;
+            }
+            groupListener = AddImportListener$handleGroup (moduleName, listener, notify);
+            moduleName    = undefined;
+            break;
+      }
 
-      if(moduleName == INTERNAL && this == global[ALIAS])
+      if (moduleName == INTERNAL && this == global[ALIAS])
          return false;
 
       (!moduleName && this != global[ALIAS]) && (moduleName = INTERNAL);
+       !moduleName && (moduleName = '');
 
-      var $listener = listener;
+      var listeners = importListeners.get (moduleName);
+      listener      = {listen: (groupListener || listener), notify:notify};
 
-      if (moduleName && (processed.has (moduleName) || GetModule (moduleName)))
-      {
-         setTimeout (function /*onNamedImport*/ (moduleName) { $listener (moduleName); }, 0);
-         return true;
-      }
+      !listeners    && (listeners = new SimpleSet()) && importListeners.add (moduleName, listeners);
+      listeners.add (Math.random(), listener);
+
+      (moduleName && (processed.has (moduleName) || GetModule (moduleName)))
+      && (notify [notify.length] = getImportNotifier (listener.listen, moduleName));
 
       if (!moduleName)
          if (processed.getSize() > 0 || pendingImports.getSize() == 0)
-            for (var importee in processed.getAll())
-               setTimeout (function /*onAnyImport*/() { $listener (importee); }, 0);
-
-      !moduleName && (moduleName = '');
-
-      var listeners = importListeners.get (moduleName);
-      !listeners && (listeners = new SimpleSet()) && importListeners.add (moduleName, listeners);
-      listeners.add (Math.random(), $listener);
+            for (var importee in processed.getAll()) {
+               ("undefined" == typeof Object.prototype[importee])
+               && (notify [notify.length] = getImportNotifier (listener.listen, importee));
+            }
 
       moduleName && (new ImportThread (moduleName)).start();
       return true;
    }
 
+   function AddImportListener$handleGroup (moduleNames, listener, notify) {
+      return function isGroupImported (moduleName) {
+         for (var i=0, j=moduleNames.length; i < j; i++) {
+            if (!GetModule (moduleNames[i])) return false;
+         }
+         notify [notify.length] = getImportNotifier (listener, moduleNames);
+      };
+   }
 
    function addUsage(fullName)
    {
@@ -548,6 +565,13 @@
       if(!version) return undefined;
 
       return [shortName, fullName, version];
+   }
+
+
+   function getImportNotifier (listener, moduleName) {
+      return setTimeout (function onImported () {
+          listener (moduleName);
+      }, 0);
    }
 
 
@@ -1170,6 +1194,15 @@ paths:for(var path in paths)
    }
 
 
+   function isArray (array) {
+      if (!!Array.isArray) {
+         isArray = Array.isArray;
+         return isArray (array);
+      }
+      return array && (Array == array.constructor || Array.toString() == array.constructor.toString());
+   }
+
+
    function isFunction(funkshun)
    {
       return ((       funkshun !=  undefined  && funkshun != null)
@@ -1614,36 +1647,38 @@ paths:for(var path in paths)
    }
 
 
-   function notifyImportListeners(fullName)
-   {
-      var listenerList = [ importListeners.get('')
-                         , importListeners.get(fullName)
-                         , importListeners.get(INTERNAL)
-                         ];
+   function notifyImportListeners (fullName) {
+      var listenerList =
+      [   importListeners.get ('')
+      ,   importListeners.get (fullName)
+      ,   importListeners.get (INTERNAL)
+      ];
 
-      if(!listenerList[0] && !listenerList[1] && !listenerList[2])
+      if (!listenerList[0] && !listenerList[1] && !listenerList[2])
          return;
 
       var hasListeners =  (listenerList[0] && (listenerList[0].getSize() > 0))
                        || (listenerList[1] && (listenerList[1].getSize() > 0));
 
-      if(DEBUG && hasListeners)
-         log(("NOTIFY :: Import Listeners for " + fullName + "..."), arguments);
+      DEBUG && hasListeners && log (("NOTIFY :: Import Listeners for " + fullName + "..."), arguments);
 
-      for(var listeners, i=listenerList.length; --i >= 0;)
-      {
-         if(!listenerList[i]) continue;
+      for (var listener, listeners, i=listenerList.length; --i >= 0;) {
 
+         if (!listenerList[i]) continue;
          listeners = listenerList[i].getAll();
 
-         for(var id in listeners)
-            if("undefined" == typeof Object.prototype[id])
-               if(isFunction(listeners[id]))
-                  listeners[id](fullName);
-      }
+         for (var id in listeners)
+            if ("undefined" == typeof Object.prototype[id]) {
 
-      if(DEBUG && hasListeners)
-         log(("NOTIFY :: Import Listeners for " + fullName + "...DONE!"), arguments);
+               if (!listeners[id]) continue;
+               listener = listeners[id];
+
+               isFunction (listener.listen)
+               && (listener.notify [listener.notify.length] = getImportNotifier (listener.listen, fullName));
+            }
+      }//end:for...listenerList
+
+      DEBUG && hasListeners && log(("NOTIFY :: Import Listeners for " + fullName + "...DONE!"), arguments);
    }
 
 
@@ -1688,45 +1723,62 @@ paths:for(var path in paths)
    }
 
 
-   function RemoveImportListener(moduleName, listener)
+   function RemoveImportListener (moduleName, listener)
    {
       ensureFailSafe();
 
-      if(!listener || !isFunction(listener))
-         if(isFunction(moduleName))
-         {
+      switch (true) {
+         case !listener || !isFunction (listener):
+            if (!isFunction (moduleName)) {
+               return false;
+            }
             listener   = moduleName;
-            moduleName = undefined;
-         }
-         else return false;
-      else
-         if(moduleName && !isString(moduleName))
-            return false;
+            moduleName = '';
+            break;
 
-      var listenerList = [ importListeners.get('')
-                         , importListeners.get(moduleName)
-                         , importListeners.get(INTERNAL)
-                         ];
+         case !!moduleName && !isString (moduleName):
+            if (!isArray (moduleName)) {
+               return false;
+            }
+            moduleName =  '';
+            break;
+      }
 
-      if(!listenerList[0] && !listenerList[1] && !listenerList[2])
+      var listenerList =
+      [   importListeners.get ('')
+      ,   importListeners.get (moduleName)
+      ,   importListeners.get (INTERNAL)
+      ];
+
+      if (!listenerList[0] && !listenerList[1] && !listenerList[2])
          return false;
 
       var wasRemoved = false;
 
-      for(var listeners, i=listenerList.length; --i >= 0;)
-      {
-         if(!listenerList[i]) continue;
+      for(var listen, listeners, notify, i=listenerList.length; --i >= 0;) {
+         if (!listenerList[i]) continue;
 
          listeners = listenerList[i].getAll();
 
-         for(var id in listeners)
-            if("undefined" == typeof Object.prototype[id])
-               if(listeners[id] == listener)
-               {
-                  listenerList[i].remove(id);
-                  wasRemoved = true;
-                  break;
+         for (var id in listeners)
+            if ("undefined" == typeof Object.prototype[id]) {
+               if (!listeners[id] || listeners[id].listen != listener)
+                  continue;
+
+               delete listeners[id].listen;
+               notify = listeners[id].notify;
+
+               for (var n=0, nl=notify.length; n < nl; n++) {
+                   clearTimeout (notify[n]);
+                   notify[n] = undefined;
+                   delete notify[n];
                }
+
+               delete listeners[id].notify;
+               listenerList[i].remove(id);
+               wasRemoved = true;
+               break;
+            }
       }
 
       return wasRemoved;
@@ -1982,4 +2034,4 @@ paths:for(var path in paths)
      , usage             =  new SimpleSet();
 
    $create();
-})("1.5.5", this);
+})("1.6.1", this);
