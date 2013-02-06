@@ -64,8 +64,8 @@ Include   ("net.ajile.test.Ajile.AddImportListener");
          expect (Ajile.GetVersion).toBeDefined();
          expect (typeof Ajile.GetVersion).toBe("function");
       });
-      it ("Ajile.GetVersion(): 1.6.8", function testAjileGetVersionWorks () {
-         expect (Ajile.GetVersion()).toEqual ("1.6.8");
+      it ("Ajile.GetVersion(): 1.7.3", function testAjileGetVersionWorks () {
+         expect (Ajile.GetVersion()).toEqual ("1.7.3");
       });
    });
 

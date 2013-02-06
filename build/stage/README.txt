@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------------+
-|           ajile 1.6.8  {ajile.net: Smart scripts that play nice!}
+|           ajile 1.7.3  {ajile.net: Smart scripts that play nice!}
 |
 | Advanced JavaScript Importing & Loading Extension is a JavaScript module that
 | provides an API for namespace creation, module dependency management and
@@ -7,7 +7,7 @@
 |
 |           Copyright (c) 2003-2013 Michael A. I. Lee  [iskitz.com]
 |
-| Created: 2003.11.04                          Updated: 2013.02.04.15.00-08.00
+| Created: 2003.11.04                          Updated: 2013.02.06.03.11-08.00
 +-----------------------------------------------------------------------------*/
 
 What's in these folders?
