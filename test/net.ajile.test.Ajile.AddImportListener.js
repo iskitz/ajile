@@ -1,8 +1,8 @@
 /*
- About   : ajile's Ajle.AddImportListener Test Suite module.
+ About   : ajile's Ajile.AddImportListener Test Suite module.
  Author  : Michael Lee [iskitz.com]
  Created : 2011.12.17 @ 22:30-08.00
- Updated : 2013.02.10 @ 21:52-08.00
+ Updated : 2013.02.12 @ 12:47-08.00
  */
 
 Namespace ("net.ajile.test.Ajile");
@@ -63,7 +63,7 @@ Namespace ("net.ajile.test.Ajile");
       }
       for (var name, names=listener.name, i=names.length; --i >= 0;) {
          name = names[i];
-         expect (listener.item[name]).toBe (Include (name));   // TODO: Need non-ajile confirmation.
+         expect (listener.item[name]).toBe (eval (name));
          Ajile.Unload (name);
          delete listener.item[name];
       }
