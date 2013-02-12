@@ -2,77 +2,79 @@
  About   : Launch script for ajile's Jasmine Tests.
  Author  : Michael Lee [iskitz.com]
  Created : 2011.12.17 @ 22:15-08.00
- Updated : 2013.02.04 @ 07:49-08.00
-*/
+ Updated : 2013.02.10 @ 11:35-08.00
+ */
+(function (global, use, on, off, undefined) {
 
-(function (global, Ignore, Listen, undefined) {
+   function $start() {
+      Include ("jasmine", "../use/jasmine/");
+      on      ("jasmine", jasmineCoreLoaded);
+   }
 
-   Include  ("jasmine", "../use/jasmine/");
-   Listen   ("jasmine", function jasmineCoreLoaded (moduleName) {
+   function jasmineCoreLoaded (listener) {
+      //jasmine.VERBOSE = true;
 
-      Ignore   (moduleName, arguments.callee);
-      Load     ("../use/jasmine/jasmine-html.js");
+      off (listener.name, listener.notify);
+      use ("../use/jasmine/jasmine-html.js");
 
       Ajile.nextInline = function includeJasmineHTML() {
          var callee = arguments.callee;
-         callee.timer && clearTimeout (callee.timer);
-
+         callee.timer && clearTimeout(callee.timer);
+         
          jasmine.HtmlReporter
-         ?  (delete (callee.timer) && Include ("jasmine.HtmlReporter"))
-         :  (callee.timer = setTimeout (callee, 0))
+         ?  (delete (callee.timer) && Include("jasmine.HtmlReporter"))
+         :  (callee.timer = setTimeout(callee, 0))
          ;
       };
 
-      Load     ("./InlineLoader.js");
-      Listen   ("jasmine.HtmlReporter", function jasmineHTMLLoaded (moduleName) {
+      use ("./InlineLoader.js");
+      on  ("jasmine.HtmlReporter", jasmineHTMLLoaded);
+   }
 
-         Ignore   (moduleName, arguments.callee);
-         Include  ("net.ajile.test.*", "./");  
+   function jasmineHTMLLoaded (listener) {
+      off     (listener.name, listener.notify);
+      Include ("net.ajile.test.*", "./");
 
-         Listen  (function initializeJasmine (moduleName) {
+      on ([ "net.ajile.test.Ajile.AddImportListener" //TODO: on ("net.ajile.test.*", ...);
+          , "net.ajile.test.Import"
+          , "net.ajile.test.ImportAs"
+          , "net.ajile.test.Include"
+          , "net.ajile.test.Load"
+          , "net.ajile.test.Namespace"
+          ], jasmineReady);
+   }
 
-//HACK: Need Listen ("net.ajile.test.*", ...);
-            var ns = global.net && net.ajile && net.ajile.test;
+   function jasmineReady (listener) {
+      off (listener.name, listener.notify);
 
-            if (!(ns && ns.Ajile && ns.Ajile.AddImportListener && ns.Import && ns.ImportAs && ns.Include && ns.Load && ns.Namespace)) {
-               return;
-            }
-//HACK: Need Listen ("net.ajile.test.*", ...);
+      var jasmineEnv = jasmine && jasmine.getEnv();
+      jasmineEnv.updateInterval = 1000;
 
-            Ignore (arguments.callee);
+      var htmlReporter = new jasmine.HtmlReporter();
+      jasmineEnv.addReporter (htmlReporter);
+      
+      jasmineEnv.specFilter = function jasmineSpecFilter(spec) {
+         return htmlReporter.specFilter (spec);
+      };
 
-            var jasmineEnv = jasmine && jasmine.getEnv();
-            jasmineEnv.updateInterval = 1000;
+      function documentReady (listener) {
+        off (listener.name, listener.notify);
+        jasmineEnv.execute();
+        setTimeout (showAllResults, 1500);
+      }
 
-            var htmlReporter = new jasmine.HtmlReporter();
-            jasmineEnv.addReporter (htmlReporter);
+      on ("document.body", documentReady);
+   }
 
-            jasmineEnv.specFilter = function jasmineSpecFilter (spec) {
-               return htmlReporter.specFilter (spec);
-            };
+   function showAllResults() {
+      /* Jasmine 1.2.0 defaults to showing only failures, this toggles to show both
+       * failures and successes.
+       */
+      var link = document.getElementById ("HTMLReporter");
+      link && (link = link.getElementsByTagName("a")[0]);
+      link && (typeof link.onclick == "function") && link.onclick();
+   }
 
-            try {
-               jasmineEnv.execute();
-            }
-            catch (ex) {
-               var currentWindowOnload = window.onload;
-   
-               window.onload = function windowLoaded () {
-                  currentWindowOnload && currentWindowOnload();
-                  jasmineEnv.execute();
-               };
-            }
-            
-            setTimeout (function showAllResults () {
-                /* Jasmine 1.2.0 defaults to showing only failures, this toggles to show both
-                 * failures and successes.
-                 */
-                var link = document.getElementById ("HTMLReporter").getElementsByTagName("a")[0];
-                (typeof link.onclick == "function") && link.onclick();
-            }, 1500);
+   $start();
 
-         });//End:initializeJasmine()
-      });//End:jasmineHTMLLoaded()
-   });//End:jasmineCoreLoaded()
-
-})(this, Ajile.RemoveImportListener, Ajile.AddImportListener);
+})(this, Load, Ajile.AddImportListener, Ajile.RemoveImportListener);

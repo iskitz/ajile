@@ -3,20 +3,21 @@
    Description: iSkitz.com's content style.
 */
 *{
-	 color: #444;
-	 font-family: Tahoma, Verdana, Courier, Georgia, Serif;
-	 font-size: 13px;
+     color: #444;
+     font-family: Tahoma, Verdana, Courier, Georgia, Serif;
+     font-size: 13px;
 }
-a {
+a,abbr {
    color: #080;
+   text-decoration: none;
 }
-a:focus, a:hover {
+a:focus, a:hover, abbr:focus, abbr:hover {
    background-color: #E8E8FF;
 }
 
 body{
-	 background-color: #fff;
-	 padding: 8px 0;
+     background-color: #fff;
+     padding: 8px 0;
 }
 
 code {
@@ -37,5 +38,5 @@ hr {
    width: 95%;*/
 }
 img {
-	border: none;
+    border: none;
 }

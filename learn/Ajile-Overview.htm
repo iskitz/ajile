@@ -14,50 +14,50 @@
 </head>
 <body>
 <p>
-<strong>ajile</strong> 1.7.3<br>
+<a href="https://github.com/iskitz/ajile/wiki/Release-History#wiki-wrapper" target="ajile.github"><strong>ajile</strong> 1.9.3</a>
 <br>
-
-Copyright (c) 2003-2013 Michael Lee, <a href="http://ajile.net/">http://ajile.net/</a><br>
 <br>
-All rights reserved.<br>
+Copyright (c) 2003-2013 Michael Lee [<a href="http://ajile.net/">ajile.net</a> + <a href="http://twitter.com/ajilenet/" title="Follow ajile on Twitter" target="ajile.news">@ajilenet</a>]
 <br>
-<a href="https://github.com/iskitz/ajile#readme" target="ajile.github">@ GitHub</a>
-<!--,a href="http://sourceforge.net/projects/ajile/">@ Sourceforge</a-->
+<br>
+Available under <a href="Ajile-License.htm">MPL, LGPL, or GPL</a> licenses.<br>
 </p>
 <br>
 <hr>
 <h1>Description</h1>
 <hr>
-<p><strong title="ajile reads as &quot;agile&quot;">ajile</strong>, the <strong>a</strong>dvanced <strong>j</strong>avaScript&nbsp;<strong>i</strong>mporting &amp; <strong>l</strong>oading <strong>e</strong>xtension brings immediate support for <a href="api/Directives.htm#Load">load</a>, <a href="api/Directives.htm#Import">import</a>, <a href="api/Directives.htm#Include">include</a> and <a href="api/Directives.htm#Namespace">namespace</a> to a wide variety of
-JavaScript-enabled browsers.<br>
-<br><strong>ajile</strong> simplifies and enhances web development by supporting <a href="api/Options.htm#refresh">efficient</a>, <a href="api/Directives.htm#ImportAs">interoperable</a>, and<a href="api/Options.htm#mvc"> unobtrusive</a> JavaScript. Developers will also
-find help protecting their code's <a href="http://en.wikipedia.org/wiki/Intellectual_property">intellectual property</a>
-via ajile's configurable <a href="api/Options.htm#cloak">runtime source-code cloaking</a>.<br>
+
+<p><strong title="ajile reads as &quot;agile&quot;">ajile</strong>: <strong>a</strong>dvanced <strong>j</strong>avaScript <strong>i</strong>mporting &amp; <strong>l</strong>oading <strong>e</strong>xtension</p>
+
+<ul>
+<li>
+Is an <a href="https://github.com/iskitz/ajile/" target="ajile.github">open-source</a> JavaScript module that provides <a href="Ajile-Help.htm">APIs</a> for on-demand <a href="api/Directives.htm#Namespace">namespacing</a>, <a href="api/Methods.htm#Ajile.AddImportListener">dependency management</a>, and <a href="api/Directives.htm#Import">inclusion</a> of <a title="ajile is free of XMLHttpRequest's Same Origin Policy restriction.">cross-domain</a>, <a href="api/Directives.htm#Load">local</a>, and <a href="api/Directives.htm#Load">inline</a> JavaScript in <a href="#supported">all modern and many legacy web browsers</a>.</li>
 <br>
-As the name implies, ajile can be used to make web sites and applications
-fast and responsive via highly interoperable scripts capable of loading and
-importing functionality as needed.</p>
+<li>It encourages <a href="http://www.wikipedia.org/wiki/Model-view-controller"><abbr title="Model View Controller">MVC</abbr>-styled</a> web development by supporting the creation and use of <a href="api/Directives.htm#Namespace">modular</a>, <a href="api/Directives.htm#Include">unobtrusive</a>, <a href="api/Options.htm#mvc">automatically-loaded</a>, and <a href="api/Directives.htm#ImportAs">highly-interoperable</a> JavaScript modules.</li>
+</ul>
+
 <hr>
-<h1>Features</h1>
+<h1 id="features">Features</h1>
 <hr>
 <ul>
 <li>Asynchronous script loading from <u><abbr title="ajile is free of XMLHttpRequest's Same Origin Policy restriction.">any</abbr></u> location.</li>
-<li><a href="api/Options.htm#mvc">Unobtrusive scripting</a> via <a href="http://www.wikipedia.org/wiki/Model-view-controller"><abbr title="Model View Controller">MVC</abbr></a>-styled page/script separation.</li>
+<li><a href="api/Options.htm#mvc">Unobtrusive scripting</a> via <a href="http://www.wikipedia.org/wiki/Model-view-controller"><abbr title="Model View Controller">MVC</abbr>-styled</a> page/script separation.</li>
 <li>Configurable auto-loading of site and per-page scripts.</li>
-<li>Namespace support to encapsulate &amp; uniquely identify functionality.</li>
-<li>Namespace &amp; module including for full-name access.</li>
+<li>Namespace support for encapsulating and uniquely naming functionality.</li>
+<li>Namespace &amp; module inclusion for full-name access.</li>
 <li>Namespace &amp; module importing for short-name access.</li>
 <li>Namespace &amp; module importing with aliases.</li>
-<li>Namespace &amp; module importing with versioning.</li>
+<li>Namespace &amp; module inclusion and importing with versioning.</li>
+<li>Namespace &amp; module inclusion and importing with wild-cards.</li>
 <li>Automatic path resolution for namespaced modules.</li>
 <li>Dependency Definition with runtime enforcement.</li>
-<li>Import notification via event listening.</li>
+<li>Inclusion notification via early or late listening.</li>
 <li>Flexible packaging via namespaced files and/or structured directories.</li>
 <li>Load-time &amp; runtime cache management.</li>
 <li>Load-time &amp; runtime name collision management.</li>
 <li>Load-time &amp; runtime source code cloaking.</li></ul>
 <hr>
-<h1>Target Environment</h1>
+<h1 id="supported">Target Environment</h1>
 <hr>
 
 <p><strong>ajile</strong> is compatible with the following Specifications and Browsers:</p>
@@ -70,18 +70,18 @@ importing functionality as needed.</p>
 <li><a href="http://msdn.microsoft.com/en-us/library/hbxc2t98(v=vs.84)">JScript 3.0+</a></li></ul></li></ul>
 <ul>
 <li>Desktop Browsers
-<ul>
-<li>IE        4.01+</li>
-<li>Firefox   0.1+ (All)</li>
-<li>Safari    1.2+</li>
+<ul>               
+<li>Camino             1.0.1+</li>
 <li>Chrome</li>
-<li>Opera     5+</li>
-<li>Camino    1.0.1+</li>
-<li>iCab      3.0.3+</li>
-<li>Mozilla   0.9.1+</li>
-<li>Netscape  6.1+</li>
-<li>OmniWeb   5.6+</li>
-<li>SeaMonkey 1.0+</li>
+<li>Firefox            0.1+ (All)</li>
+<li>iCab               3.0.3+</li>
+<li>Internet Explorer  4.01+</li>
+<li>Mozilla            0.9.1+</li>
+<li>Netscape           6.1+</li>
+<li>OmniWeb            5.6+</li>
+<li>Opera              5+</li>
+<li>Safari             1.2+</li>
+<li>SeaMonkey          1.0+</li>
 <li>Microsoft HTML Applications (HTAs)</li></ul></li></ul>
 <ul>
 <li>Mobile Browsers
@@ -113,7 +113,7 @@ importing functionality as needed.</p>
 (See <a href="Ajile-Help.htm">Docs</a> for detailed information, and <a href="../play/api/index.htm">API Examples</a> for usage.)<br>
 <br><br>
 <hr>
-<h1>Functions</h1>
+<h1>Methods</h1>
 <hr>
 <table border="0">
 <tbody>
@@ -128,7 +128,7 @@ importing functionality as needed.</p>
 <td>: Toggles on/off logging of Ajile's debug information.</td></tr>
 <tr>
 <td><a href="api/Methods.htm#Ajile.EnableLegacy">Ajile.EnableLegacy()</a></td>
-<td>: Toggles on/off support for code using legacy releases (i.e. JSPackaging &amp; ajile 0.5.5 and earlier).</td></tr>
+<td>: Toggles on/off support for code using legacy releases (i.e. JSPackaging &amp; <strong>ajile</strong> 0.5.5 and earlier).</td></tr>
 <tr>
 <td><a href="api/Methods.htm#Ajile.EnableOverride">Ajile.EnableOverride()</a></td>
 <td>: Toggles on/off silently overriding similarly named modules.</td></tr>
@@ -155,7 +155,7 @@ importing functionality as needed.</p>
 <hr>
 <h1>Load-time Options</h1>
 <hr>
-<p>The following options are used to enable/disable ajile features at load time:</p>
+<p>The following options are used to enable/disable <strong>ajile</strong> features at load time:</p>
 <table border="0">
 <tbody>
 <tr>
@@ -166,7 +166,7 @@ importing functionality as needed.</p>
 <td>: Toggles on/off logging of ajile's debug information.</td></tr>
 <tr>
 <td><a href="api/Options.htm#legacy">legacy</a></td>
-<td>: Toggles on/off support for code using legacy releases (i.e. JSPackaging &amp; ajile 0.5.5 and earlier).</td></tr>
+<td>: Toggles on/off support for code using legacy releases (i.e. JSPackaging &amp; <strong>ajile</strong> 0.5.5 and earlier).</td></tr>
 <tr>
 <td><a href="api/Options.htm#mvc">mvc</a></td>
 <td>: Toggles on/off the auto-loading of a page's control module.</td></tr>
@@ -185,11 +185,9 @@ importing functionality as needed.</p>
 <h1>Thanks</h1>
 <hr>
 <p>
-Thanks for using <strong>ajile</strong>. Feel free to <a href="http://help.ajile.net/" target="_top">post questions, suggestions or information</a> about
+Thanks for using <strong>ajile</strong>. Feel free to <a href="https://github.com/iskitz/ajile/issues/" target="ajile.github">post questions, bugs, suggestions or information</a> about
 how you're using it within other applications, libraries or other creations.
-Special thanks to those who've given feedback and helped troubleshoot, including <a href="http://tech.groups.yahoo.com/group/ajile/message/111">andrea</a>, <a href="http://tech.groups.yahoo.com/group/ajile/message/9">cameron</a>, <a href="http://tech.groups.yahoo.com/group/ajile/message/136">danny</a>, <a href="http://tech.groups.yahoo.com/group/ajile/message/90">levani</a>, <a href="http://tech.groups.yahoo.com/group/ajile/message/166">mark</a>, <a href="http://www.phpied.com/javascript-include#comment-9005/">samir</a>, and <a href="../../../blog/2006/06/ajile-05-released.html">thomas</a>.</p><br>
-
-                                                                       - Michael
+Special thanks to those who've given feedback and helped troubleshoot, including <a href="http://tech.groups.yahoo.com/group/ajile/message/111">andrea</a>, <a href="http://tech.groups.yahoo.com/group/ajile/message/9">cameron</a>, <a href="http://tech.groups.yahoo.com/group/ajile/message/136">danny</a>, <a href="http://tech.groups.yahoo.com/group/ajile/message/90">levani</a>, <a href="http://tech.groups.yahoo.com/group/ajile/message/166">mark</a>, <a href="http://www.phpied.com/javascript-include#comment-9005/">samir</a>, and <a href="../../../blog/2006/06/ajile-05-released.html">thomas</a>.</p>                        {Michael:iSkitz}
 <p><a id="lnkSFLogo" href="http://sourceforge.net/projects/ajile/"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=149163&amp;type=13" alt="SourceForge.net Logo" title="ajile @ SourceForge" border="0"></a></p>
 </body>
 </html>

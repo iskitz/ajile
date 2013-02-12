@@ -1,8 +1,8 @@
 /*
- About   : ajile's Import Tests Package.
+ About   : ajile's Import Tests Suite module.
  Author  : Michael Lee (iskitz.com)
- Created : 2011.12.17 @ 11:34 PM PT
- Updated : 2012.06.04 @ 06:34 AM PDT
+ Created : 2011.12.17 @ 11:34-08.00
+ Updated : 2013.02.10 @ 21:25-08.00
  */
 
 Namespace ("net.ajile.test");
@@ -10,14 +10,15 @@ Namespace ("net.ajile.test");
 (net.ajile.test.Import = function defineAjileImportTests (global, undefined) {
 
    describe ("ajile: Import", function ajileImportExistsTests () {
-      it ("Exists in the global scope.", function testAjileImportExists () {
+      it ("is a function", function testAjileImportExists () {
          expect (Import).not.toBeNull();
          expect (Import).not.toBeUndefined();
          expect (global.Import).toBeDefined();
          expect (global.Import).toBe (Import);
+         expect (Import).toEqual (jasmine.any (Function));
       });
 
-      it ("Can be used synchronously with in-memory objects.", function testAjileImportInMemoryWorks () {
+      it ("can be used synchronously with a previously imported item", function testAjileImportInMemoryWorks () {
          net.ajile.test.Import.InMemory = {works: true};
          Import ("net.ajile.test.Import.InMemory");
          expect (InMemory).not.toBeNull();

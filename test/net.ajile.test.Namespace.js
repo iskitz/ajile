@@ -1,9 +1,9 @@
 
 /*
- About   : ajile's Namespace Test Suite.
+ About   : ajile's Namespace Test Suite module.
  Author  : Michael Lee (iskitz.com)
- Created : 2011.12.17 @ 11:34 PM PT
- Updated : 2012.06.04 @ 06:30 AM PDT
+ Created : 2011.12.17 @ 11:34-08.00
+ Updated : 2013.02.10 @ 21:19-08.00
  */
 
 Namespace ("net.ajile.test");
@@ -19,32 +19,52 @@ Namespace ("net.ajile.test");
 	}
 
 	describe ("ajile: Namespace", function defineAjileNamespaceTests () {
-		it ("Exists in the global scope.", function testAjileNamespaceExists () {
+		it ("is a function", function testAjileNamespaceExists () {
 			expect (Namespace).not.toBeNull();
 			expect (Namespace).not.toBeUndefined();
 			expect (global.Namespace).toBeDefined();
 			expect (global.Namespace).toBe (Namespace);
+         expect (Namespace).toEqual (jasmine.any (Function));
 		});
 
-		it ("Supports single-level namespace creation.", function testAjileNamespaceSingleLevel () {
+		it ("creates a single-level namespace", function testAjileNamespaceSingleLevel () {
 			delete global.nstesting;				// Make sure the namespace doesn't exist.
 			Namespace ("nstesting");				// Create the namespace.
-			nstesting.constructor;					// Error if the namespace isn't defined.
  			expect (nstesting).toBeDefined();
 			delete this.nstesting;					// Cleanup.
 		});
 
-		it ("Supports single-level namespace reuse.", function testAjileNamespaceSingleLevelReuse () {
+		it ("reuses a single-level namespace", function testAjileNamespaceSingleLevelReuse () {
 			global.nstesting = function nstesting() {
 				// Manually created the "nstesting" namespace.
 				return "nstesting";
 			};
-
 			var manualNS = nstesting;
 			Namespace ("nstesting");
 			expect (manualNS()).toEqual (nstesting());			
 			delete this.nstesting;	// Cleanup.
  		});
-	});
+
+      it ("creates a multi-level namespace", function testAjileNamespaceMultiLevel () {
+         delete net.ajile.test.Namespace.MultiLevel;        // Make sure the namespace doesn't exist.
+         var fullName = "net.ajile.test.Namespace.MultiLevel";
+         Namespace (fullName);                              // Create the namespace.
+         expect (net.ajile.test.Namespace.MultiLevel).toBeDefined();
+         delete net.ajile.test.Namespace.MultiLevel;        // Cleanup.
+      });
+
+      it ("reuses a multi-level namespace", function testAjileNamespaceMultiLevelReuse () {
+         var fullName = "net.ajile.test.Namespace.MultiLevel";
+         net.ajile.test.Namespace.MultiLevel = function MultiLevel() {
+            // Manually created the net.ajile.test.Namespace.MultiLevel namespace.
+            return fullName;
+         };
+         var manualNS = net.ajile.test.Namespace.MultiLevel;
+         Namespace (fullName);
+         expect (manualNS()).toEqual (net.ajile.test.Namespace.MultiLevel());         
+         delete net.ajile.test.Namespace.MultiLevel;
+      });
+
+	});//end: describe ajile: Namespace
 	
 })(this);

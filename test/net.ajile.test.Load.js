@@ -1,8 +1,8 @@
 /*
- About   : ajile's Load Tests Package.
+ About   : ajile's Load Tests Suite module.
  Author  : Michael Lee (iskitz.com)
- Created : 2011.12.17 @ 11:34 PM PT
- Updated : 2012.06.04 @ 06:33 AM PDT
+ Created : 2011.12.17 @ 11:34-08.00
+ Updated : 2013.02.12 @ 03:40-08.00
  */
 
 Namespace ("net.ajile.test");
@@ -10,14 +10,15 @@ Namespace ("net.ajile.test");
 (net.ajile.test.Load = function defineAjileLoadTests (global, undefined) {
 
    describe ("ajile: Load", function defineAjileLoadTests () {
-      it ("Exists in the global scope.", function testAjileLoadExists () {
+      it ("is a function", function testAjileLoadExists () {
          expect (Load).not.toBeNull();
          expect (Load).not.toBeUndefined();
          expect (global.Load).toBeDefined();
          expect (global.Load).toBe (Load);
+         expect (Load).toEqual (jasmine.any (Function));
       });
 
-      it ("Supports inline scripts.", function testAjileLoadInlineWorks () {
+      it ("inserts inline scripts", function testAjileLoadInlineWorks () {
          runs (function tryLoadInline () {
             Load (null, null, "net.ajile.test.Load.inline = true;");
          });
@@ -31,7 +32,7 @@ Namespace ("net.ajile.test");
          });
       });
 
-      it ("Supports external scripts.", function testAjileLoadWorks () {
+      it ("loads external scripts", function testAjileLoadWorks () {
          var works = false;
 
          runs (function tryExternalLoad () {
