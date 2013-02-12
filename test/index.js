@@ -2,7 +2,7 @@
  About   : Launch script for ajile's Jasmine Tests.
  Author  : Michael Lee [iskitz.com]
  Created : 2011.12.17 @ 22:15-08.00
- Updated : 2013.02.10 @ 11:35-08.00
+ Updated : 2013.02.12 @ 11:18-08.00
  */
 (function (global, use, on, off, undefined) {
 
@@ -35,7 +35,8 @@
       off     (listener.name, listener.notify);
       Include ("net.ajile.test.*", "./");
 
-      on ([ "net.ajile.test.Ajile.AddImportListener" //TODO: on ("net.ajile.test.*", ...);
+      on ([ "net.ajile.test.Ajile.AddImportListener"  //TODO: on ("net.ajile.test.*", jasmineReady);
+          , "net.ajile.test.Ajile.RemoveImportListener"
           , "net.ajile.test.Import"
           , "net.ajile.test.ImportAs"
           , "net.ajile.test.Include"
