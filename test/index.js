@@ -2,7 +2,7 @@
  About   : Launch script for ajile's Jasmine Tests.
  Author  : Michael Lee [iskitz.com]
  Created : 2011.12.17 @ 22:15-08.00
- Updated : 2013.02.12 @ 11:18-08.00
+ Updated : 2013.02.19 @ 00:35-08.00
  */
 (function (global, use, on, off, undefined) {
 

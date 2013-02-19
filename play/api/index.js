@@ -4,7 +4,7 @@
 | Author:   Michael Lee [ http://ajile.net/ ]
 |
 | Created:  Friday,    November   2, 2006    [2006.06.02.19:44-04.00]
-| Modified: Friday,    February   1, 2013    [2013.02.01.15:13-08.00]
+| Modified: Tuesday,   February  19, 2013    [2013.02.19.00:35-08.00]
 |+-----------------------------------------------------------------------------+
 |
 |   [ ajile :: http://ajile.net/ :: "Smart scripts that play nice!" ]
@@ -187,8 +187,8 @@ com.iskitz.ajile.Examples = new function()
    {
       if("undefined" != typeof Complex)
       {
-	      var complex = new Complex();
-	      complex.sayHello();
+         var complex = new Complex();
+         complex.sayHello();
       }
       else alert( "Dependency test was unsuccessful :-(\n\n"
                 + "Failed to Import [ com.iskitz.ajile.examples.Complex ]");
@@ -229,14 +229,12 @@ com.iskitz.ajile.Examples = new function()
    // Tests ajile's module member import feature; see scripts/com.iskitz.examples.0.9.js
    function testImportModule()
    {
-      // Test if showContents method has been imported.
-      var imported = "undefined" != typeof showContents;
+      // Test if showContents method has been imported and that it's ImportModule.showContents.
+      var imported =  ("undefined" != typeof showContents)
+                   && ("undefined" != typeof com.iskitz.ajile.examples.ImportModule)
+                   && (showContents == com.iskitz.ajile.examples.ImportModule.showContents)
+                   ;
 
-      if(imported)// Test if imported showContents is ImportModule.showContents.
-         if("undefined" != typeof com.iskitz.ajile.examples.ImportModule)
-            if(showContents == com.iskitz.ajile.examples.ImportModule.showContents)
-               imported = true;
-      
       if(imported) showContents();
 
       else alert( "ImportModule test was unsuccessful :-(\n\n Failed to "

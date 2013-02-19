@@ -2,7 +2,7 @@
  About   : ajile's Import Tests Suite module.
  Author  : Michael Lee (iskitz.com)
  Created : 2011.12.17 @ 11:34-08.00
- Updated : 2013.02.10 @ 21:25-08.00
+ Updated : 2013.02.18 @ 23:58-08.00
  */
 
 Namespace ("net.ajile.test");
@@ -24,7 +24,7 @@ Namespace ("net.ajile.test");
          expect (InMemory).not.toBeNull();
          expect (InMemory).not.toBeUndefined();
          expect (InMemory.works).toBe (true);
-         delete global.InMemory;
+         try { delete global.InMemory; } catch (e) { global.InMemory = undefined; }  //BUG: MSIE disallows deleting global members.
          Ajile.Unload ("net.ajile.test.Import.InMemory");
       });
    });

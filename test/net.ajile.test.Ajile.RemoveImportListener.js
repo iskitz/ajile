@@ -2,7 +2,7 @@
  About   : ajile's Ajile.RemoveImportListener Test Suite module.
  Author  : Michael Lee [iskitz.com]
  Created : 2011.12.17 @ 22:30-08.00
- Updated : 2013.02.10 @ 21:51-08.00
+ Updated : 2013.02.18 @ 23:13-08.00
  */
 
 Namespace ("net.ajile.test.Ajile");
@@ -16,13 +16,13 @@ Namespace ("net.ajile.test.Ajile");
    function describeTestSuite () {
       beforeEach ($prepareTest);
 
-      it ("is a method"                          , isAMethod);
-      it ('removes a generic listener'           , removesGenericListener);
-      it ('removes a global property listener'   , removesGlobalListener);
-      it ("removes an Import module's listener"  , removesImportListener);
-      it ("removes an ImportAs module's listener", removesImportAsListener);
-      it ("removes an Included module's listener", removesIncludedListener);
-      it ('removes a multi-item listener'        , removesMultiListener);
+      it ("is a method"                       , isAMethod);
+      it ('removes a generic listener'        , removesGenericListener);
+      it ('removes a global property listener', removesGlobalListener);
+      it ("removes an Import listener"        , removesImportListener);
+      it ("removes an ImportAs listener"      , removesImportAsListener);
+      it ("removes an Included listener"      , removesIncludedListener);
+      it ('removes a multi-item listener'     , removesMultiListener);
    }
 
 //.............................................................. Shared test variables and functions
@@ -98,7 +98,7 @@ Namespace ("net.ajile.test.Ajile");
          listener.notify = notifyListener;
          spyOn    (listener, "notify").andCallThrough();
          runs     (addAndNotifyListener);
-         waitsFor ($wasListenerNotified, "removes an Import module's listener", 500);
+         waitsFor ($wasListenerNotified, "removes an Import listener", 500);
          runs     (wasListenerRemoved);
       }
       function addAndNotifyListener () {
@@ -116,7 +116,7 @@ Namespace ("net.ajile.test.Ajile");
       }
       function wasListenerRemoved() {
          $wasListenerRemoved();
-         delete global["Imported"];
+         try { delete global.Imported; }catch (e) { global.Imported = undefined; } // BUG: MSIE disallows deleting global members.
          delete net.ajile.test.Ajile.RemoveImportListener.Imported;
       }
       $start();
@@ -130,7 +130,7 @@ Namespace ("net.ajile.test.Ajile");
          listener.notify = notifyListener;
          spyOn    (listener, "notify").andCallThrough();
          runs     (addAndNotifyListener);
-         waitsFor ($wasListenerNotified, "removes an ImportAs module's listener", 500);
+         waitsFor ($wasListenerNotified, "removes an ImportAs listener", 500);
          runs     (wasListenerRemoved);
       }
       function addAndNotifyListener () {
@@ -148,7 +148,7 @@ Namespace ("net.ajile.test.Ajile");
       }
       function wasListenerRemoved() {
          $wasListenerRemoved();
-         delete global["ImportedAs"];
+         try { delete global.ImportedAs; }catch (e) { global.ImportedAs = undefined; } // BUG: MSIE disallows deleting global members.
          delete net.ajile.test.Ajile.RemoveImportListener.Imported;
       }
       $start();
@@ -162,7 +162,7 @@ Namespace ("net.ajile.test.Ajile");
          listener.notify = notifyListener;
          spyOn    (listener, "notify").andCallThrough();
          runs     (addAndNotifyListener);
-         waitsFor ($wasListenerNotified, "removes an Included module's listener", 500);
+         waitsFor ($wasListenerNotified, "removes an Included listener", 500);
          runs     (wasListenerRemoved);
       }
       function addAndNotifyListener () {

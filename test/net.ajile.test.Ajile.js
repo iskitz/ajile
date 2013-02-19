@@ -2,7 +2,7 @@
  About   : ajile's core Tests Package.
  Author  : Michael Lee [iskitz.com]
  Created : 2011.12.17 @ 22:30-08.00
- Updated : 2013.02.10 @ 21:52-08.00
+ Updated : 2013.02.19 @ 00:02-08.00
  */
 
 Namespace ("net.ajile.test");
@@ -69,8 +69,8 @@ Include   ("net.ajile.test.Ajile.RemoveImportListener");
          expect (Ajile.GetVersion).toBeDefined();
          expect (Ajile.GetVersion).toEqual (jasmine.any (Function));
       });
-      it ("returns ajile's version: 1.9.3", function testAjileGetVersionWorks () {
-         expect (Ajile.GetVersion()).toEqual ("1.9.3");
+      it ("returns ajile's version: 1.9.8", function testAjileGetVersionWorks () {
+         expect (Ajile.GetVersion()).toEqual ("1.9.8");
       });
    });
 
@@ -97,7 +97,7 @@ Include   ("net.ajile.test.Ajile.RemoveImportListener");
       it ("unloads single-level namespaced modules", function testAjileUnloadSingleNS () {
          global.SingleLevelModule = {single: true};
          Ajile.Unload ("SingleLevelModule");
-         expect (global.SingleLevelModule).not.toBeDefined();
+         expect (global.SingleLevelModule).toBeUndefined();
       });
 
       it ("unloads multi-level namespaced modules", function testAjileUnloadNS () {
@@ -130,7 +130,7 @@ Include   ("net.ajile.test.Ajile.RemoveImportListener");
          };
 
          Ajile.Unload ();
-         expect (global.Ajile).not.toBeDefined();
+         expect (global.Ajile).toBeUndefined();
          expect (com.iskitz.ajile).not.toBeDefined();
 
          for (var property in safe) {      // Restore ajile's public API.

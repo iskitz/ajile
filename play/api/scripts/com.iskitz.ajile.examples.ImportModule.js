@@ -1,7 +1,7 @@
 // Author:      Michael Lee [ http:/ajile.net/ ]
 //
 // Created:     2006.07.30
-// Modified:    2012.11.17
+// Modified:    2013.02.19 @ 00.27-08.00
 //
 // Description: Example of how to define all of a namespace's members within a
 //              single container object for later import like:
@@ -17,13 +17,13 @@ com.iskitz.ajile.examples.ImportModule = new function ImportModule ()
 
    function $ImportModule()
    {
-      this.aNumber            = 1;
-      this.aString            = "member 5";
-      this.aFunction          = function(){ alert("member 1"); };
-      this.anArray            = ["member3"];
-      this.anObject           = { member:"member 2" };
-      this.aRegularExpression = (/member 6/);
-      this.showContents       = showContents;
+      THIS.aNumber            = 1;
+      THIS.aString            = "member 5";
+      THIS.aFunction          = function(){ alert("member 1"); };
+      THIS.anArray            = ["member3"];
+      THIS.anObject           = { member:"member 2" };
+      THIS.aRegularExpression = (/member 6/);
+      THIS.showContents       = showContents;
    }
   
    function showContents()
