@@ -2,7 +2,7 @@
  About   : ajile's Ajile.RemoveImportListener Test Suite module.
  Author  : Michael Lee [iskitz.com]
  Created : 2011.12.17 @ 22:30-08.00
- Updated : 2013.02.18 @ 23:13-08.00
+ Updated : 2013.02.21 @ 05:35-08.00
  */
 
 Namespace ("net.ajile.test.Ajile");
@@ -116,8 +116,8 @@ Namespace ("net.ajile.test.Ajile");
       }
       function wasListenerRemoved() {
          $wasListenerRemoved();
-         try { delete global.Imported; }catch (e) { global.Imported = undefined; } // BUG: MSIE disallows deleting global members.
-         delete net.ajile.test.Ajile.RemoveImportListener.Imported;
+         Ajile.Unload ("Imported");
+         Ajile.Unload ("net.ajile.test.Ajile.RemoveImportListener.Imported");
       }
       $start();
    }//end: removesImportListener()
@@ -148,8 +148,8 @@ Namespace ("net.ajile.test.Ajile");
       }
       function wasListenerRemoved() {
          $wasListenerRemoved();
-         try { delete global.ImportedAs; }catch (e) { global.ImportedAs = undefined; } // BUG: MSIE disallows deleting global members.
-         delete net.ajile.test.Ajile.RemoveImportListener.Imported;
+         Ajile.Unload ("ImportedAs");
+         Ajile.Unload ("net.ajile.test.Ajile.RemoveImportListener.Imported");
       }
       $start();
    }//end: removesImportAsListener()
@@ -180,7 +180,7 @@ Namespace ("net.ajile.test.Ajile");
       }
       function wasListenerRemoved() {
          $wasListenerRemoved();
-         delete (net.ajile.test.Ajile.RemoveImportListener.Included);
+         Ajile.Unload ("net.ajile.test.Ajile.RemoveImportListener.Included");
       }
       $start();
    }//end: removesIncludedListener()
@@ -215,7 +215,7 @@ Namespace ("net.ajile.test.Ajile");
       }
       function wasListenerRemoved() {
          $wasListenerRemoved();
-         delete (net.ajile.test.Ajile.RemoveImportListener.Included);
+         Ajile.Unload ("net.ajile.test.Ajile.RemoveImportListener.Included");
       }
       $start();
    }//end: removesMultiListener()

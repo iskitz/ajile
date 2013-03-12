@@ -1,11 +1,11 @@
 /**----------------------------------------------------------------------------+
 | Product:  ajile [com.iskitz.ajile]
-| @version  1.9.8
+| @version  1.9.9
 |+-----------------------------------------------------------------------------+
 | @author   Michael A. I. Lee [iskitz.com]
 |
 | Created:  Tuesday,   November   4, 2003    [2003.11.04]
-| Updated:  Tuesday,   February  19, 2013    [2013.02.19.01.14-08.00]
+| Updated:  Thursday,  February  21, 2013    [2013.02.21.00.07-08.00]
 |+-----------------------------------------------------------------------------+
 |
 | [ajile] - Advanced JavaScript Importing & Loading Extension is a JavaScript

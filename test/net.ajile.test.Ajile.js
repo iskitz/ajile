@@ -2,7 +2,7 @@
  About   : ajile's core Tests Package.
  Author  : Michael Lee [iskitz.com]
  Created : 2011.12.17 @ 22:30-08.00
- Updated : 2013.02.19 @ 00:02-08.00
+ Updated : 2013.02.21 @ 05:13-08.00
  */
 
 Namespace ("net.ajile.test");
@@ -69,8 +69,8 @@ Include   ("net.ajile.test.Ajile.RemoveImportListener");
          expect (Ajile.GetVersion).toBeDefined();
          expect (Ajile.GetVersion).toEqual (jasmine.any (Function));
       });
-      it ("returns ajile's version: 1.9.8", function testAjileGetVersionWorks () {
-         expect (Ajile.GetVersion()).toEqual ("1.9.8");
+      it ("returns ajile's version: 1.9.9", function testAjileGetVersionWorks () {
+         expect (Ajile.GetVersion()).toEqual ("1.9.9");
       });
    });
 
