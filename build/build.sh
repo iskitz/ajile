@@ -9,22 +9,22 @@
 # provides an API for namespace creation, module dependency management and
 # on-demand insertion of inline, local and remote scripts.
 #
-#           Copyright (c) 2003-2013 Michael A. I. Lee  [iskitz.com]
+#           Copyright (c) 2003-2013 Mike Lee  [iskitz.com]
 #
-# Created: 2013.02.02.14.43-08.00              Updated: 2013.02.06.04.21-08.00
+# Created: 2013.02.02.14.43-08.00              Updated: 2013.07.18.01.06-07.00
 #------------------------------------------------------------------------------#
 
 # TODO: Create pure JavaScript build script and use ajile to get it's own version.
 
 # NODE.JS?
-
-	if command -v node >/dev/null 2>&1; then
-		echo "ajile $1: building with node.js..."
-		node <tbd.js.builder> $@
-		exit 1
-	else
-		echo "ajile $1: node.js not available."
-	fi
+#
+#	if command -v node >/dev/null 2>&1; then
+#		echo "ajile $1: building with node.js..."
+#		node <tbd.js.builder> $@
+#		exit 1
+#	else
+#		echo "ajile $1: node.js not available."
+#	fi
 
 
 #  START:

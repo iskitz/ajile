@@ -1,11 +1,11 @@
 /**----------------------------------------------------------------------------+
 | Product:  ajile [com.iskitz.ajile]
-| @version  1.9.9
+| @version  2.1.7
 |+-----------------------------------------------------------------------------+
-| @author   Michael A. I. Lee [iskitz.com]
+| @author   Mike Lee [iskitz.com]
 |
 | Created:  Tuesday,   November   4, 2003    [2003.11.04]
-| Updated:  Thursday,  February  21, 2013    [2013.02.21.00.07-08.00]
+| Updated:  Saturday,  June      21, 2013    [2013.06.21.05.15-07.00]
 |+-----------------------------------------------------------------------------+
 |
 | [ajile] - Advanced JavaScript Importing & Loading Extension is a JavaScript
@@ -16,7 +16,7 @@
 |
 |                  "Smart scripts that play nice!"
 |
-|           Copyright (c) 2003-2013 Michael A. I. Lee, iSkitz.com
+|           Copyright (c) 2003-2013 Mike Lee, iSkitz.com
 |
 |+-----------------------------------------------------------------------------+
 |
@@ -35,12 +35,12 @@
 |
 | The Original Code is ajile.
 |
-| The Initial Developer of the Original Code is Michael A. I. Lee
+| The Initial Developer of the Original Code is Mike Lee
 |
 | Portions created by the Initial Developer are Copyright (C) 2003-2013
 | the Initial Developer. All Rights Reserved.
 |
-| Contributor(s): Michael A. I. Lee [ http://ajile.net/ ]
+| Contributor(s): Mike Lee [ http://ajile.net/ ]
 |
 | Alternatively, the contents of this file may be used under the terms of
 | either the GNU General Public License Version 2 or later (the "GPL"), or

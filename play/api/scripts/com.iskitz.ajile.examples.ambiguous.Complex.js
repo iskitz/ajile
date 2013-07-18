@@ -1,7 +1,7 @@
 
 Import ("com.iskitz.ajile.examples.Simple");
 
-Ajile.AddImportListener ("Simple", function onSimple (name) {
+Ajile.AddImportListener ("Simple", function /*onSimple*/ (name) {    //BUG:MSIE4-: Named Function Expression becomes global.
 
     Namespace ("com.iskitz.ajile.examples.ambiguous");
 

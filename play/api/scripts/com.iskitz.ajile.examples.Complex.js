@@ -1,7 +1,7 @@
 
 Import ("com.iskitz.ajile.examples.Simple");
 
-Ajile.AddImportListener ("Simple", function onSimple (name) {
+Ajile.AddImportListener ("Simple", function /*onSimple*/ (name) {  //BUG:MSIE4-: Named Function Expessions become global.
 
    com.iskitz.ajile.examples.Complex = function Complex ()
    {

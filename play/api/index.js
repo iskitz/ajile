@@ -1,54 +1,53 @@
 /**----------------------------------------------------------------------------+
-| Product:  api/index.js - ajile's API Examples Module.                        |
+| Product:  api/index.js - ajile's API Examples Page Loader Module.                        |
 |+-----------------------------------------------------------------------------+
 | Author:   Michael Lee [ http://ajile.net/ ]
 |
 | Created:  Friday,    November   2, 2006    [2006.06.02.19:44-04.00]
-| Modified: Tuesday,   February  19, 2013    [2013.02.19.00:35-08.00]
+| Modified: Sunday,    June      16, 2013    [2013.06.16.14:54-07.00]
 |+-----------------------------------------------------------------------------+
 |
 |   [ ajile :: http://ajile.net/ :: "Smart scripts that play nice!" ]
 | 
-| This module is a functional example of ajile's Model View Controller (MVC)
-* support feature. This Examples.js module actually supports the Examples.htm
-* page's functinality. If you take the time to look, you'll see that there is no
-* JavaScript code within the api/index.htm page except for ajile's script tag:
-| 
+| This module is a functional example of ajile's Page Launcher feature. This
+| Examples.js module actually supports the Examples.htm page's functionality. If
+| you take the time to look, you'll see that there is no JavaScript code within
+| the api/index.htm page besides ajile's script tag:
+|
 |  <script type="text/javascript" src="path/to/com.iskitz.ajile.js"></script>
 |
-* ajile's MVC support makes it possible to completely separate a page's
+| ajile's Page Loader feature makes it possible to completely separate a page's
 | presentation [(X)HTML] and behavioral (JavaScript) layers by creating a
-* single point of control for scripting.
+| single point of control for scripting.
 |
-| To begin using ajile's MVC support, simply create a .js file with the exact
+| To begin using ajile's Page Loaders, simply create a .js file with the exact
 | name of your (X)HTML, JSP, ASP, PHP, XML, or other page. Then, add the
-| ajile SCRIPT tag shown above to your page.
+| ajile SCRIPT tag shown above to that page.
 |
 | NOTE: Be sure to update ajile's path to point to your copy! ;-)
 |
-| Your custom controller script (i.e. MyPage.js for MyPage.htm) can contain any
-* JavaScript functionality, page related or not. ajile will automatically load
-* this script whenever your page is requested. It will now be treated as your
-* page's controller module.
+| Your page loader (i.e. MyPage.js for MyPage.htm) can contain any JavaScript
+| code, page-related or not. ajile will automatically load that script whenever
+| your page is launched. It will now be treated as your page's loader.
 |
 | If your page will be accessed as a default page (no filename specified), i.e:
 |
 |  http://ajile.net/   loads    http://ajile.net/index.htm
 |
 | ajile will automatically load the index.js module from your page's directory.
-* This is typically the file you should consider usinsg to define implement your
-* GUI control logic.
-* 
-* NOTE: If for example you're using IIS configured such that:
+| This is typically the file you should consider using to implement your GUI
+| control logic.
+| 
+| NOTE: If for example you're using IIS configured such that:
 |
 |  http://ajile.net/   loads    http://ajile.net/default.htm
 |
-| There are 2 choices to guarantee ajile's MVC functionality:
-* 
-* 1: Name your controller module "index.js".
-* 
-* 2: Copy the index.js file and rename it to your server's default page
-*    (i.e. IIS uses default.htm so rename your index.js copy to default.js)
+| There are 2 choices to guarantee ajile's Page Loader functionality:
+| 
+| 1: Name your page loader "index.js".
+| 
+| 2: Or copy your index.js file and rename it to your server's default page
+|    (i.e. IIS uses default.htm so rename your copied index.js to default.js)
 |+----------------------------------------------------------------------------*/
 
 // Runtime option setting examples:
@@ -88,36 +87,11 @@ com.iskitz.ajile.Examples = new function()
                 , "Namespace"      :testNamespace
                 };
 
-      // Add listener to observe any import/include events.
-      Ajile.AddImportListener(isPageReady);
-
-      if(typeof document.parentNode != "undefined")
-      {  // Include and use Alex Gorbatchev's Syntax Highlighter if this host
-         // environment supports parentNode. parentNode is the most advanced DOM
-         // property used by Syntax Highlighter, so let's only include the
-         // library if the environment supports it.
-
-         Include ("dp.sh.Brushes.JScript.1.5.1", "../../use/syntax.highlight/");
-
-         // Let's add an an include listener so we know when it's ready
-         Ajile.AddImportListener("dp.sh.Brushes.JScript", function(moduleName)
-         {  
-            Ajile.RemoveImportListener(moduleName, arguments.callee);
-
-            var code   =  document.getElementsByTagName("pre");
-            var isDOM2 =  undefined != typeof document.firstChild
-                       && undefined != typeof document.firstChild.setAttribute;
-
-            for(var i=code.length; --i >=0;)
-               (( isDOM2 && code[i].setAttribute("name", "code"))
-               || (code[i].name = "code"));
-
-            dp.sh.HighlightAll("code");
-         });
-      }
+      Ajile.AddImportListener (isPageReady);   // Listen for all import/include events.
+      loadSyntaxHighlighter();
    }
-   
-   
+
+
    // Ends use of this API Examples page module by unloading all resources it
    // created and /or acquired since we began using it.
    function $end()
@@ -171,7 +145,34 @@ com.iskitz.ajile.Examples = new function()
       isPageReady = true;
       initialize();
    }
-   
+
+   function loadSyntaxHighlighter () {
+      // Include and use Alex Gorbatchev's Syntax Highlighter if this host
+      // environment supports parentNode. parentNode is the most advanced DOM
+      // property used by Syntax Highlighter, so let's only include the
+      // library if the environment supports it.
+
+      if (typeof document.parentNode == "undefined") return;
+
+      Include ("dp.sh.Brushes.JScript.1.5.1", "../../use/syntax.highlight/");
+
+      var doSyntaxHighlighting = function doSyntaxHighlighting (moduleName) {
+         Ajile.RemoveImportListener (moduleName, arguments.callee);
+
+         var code   =  document.getElementsByTagName("pre");
+         var isDOM2 =  undefined != typeof document.firstChild
+                    && undefined != typeof document.firstChild.setAttribute
+                    ;
+          for (var i=code.length; --i >=0;) {
+              isDOM2 ? code[i].setAttribute("name", "code") : (code[i].name = "code");
+          }
+
+          dp.sh.HighlightAll("code");
+      };
+
+      // Let's add a listener so we know when it's ready:
+      Ajile.AddImportListener ("dp.sh.Brushes.JScript", doSyntaxHighlighting);
+   }
 
    function run(example)
    {
@@ -180,7 +181,6 @@ com.iskitz.ajile.Examples = new function()
       var runExample = linkMap[example];
       if (runExample)  runExample();
    }
-
 
    // Tests ajile's dependency enforcement feature; see com.iskitz.examples.0.9.js
    function testDependence()

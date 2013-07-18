@@ -1,7 +1,7 @@
 // Author:      Michael Lee [ http:/ajile.net/ ]
 //
 // Created:     2006.07.30
-// Modified:    2013.02.19 @ 00.27-08.00
+// Modified:    2013.06.10.01.52-07.00
 //
 // Description: Example of how to define all of a namespace's members within a
 //              single container object for later import like:
@@ -11,7 +11,7 @@
 Namespace ("com.iskitz.ajile.examples.ImportModule");
 
 
-com.iskitz.ajile.examples.ImportModule = new function ImportModule ()
+com.iskitz.ajile.examples.ImportModule = new function /*ImportModule*/ ()  //BUG: MSIE8-: Named Function Expressions are globals.
 {
    var THIS = this;
 
