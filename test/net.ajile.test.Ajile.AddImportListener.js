@@ -47,7 +47,7 @@ Namespace ("net.ajile.test.Ajile");
    function $notifyListener ($listener) {
       listener.item = $listener.item;
       listener.name && expect ($listener.name).toBe (listener.name);
-      expect ($listener.item).toBeDefined();
+      expect ($listener.item).toBeDefined();                           // BUG: Why is this failing?!
    }
    function $wasListenerNotified () {
       return listener.notify.calls.length > 0;
@@ -240,6 +240,28 @@ Namespace ("net.ajile.test.Ajile");
       }
       $start();
    }//end: notifiesMultiListener()
+
+
+   function notifiesWildcardListener () {
+      function $start () {
+         listener.name   = "net.ajile.test.Ajile.AddImportListener.Wildcard.*";
+         listener.notify = $notifyListener;
+         spyOn    (listener, "notify").andCallThrough();
+         runs     (addAndNotifyListener);
+         waitsFor ($wasListenerNotified, "adds and notifies a wildcard listener", 500);
+         runs     (wasListenerAdded);
+      }
+      function addAndNotifyListener () {
+         Ajile.AddImportListener (listener.name, listener.notify);   // Add multi-item listener.
+         net.ajile.test.Ajile.AddImportListener.Wildcard = {wildcard:true};
+         Include (listener.name);                                    // Include & notify listener.
+      }
+      function wasListenerAdded() {
+         $wasListenerAdded(0);
+         expect (global["wildcard"]).not.toBeDefined();
+      }
+      $start();
+   }//end: notifiesWildcardListener()
 
    $start();
 
