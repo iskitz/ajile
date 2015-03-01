@@ -9,9 +9,9 @@
 # provides an API for namespace creation, module dependency management and
 # on-demand insertion of inline, local and remote scripts.
 #
-#           Copyright (c) 2003-2013 Mike Lee  [iskitz.com]
+#           Copyright (c) 2003-2015 Mike Lee  [iskitz.com]
 #
-# Created: 2013.02.02.14.43-08.00              Updated: 2013.07.18.01.06-07.00
+# Created: 2013.02.02.14.43-08.00              Updated: 2015.02.28.20.47-08.00
 #------------------------------------------------------------------------------#
 
 # TODO: Create pure JavaScript build script and use ajile to get it's own version.
@@ -52,7 +52,7 @@
 	cp -r ../../use/jasmine ./use/.
 	cp -r ../../use/syntax* ./use/.
 	cp ./code/* ./use/.
-	mv ./use/com.iskitz.ajile.src.js ./use/com.iskitz.ajile.$1.src.js
+	cp ./use/com.iskitz.ajile.src.js ./use/com.iskitz.ajile.$1.src.js
 	rm -rf **/.git
 	rm -rf **/.DS_Store
 	cp ../../build/stage/index.htm .
