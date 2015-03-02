@@ -1,11 +1,11 @@
 /**----------------------------------------------------------------------------+
 | Product:  ajile [com.iskitz.ajile]
-| @version  2.1.7
+| @version  2015.03.01
 |+-----------------------------------------------------------------------------+
-| @author   Mike Lee [iskitz.com]
+| @author   Mike Lee [iskitz.com + @iskitz]
 |
 | Created:  Tuesday,   November   4, 2003    [2003.11.04]
-| Updated:  Saturday,  June      21, 2013    [2013.06.21.05.15-07.00]
+| Updated:  Sunday,    March      1, 2015    [2015.03.01-08.00]
 |+-----------------------------------------------------------------------------+
 |
 | [ajile] - Advanced JavaScript Importing & Loading Extension is a JavaScript
@@ -16,7 +16,7 @@
 |
 |                  "Smart scripts that play nice!"
 |
-|           Copyright (c) 2003-2013 Mike Lee, iSkitz.com
+|           Copyright (c) 2003-2015 Mike Lee, iSkitz.com
 |
 |+-----------------------------------------------------------------------------+
 |
@@ -37,7 +37,7 @@
 |
 | The Initial Developer of the Original Code is Mike Lee [iskitz.com]
 |
-| Portions created by the Initial Developer are Copyright (C) 2003-2013
+| Portions created by the Initial Developer are Copyright (C) 2003-2015
 | the Initial Developer. All Rights Reserved.
 |
 | Contributor(s): Mike Lee [iskitz.com]
@@ -100,13 +100,13 @@
                    , '-', '\x2f', '.'
                    ];
 
-   var RE_OPT_CLOAK        = (   /(cloakoff|cloak)/)
-     , RE_OPT_DEBUG        = (   /(debugoff|debug)/)
-     , RE_OPT_LEGACY       = (  /(legacyoff|legacy)/)
-     , RE_OPT_MVC          = (     /(mvcoff|mvc)/)
-     , RE_OPT_MVC_SHARE    = (/(mvcshareoff|mvcshare)/)
-     , RE_OPT_OVERRIDE     = (/(overrideoff|override)/)
-     , RE_OPT_REFRESH      = ( /(refreshoff|refresh)/)
+   var RE_OPT_CLOAK        = (   /cloakoff|cloak/)
+     , RE_OPT_DEBUG        = (   /debugoff|debug/)
+     , RE_OPT_LEGACY       = (  /legacyoff|legacy/)
+     , RE_OPT_MVC          = (     /mvcoff|mvc/)
+     , RE_OPT_MVC_SHARE    = (/mvcshareoff|mvcshare/)
+     , RE_OPT_OVERRIDE     = (/overrideoff|override/)
+     , RE_OPT_REFRESH      = ( /refreshoff|refresh/)
      , RE_PARENT_DIR       = (/(.*\/)[^\/]+/)
      , RE_PARENT_NAMESPACE = (/(.*)\.[^\.]+/)
      , RE_RELATIVE_DIR     = (/(\/\.\/)|(\/[^\/]*\/\.\.\/)/)
@@ -1398,25 +1398,25 @@ paths:for(var path in paths)
       var option;
 
       if((option = RE_OPT_CLOAK.exec(path)))
-         CLOAK = option[1] == "cloak";
+         CLOAK = option == "cloak";
 
       if((option = RE_OPT_DEBUG.exec(path)))
-         DEBUG = option[1] == "debug";
+         DEBUG = option == "debug";
 
       if((option = RE_OPT_LEGACY.exec(path)))
-         SetLegacy(option[1] == "legacy");
+         SetLegacy(option == "legacy");
 
       if((option = RE_OPT_MVC.exec(path)))
-         MVC = option[1] == "mvc";
+         MVC = option == "mvc";
 
       if((option = RE_OPT_MVC_SHARE.exec(path)))
-         MVC_SHARE = option[1] == "mvcshare";
+         MVC_SHARE = option == "mvcshare";
 
       if((option = RE_OPT_OVERRIDE.exec(path)))
-         OVERRIDE = option[1] == "override";
+         OVERRIDE = option == "override";
 
       if((option = RE_OPT_REFRESH.exec(path)))
-         REFRESH = option[1] == "refresh";
+         REFRESH = option == "refresh";
    }
 
 
@@ -1608,14 +1608,14 @@ paths:for(var path in paths)
       function toString()
       {
          return "NamespaceInfo"
-            + "\r\n[ fullName: "  + this.fullName
+            + "\r\n{ fullName: "  + this.fullName
             + "\r\n, shortName: " + this.shortName
             + "\r\n, version: "   + this.version
             + "\r\n, notation: "  + this.notation
             + "\r\n, options: "   + this.options
             + "\r\n, path: "      + this.path
             + "\r\n, uri: "       + this.uri
-            + "\r\n]";
+            + "\r\n}";
       }
 
       function update(path, notation, fullName, shortName, version, extension, options)
@@ -2069,4 +2069,4 @@ paths:for(var path in paths)
      , usage             =  new SimpleSet();
 
    $create();
-})("2.1.7", this);
+})("2015.03", this);
