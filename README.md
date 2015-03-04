@@ -28,23 +28,32 @@ __ajile__ is compatible with the following specifications and web browsers:
 
 ### Desktop Browsers
 
-+ Camino 1.0.1+
-+ Chrome
-+ Firefox 0.7+ , Mozilla Firebird 0.6+, Mozilla Phoenix 0.1+
-+ iCab 3.0.3+
-+ Internet Explorer 4.01+
-+ Mozilla 0.9.1+
-+ Netscape 6+
-+ OmniWeb 5.6+
-+ Opera 5+
-+ Safari 1.2+
-+ SeaMonkey 1.0+
-+ Shiira 1.2.2+
-+ Sunrise 0.89+
++ [Gecko](https://en.wikipedia.org/wiki/Gecko_(software))
+  + Camino 1.0.1+
+  + Firebird 0.6+
+  + Firefox 0.7+
+  + Mozilla 0.9.1+
+  + Netscape 6+
+  + Phoenix 0.1+
+  + SeaMonkey 1.0+
++ [WebKit](https://en.wikipedia.org/wiki/WebKit)
+  + Chrome
+  + OmniWeb 5.6+
+  + Safari 1.2+
+  + Shiira 1.2.2+
+  + Sunrise 0.89+
++ Other
+  + iCab 3.0.3+
+  + Internet Explorer 4.01+
+  + Opera 5+
 
 ### Mobile Browsers
 
 + Blazer 3.0 on Treo 600
++ Chrome
++ Dolphin
++ Firefox
++ Mercury
 + Opera Mini 2.0+
 + Safari
 
