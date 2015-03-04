@@ -3,7 +3,8 @@
 **A**synchronous **J**avaScript **I**mporting & **L**oading **E**xtension enables namespace creation and on-demand script loading in browser-based JavaScript environments.
 
 + [Release History](https://github.com/iskitz/ajile/wiki/Release-History)
-+ [Usage & More...](https://github.com/iskitz/ajile/wiki)
++ [Usage](https://github.com/iskitz/ajile/wiki/Using-ajile)
++ [More...](https://github.com/iskitz/ajile/wiki)
 
 
 ## Features
