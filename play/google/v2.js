@@ -13,7 +13,7 @@
 |
 |                    "Smart scripts that play nice!"
 |
-|           Copyright (c) 2003-2013 Michael Lee, iSkitz.com
+|           Copyright (c) 2003-2015 Michael Lee, iSkitz.com
 |
 |+----------------------------------------------------------------------------*/
 

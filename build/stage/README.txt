@@ -5,7 +5,7 @@
 | provides an API for namespace creation, module dependency management and
 | on-demand insertion of inline, local and remote scripts.
 |
-|           Copyright (c) 2003-2013 Mike Lee  [iskitz.com]
+|           Copyright (c) 2003-2015 Mike Lee  [iskitz.com]
 |
 | Created: 2003.11.04                          Updated: 2013.02.21.00.07-08.00
 +-----------------------------------------------------------------------------*/

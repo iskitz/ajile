@@ -16,7 +16,7 @@
 |
 |                  "Smart scripts that play nice!"
 |
-|           Copyright (c) 2003-2013 Mike Lee, iSkitz.com
+|           Copyright (c) 2003-2015 Mike Lee, iSkitz.com
 |
 |+-----------------------------------------------------------------------------+
 |
@@ -37,7 +37,7 @@
 |
 | The Initial Developer of the Original Code is Mike Lee
 |
-| Portions created by the Initial Developer are Copyright (C) 2003-2013
+| Portions created by the Initial Developer are Copyright (C) 2003-2015
 | the Initial Developer. All Rights Reserved.
 |
 | Contributor(s): Mike Lee [ http://ajile.net/ ]
