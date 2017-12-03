@@ -1,11 +1,11 @@
 /**----------------------------------------------------------------------------+
 | Product:  ajile [com.iskitz.ajile]
-| @version  2015.03.01
+| @version  2017.12.02
 |+-----------------------------------------------------------------------------+
 | @author   Mike Lee [iskitz.com + @iskitz]
 |
-| Created:  Tuesday,   November   4, 2003    [2003.11.04]
-| Updated:  Sunday,    March      1, 2015    [2015.03.01-08.00]
+| Created:  Tuesday,   November   4, 2003    [2003.11.04-05.00]
+| Updated:  Saturday,  December   2, 2017    [2017.12.02-08.00]
 |+-----------------------------------------------------------------------------+
 |
 | [ajile] - Advanced JavaScript Importing & Loading Extension is a JavaScript
@@ -189,25 +189,22 @@
 
       var notified = [];
 
-      switch (true) {
-         case !listener || !isFunction (listener):
-            if (!isFunction (moduleName)) {
-               return false;
-            }
-            listener   = moduleName;
-            moduleName = undefined;
-            break;
-
-         case !!moduleName && !isString (moduleName):
-            if (!isArray (moduleName) || !isFunction (listener)) {
-               return false;
-            }
-            notifyOriginal = listener;                                      // API: ajile 1.6.1...1.7.3
-            listener = AddImportListener$handleGroup (moduleName, listener, notified);
-            for (var i=0, j=moduleName.length; i < j; i++)
-               AddImportListener (moduleName[i], listener, notifyOriginal); // API: ajile 1.6.1...1.7.3
-            return true;
-      }
+      if (!listener || !isFunction (listener))
+         { if (!isFunction (moduleName)) return false
+         ; listener   = moduleName
+         ; moduleName = undefined
+         }
+         
+      else
+       
+      if (!!moduleName && !isString (moduleName))
+         { if (!isArray (moduleName) || !isFunction (listener)) return false
+         ; notifyOriginal = listener                                      // API: ajile 1.6.1...1.7.3
+         ; listener = AddImportListener$handleGroup (moduleName, listener, notified)
+         ; for (var i=0, j=moduleName.length; i < j; i++)
+              AddImportListener (moduleName[i], listener, notifyOriginal) // API: ajile 1.6.1...1.7.3
+         ; return true
+         }
 
       if (moduleName == INTERNAL && this == global[ALIAS])
          return false;
@@ -216,23 +213,26 @@
 
       var item
         , listeners = importListeners.get (moduleName)
+        ; listener  = {notify:listener, notified:notified}
         ;
-      listener = {notify:listener, notified:notified};
-
+        
       notifyOriginal && (listener.notifyOriginal = notifyOriginal);         // API: ajile 1.6.1...1.7.3
       !listeners && (listeners = new SimpleSet()) && importListeners.add (moduleName, listeners);
       listeners.add (Math.random(), listener);
 
-      if (moduleName) {
-         item = GetModule (moduleName);
-         item && notifyOne (moduleName, item, listener.notify, notified);
-      }
-      else if (!moduleName && processed.getSize() > 0)
+      if (moduleName)
+         { item = GetModule (moduleName)
+         ; item && notifyOne (moduleName, item, listener.notify, notified)
+         }
+      
+      else
+      
+      if (!moduleName && processed.getSize() > 0)
          for (var importee in processed.getAll())
-            if ("undefined" == typeof Object.prototype[importee]) {
-               item = GetModule (importee);
-               item && notifyOne (importee, item, listener.notify, notified);
-            }
+            if ("undefined" == typeof Object.prototype[importee])
+               { item = GetModule (importee)
+               ; item && notifyOne (importee, item, listener.notify, notified)
+               }
 
       moduleName && (moduleName != INTERNAL) && (new ImportThread (moduleName)).start();
       return true;
@@ -1130,31 +1130,29 @@ paths:for(var path in paths)
 
       function $ImportThread ()
       {
-         maxCheckCount = maxCheckCount || 500;
+         maxCheckCount = maxCheckCount || 3750;
          THIS.start    = start;
          THIS.stop     = stop;
          return THIS;
       }
 
-      function run()
+      function run ()
       {
-         switch (true)
-         {
-            case (++timesChecked >= maxCheckCount):
-               stop();
-               DEBUG && log ("ImportThread :: "+ fullName +"...TIMEDOUT");
-               return false;
+         if (++timesChecked >= maxCheckCount)
+            { stop()
+            ; DEBUG && log ("ImportThread :: "+ fullName +"...TIMEDOUT")
+            ; return false
+            }
 
-            case (!!GetModule (fullName) && isSupported (fullName)):
-               stop();
-               DEBUG && log ("ImportThread :: "+ fullName +"...SUCCESS");
-               handleImports (fullName);
-               return true;
+         if (!!GetModule (fullName) && isSupported (fullName))
+            { stop()
+            ; DEBUG && log ("ImportThread :: "+ fullName +"...SUCCESS")
+            ; handleImports (fullName)
+            ; return true
+            }
 
-            default:
-               isDOM05 ? (threadID = setTimeout (run, 15.625)) : stop();
-               return false;
-         }
+         isDOM05 ? (threadID = setTimeout (run, 15.625)) : stop();
+         return false;
       }
 
       function start()
@@ -1386,37 +1384,38 @@ paths:for(var path in paths)
    }
 
 
-   function loadOptions(path)
+   function loadOptions (path)
    {
-      if(!path || !isString(path)) return;
+      if (!path || !isString (path)) return;
 
-      var iQuery = path.lastIndexOf("?") + 1;
-            path = path.substring(iQuery).toLowerCase();
+      var iQuery = path.lastIndexOf ("?") + 1
+        ;   path = path.substring (iQuery).toLowerCase()
+        ;
 
-      if(path.length == 0) return;
+      if (!path.length) return;
 
       var option;
 
-      if((option = RE_OPT_CLOAK.exec(path)))
-         CLOAK = option == "cloak";
+      (option = RE_OPT_CLOAK.exec (path))
+         && (CLOAK = option == "cloak");
 
-      if((option = RE_OPT_DEBUG.exec(path)))
-         DEBUG = option == "debug";
+      (option = RE_OPT_DEBUG.exec (path))
+         && (DEBUG = option == "debug");
 
-      if((option = RE_OPT_LEGACY.exec(path)))
-         SetLegacy(option == "legacy");
+      (option = RE_OPT_LEGACY.exec (path))
+         && SetLegacy (option == "legacy");
 
-      if((option = RE_OPT_MVC.exec(path)))
-         MVC = option == "mvc";
+      (option = RE_OPT_MVC.exec (path))
+         && (MVC = option == "mvc");
 
-      if((option = RE_OPT_MVC_SHARE.exec(path)))
-         MVC_SHARE = option == "mvcshare";
+      (option = RE_OPT_MVC_SHARE.exec (path))
+         && (MVC_SHARE = option == "mvcshare");
 
-      if((option = RE_OPT_OVERRIDE.exec(path)))
-         OVERRIDE = option == "override";
+      (option = RE_OPT_OVERRIDE.exec (path))
+         && (OVERRIDE = option == "override");
 
-      if((option = RE_OPT_REFRESH.exec(path)))
-         REFRESH = option == "refresh";
+      (option = RE_OPT_REFRESH.exec (path))
+         && (REFRESH = option == "refresh");
    }
 
 
@@ -1760,25 +1759,28 @@ paths:for(var path in paths)
 
       var wasRemoved = false;
 
-      switch (true) {
-         case !listener || !isFunction (listener):
-            if (!isFunction (moduleName)) return false;
-            listener   = moduleName;
-            moduleName = GENERIC;
-            break;
+      if (!listener || !isFunction (listener))
+         { if (!isFunction (moduleName)) return false
+         ; listener   = moduleName
+         ; moduleName = GENERIC
+         }
 
-         case !!moduleName && !isString (moduleName):
-            if ("object" == typeof moduleName && moduleName.name != undefined) {// API: ajile 1.7.3-
-               listener   = moduleName.notify;
-               moduleName = moduleName.name;
-               break;
-            }
-            if (!isArray (moduleName)) return false;                            // API: ajile 1.6.1+
-            wasRemoved = true;
-            for (var m=0, ml=moduleName.length; m < ml; m++)
-               wasRemoved = wasRemoved && RemoveImportListener (moduleName[m], listener);
-            return wasRemoved;
-      }
+      else
+
+      if (!!moduleName && !isString (moduleName))
+         { if ("object" == typeof moduleName && moduleName.name != undefined)  // API: ajile 1.7.3-
+              { listener   = moduleName.notify
+              ; moduleName = moduleName.name
+              }
+              
+           if (!isArray (moduleName)) return false;                            // API: ajile 1.6.1+
+           wasRemoved = true;
+         
+           for (var m=0, ml=moduleName.length; m < ml; m++)
+              wasRemoved = wasRemoved && RemoveImportListener (moduleName[m], listener);
+
+           return wasRemoved
+         }
 
       var listenerList =
       [   importListeners.get (GENERIC)
@@ -1878,25 +1880,21 @@ paths:for(var path in paths)
    }
 
 
-   function SetOption(optionName, isOnOrOff)
+   function SetOption (optionName, isOnOrOff)
    {
       ensureFailSafe();
 
-      if(!optionName || !isString(optionName)) return;
+      if (!optionName || !isString (optionName)) return;
 
       isOnOrOff  = isOnOrOff == undefined ? true : isOnOrOff;
       optionName = optionName.toLowerCase();
 
-      switch(optionName)
-      {
-         case    "cloak": CLOAK    = isOnOrOff; break;
-         case    "debug": DEBUG    = isOnOrOff; break;
-         case   "legacy": SetLegacy (isOnOrOff);break;
-         case "override": OVERRIDE = isOnOrOff; break;
-         case  "refresh": REFRESH  = isOnOrOff; break;
-
-         default: break;
-      }
+      ; optionName ==    "cloak"  ? (CLOAK    = isOnOrOff)
+      : optionName ==    "debug"  ? (DEBUG    = isOnOrOff)
+      : optionName ==   "legacy"  ?  SetLegacy (isOnOrOff)
+      : optionName == "override"  ? (OVERRIDE = isOnOrOff)
+      : optionName ==  "refresh" && (REFRESH  = isOnOrOff)
+      ;
    }
 
 
@@ -2066,7 +2064,8 @@ paths:for(var path in paths)
                             }
      , pendingImports    =  new SimpleSet()
      , processed         =  new SimpleSet()
-     , usage             =  new SimpleSet();
+     , usage             =  new SimpleSet()
+     ;
 
    $create();
-})("2015.03", this);
+})("2017.12", this);
