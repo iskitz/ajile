@@ -4,8 +4,8 @@
 |+-----------------------------------------------------------------------------+
 | @author   Mike Lee [iskitz.com]
 |
-| Created:  Tuesday,   November   4, 2003    [2003.11.04]
-| Updated:  Saturday,  June      21, 2013    [2013.06.21.05.15-07.00]
+| Created:  Tuesday,   November   4, 2003    [2003.11.04-05.00]
+| Updated:  Sunday,    December   3, 2017    [2017.12.03.04.24-08.00]
 |+-----------------------------------------------------------------------------+
 |
 | [ajile] - Advanced JavaScript Importing & Loading Extension is a JavaScript
@@ -16,7 +16,7 @@
 |
 |                  "Smart scripts that play nice!"
 |
-|           Copyright (c) 2003-2015 Mike Lee, iSkitz.com
+|           Copyright (c) 2003-2017 Mike Lee, iSkitz.com
 |
 |+-----------------------------------------------------------------------------+
 |
@@ -37,7 +37,7 @@
 |
 | The Initial Developer of the Original Code is Mike Lee
 |
-| Portions created by the Initial Developer are Copyright (C) 2003-2015
+| Portions created by the Initial Developer are Copyright (C) 2003-2017
 | the Initial Developer. All Rights Reserved.
 |
 | Contributor(s): Mike Lee [ http://ajile.net/ ]
