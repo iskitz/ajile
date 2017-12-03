@@ -1138,17 +1138,17 @@ paths:for(var path in paths)
 
       function run ()
       {
-         if (++timesChecked >= maxCheckCount)
-            { stop()
-            ; DEBUG && log ("ImportThread :: "+ fullName +"...TIMEDOUT")
-            ; return false
-            }
-
          if (!!GetModule (fullName) && isSupported (fullName))
             { stop()
             ; DEBUG && log ("ImportThread :: "+ fullName +"...SUCCESS")
             ; handleImports (fullName)
             ; return true
+            }
+
+         if (++timesChecked >= maxCheckCount)
+            { stop()
+            ; DEBUG && log ("ImportThread :: "+ fullName +"...TIMEDOUT")
+            ; return false
             }
 
          isDOM05 ? (threadID = setTimeout (run, 15.625)) : stop();
