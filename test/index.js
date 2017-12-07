@@ -2,9 +2,9 @@
  About   : Launch script for ajile's Jasmine Tests.
  Author  : Michael Lee [iskitz.com]
  Created : 2011.12.17 @ 22:15-08.00
- Updated : 2013.02.19 @ 00:35-08.00
+ Updated : 2017.12.03 @ 20:41-08.00
  */
-(function (global, use, on, off, undefined) {
+(function (global, use, on, no, undefined) {
 
    function $start() {
       Include ("jasmine", "../use/jasmine/");
@@ -14,7 +14,7 @@
    function jasmineCoreLoaded (listener) {
       //jasmine.VERBOSE = true;
 
-      off (listener.name, listener.notify);
+      no  (listener.name, listener.notify);
       use ("../use/jasmine/jasmine-html.js");
 
       Ajile.nextInline = function includeJasmineHTML() {
@@ -32,7 +32,7 @@
    }
 
    function jasmineHTMLLoaded (listener) {
-      off     (listener.name, listener.notify);
+      no      (listener.name, listener.notify);
       Include ("net.ajile.test.*", "./");
 
       on ([ "net.ajile.test.Ajile.AddImportListener"  //TODO: on ("net.ajile.test.*", jasmineReady);
@@ -46,7 +46,7 @@
    }
 
    function jasmineReady (listener) {
-      off (listener.name, listener.notify);
+      no  (listener.name, listener.notify);
 
       var jasmineEnv = jasmine && jasmine.getEnv();
       jasmineEnv.updateInterval = 1000;
@@ -59,7 +59,7 @@
       };
 
       function documentReady (listener) {
-        off (listener.name, listener.notify);
+        no  (listener.name, listener.notify);
         jasmineEnv.execute();
         setTimeout (showAllResults, 1500);
       }
