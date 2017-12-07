@@ -1,11 +1,11 @@
 /**----------------------------------------------------------------------------+
 | Product:  ajile [com.iskitz.ajile]
-| @version  2017.12.02
+| @version  2017.12.06
 |+-----------------------------------------------------------------------------+
 | @author   Mike Lee [iskitz.com + @iskitz]
 |
-| Created:  Tuesday,   November   4, 2003    [2003.11.04-05.00]
-| Updated:  Saturday,  December   2, 2017    [2017.12.02-08.00]
+| Created:  Tuesday  , November   4, 2003    [2003.11.04-05.00]
+| Updated:  Wednesday, December   6, 2017    [2017.12.06-08.00]
 |+-----------------------------------------------------------------------------+
 |
 | [ajile] - Advanced JavaScript Importing & Loading Extension is a JavaScript
@@ -63,80 +63,77 @@
 
    if (isIncompatible()) return;
 
-   var CLOAK     = true
-     , DEBUG     = false
-     , LEGACY    = false
-     , MVC       = true
-     , MVC_SHARE = true
-     , OVERRIDE  = false
-     , REFRESH   = false;
-
    var ALIAS      = "Ajile"
      , ATTRIB     = "Powered by "
      , CONTROLLER = "index"
      , EXTENSION  = ".js"
      , GENERIC    = ''
+     , HEAD
+     , INFO
      , INTERNAL   = "<"+Math.random()+">"
+     , LOADED     = "__LOADED__"
+     , LOADER
+     , LOG        = ''
      , QNAME      = "com.iskitz.ajile"
      , SEPARATOR
-     , TYPES      = [ ALIAS, "Import", "ImportAs", "Include", "Load"
-                    , "Namespace"
+     , THIS
+     ;
+
+   var TYPES      = [ ALIAS, "Import", "ImportAs", "Include", "Load", "Namespace" ]
+     , TYPES_OLD  = [ "JSBasePath"        , "JSImport", "JSPackage"
+                    , "JSPackaging"       , "JSPacked", "JSPath"
+                    , "NamespaceException", "Package" , "PackageException"
                     ]
-     , TYPES_OLD  = [ "JSBasePath", "JSImport", "JSPackage", "JSPackaging"
-                    , "JSPacked", "JSPath", "NamespaceException", "Package"
-                    , "PackageException"
-                    ];
+                    ;
 
-   var HEAD
-     , INFO
-     , LOADED = "__LOADED__"
-     , LOADER
-     , LOG    = ''
-     , THIS;
-
-   var NOTATIONS = [ '*',    '|', ':',    '"', '<', '>', '?',    '[', '{', '('
-                   , ')',    '}', ']', '\x5c', '&', '@', '#', '\x24', '%', '!'
-                   , ';',    "'", '=',    '+', '~', ',', '^',    '_', ' ', '`'
-                   , '-', '\x2f', '.'
-                   ];
-
-   var RE_OPT_CLOAK        = (   /cloakoff|cloak/)
-     , RE_OPT_DEBUG        = (   /debugoff|debug/)
-     , RE_OPT_LEGACY       = (  /legacyoff|legacy/)
-     , RE_OPT_MVC          = (     /mvcoff|mvc/)
-     , RE_OPT_MVC_SHARE    = (/mvcshareoff|mvcshare/)
-     , RE_OPT_OVERRIDE     = (/overrideoff|override/)
-     , RE_OPT_REFRESH      = ( /refreshoff|refresh/)
-     , RE_PARENT_DIR       = (/(.*\/)[^\/]+/)
-     , RE_PARENT_NAMESPACE = (/(.*)\.[^\.]+/)
-     , RE_RELATIVE_DIR     = (/(\/\.\/)|(\/[^\/]*\/\.\.\/)/)
-     , RE_URL_PROTOCOL     = (/:\/\x2f/);
+   var NOTATIONS  = [ '*',    '|', ':',    '"', '<', '>', '?',    '[', '{', '('
+                    , ')',    '}', ']', '\x5c', '&', '@', '#', '\x24', '%', '!'
+                    , ';',    "'", '=',    '+', '~', ',', '^',    '_', ' ', '`'
+                    , '-', '\x2f', '.'
+                    ]
+                    ;
+   var CLOAK                = true
+     , DEBUG                = false
+     , LEGACY               = false
+     , MVC                  = true
+     , MVC_SHARE            = true
+     , OVERRIDE             = false
+     , REFRESH              = false
+     , RE_OPT_CLOAK         = (       /cloakoff|cloak/       )
+     , RE_OPT_DEBUG         = (       /debugoff|debug/       )
+     , RE_OPT_LEGACY        = (      /legacyoff|legacy/      )
+     , RE_OPT_MVC           = (         /mvcoff|mvc/         )
+     , RE_OPT_MVC_SHARE     = (    /mvcshareoff|mvcshare/    )
+     , RE_OPT_OVERRIDE      = (    /overrideoff|override/    )
+     , RE_OPT_REFRESH       = (     /refreshoff|refresh/     )
+     , RE_FUNCTION_NAME     = (   /function\s*([^(]*)\s*\(/  )
+     , RE_PARENT_NAMESPACE  = (        /(.*)\.[^\.]+/        )
+     , RE_PARENT_PATH       = (        /(.*\/)[^\/]+/        )
+     , RE_RELATIVE_PATH     = (/(\/\.\/)|(\/[^\/]*\/\.\.\/)/ )
+     , RE_URL_PROTOCOL      = (          /:\/\x2f/           )
+     ;
 
 
    function $create ()
    {
-      INFO = getNamespaceInfo (QNAME);
       THIS = GetModule (QNAME);
-
       if (THIS && !OVERRIDE) return;
 
-      !THIS   && (THIS = {});
-      VERSION ?  (INFO.version = VERSION) : (VERSION = INFO.version);
-      cloakObject (notifyAll);
-      setAttribution();
+      INFO    =   getNamespaceInfo (QNAME);
+      THIS    || (THIS          = {});
+      INFO    || (INFO          = new NamespaceInfo ("/use/", ".", QNAME, ALIAS, VERSION));
+      VERSION ?  (INFO.version  = VERSION)
+              :  (VERSION       = INFO.version)
+              ;
 
-      if (!isDOM)
-      {  INFO.fullName  = QNAME;
-         INFO.path      = "/use/";
-         INFO.shortName = ALIAS;
-      }
-
+      cloakObject       (notifyAll);
+      attribute         ();
       AddImportListener (INTERNAL, cloakModule);
-      publishAPI();
+      publishAPI        ();
       pendingImports.add(QNAME, ALIAS);
       processed.add     (QNAME, ALIAS);
       handleImported    (ALIAS, QNAME, THIS);
-      loadController();
+      loadController    ();
    }
 
    function $destroy(fullName)
@@ -194,9 +191,9 @@
          ; listener   = moduleName
          ; moduleName = undefined
          }
-         
+
       else
-       
+
       if (!!moduleName && !isString (moduleName))
          { if (!isArray (moduleName) || !isFunction (listener)) return false
          ; notifyOriginal = listener                                      // API: ajile 1.6.1...1.7.3
@@ -215,7 +212,7 @@
         , listeners = importListeners.get (moduleName)
         ; listener  = {notify:listener, notified:notified}
         ;
-        
+
       notifyOriginal && (listener.notifyOriginal = notifyOriginal);         // API: ajile 1.6.1...1.7.3
       !listeners && (listeners = new SimpleSet()) && importListeners.add (moduleName, listeners);
       listeners.add (Math.random(), listener);
@@ -224,9 +221,9 @@
          { item = GetModule (moduleName)
          ; item && notifyOne (moduleName, item, listener.notify, notified)
          }
-      
+
       else
-      
+
       if (!moduleName && processed.getSize() > 0)
          for (var importee in processed.getAll())
             if ("undefined" == typeof Object.prototype[importee])
@@ -261,6 +258,15 @@
       !usesOf && (usesOf = new SimpleSet()) && usage.add (fullName, usesOf);
       usesOf.add(currentModuleName);
    }
+
+
+   function attribute (meta)
+      {  if   (!isDOM05 || !(meta = document.createElement ("meta"))) return
+      ;  meta.httpEquiv  =   ATTRIB + ALIAS + ' ' + VERSION
+      ;  ATTRIB          =   QNAME.split ('\x2e').reverse().join ('\x2e')
+      ;  meta.content    =   ATTRIB + " :: Smart scripts that play nice "
+      ;  getMainLoader      (window.document).appendChild (meta)
+      }
 
 
    function cloakModule (moduleName)
@@ -312,7 +318,7 @@
     /*}*/);
 
       else cloakNode = function cloakNothing(){};
-      
+
       if(element) cloakNode(element, container);
    }
 
@@ -358,8 +364,8 @@
    {
       if(isString(path)) INFO.path = path;
    }
-   
-   
+
+
    function destroyAPI(SYS)
    {
       if(!isDOM05)
@@ -408,7 +414,7 @@
    function destroyModules (fullName)
    {
       var shortName;
-       
+
       pendingImports.remove (fullName);
       processed.remove (fullName);
 
@@ -669,7 +675,7 @@
             path = unescape(window.location.href);
 
             if(path.charAt(path.length - 1) != SEPARATOR)
-               if((paths = RE_PARENT_DIR.exec(path)) != null)
+               if((paths = RE_PARENT_PATH.exec(path)) != null)
                   if(paths[1].length > path.search(RE_URL_PROTOCOL) + 3)
                      path = paths[1];
 
@@ -679,8 +685,8 @@
          if(path == undefined || path == null)
             continue;
 
-         while(RE_RELATIVE_DIR.test(path))
-            path  = path.replace(RE_RELATIVE_DIR, '\x2f');
+         while(RE_RELATIVE_PATH.test(path))
+            path  = path.replace(RE_RELATIVE_PATH, '\x2f');
 
          if(modulePaths.has(path)) continue;
 
@@ -738,7 +744,6 @@
                                 ,  undefined,  version,   extension);
 
       nsInfoMap[_namespace] = nsInfo;
-
       return nsInfo;
    }
 
@@ -784,7 +789,6 @@ paths:for(var path in paths)
                   var metaInfo  = getMETAInfo(path.substring(iEnd + 1));
                   var extension = metaInfo[1];
                   var version   = metaInfo[0];
-
                   log("FOUND :: Cached Path [ "+path+" ]", arguments);
                   break paths;
                }
@@ -803,7 +807,7 @@ paths:for(var path in paths)
 
       if(nsInfo.path) nsInfoMap[_namespace] = nsInfo;
 
-      return nsInfo;
+     return nsInfo;
    }
 
 
@@ -852,23 +856,23 @@ paths:for(var path in paths)
 
    function handleImport (shortName, fullName, url, notation, version, module, owner)
    {
-      if (!pendingImports.add (fullName, shortName))
-         return module;
+      if (!pendingImports.add (fullName, shortName)) return module;
 
       addDependence (fullName, (shortName == '*' ? fullName : shortName));
-      addUsage (fullName);
+      addUsage      (fullName);
 
-      if (shortName == '*')
-         ((shortName = LOADED)
-         ,log (('Import ("'+ fullName +'.*")...'), arguments));
-      else if (shortName == fullName)
-         log (('Include ("'+shortName+'")...'), arguments);
-      else
-         log (('ImportAs ("'+shortName+'", "'+ fullName +'")...'), arguments);
+      ; (shortName == '*') && (shortName =  LOADED)
+      ?     log (('Import   ("'+ fullName  +'.*")...'), arguments)
+
+      : (shortName == fullName)
+      ?     log (('Include  ("'+ shortName +  '")...'), arguments)
+
+      :     log (('ImportAs ("'+shortName+'", "'+ fullName +'")...'), arguments)
+      ;
 
       if ((new ImportThread (fullName)).start()) return module;
 
-      url = handleImport$formatURL (shortName, fullName, url, notation, version);
+      url  = handleImport$formatURL (shortName, fullName, url, notation, version);
 
       Load ( url
            , getContainer ((owner || global || this))
@@ -909,7 +913,6 @@ paths:for(var path in paths)
       version && (url += '\x2e' + version);
       url += EXTENSION;
       nsInfo && nsInfo.hasOption ("refresh") && (url = setRefresher (url));
-         
       return url;
    }
 
@@ -959,13 +962,13 @@ paths:for(var path in paths)
       return module;
    }
 
-   
+
    function handleImported$Wild(shortName, fullName, module, owner, isInclude, logMsg)
    {
       if (!isInclude)
       {
          logMsg[logMsg.length] = "\r\n";
-         
+
          var $fullName;
 
          for (var member in module)
@@ -1008,7 +1011,7 @@ paths:for(var path in paths)
             continue;
 
          logImportCheck ((shortName = modules[i][1]), fullName, arguments);
-         if (shortName == '*') shortName = undefined;         
+         if (shortName == '*') shortName = undefined;
          handleImported   (shortName, fullName, module);
          updateDependents (fullName);
       }
@@ -1020,7 +1023,7 @@ paths:for(var path in paths)
       owner = owner || global || this;
 
       if(  OVERRIDE
-        || (fullName == shortName && !GetModule(shortName)) 
+        || (fullName == shortName && !GetModule(shortName))
         || (typeof owner[shortName] == "undefined")
         || (GetModule(fullName) == owner[shortName]))
          return false;
@@ -1029,19 +1032,19 @@ paths:for(var path in paths)
               + " already exists.\nConsider using the override load-time option"
               + ", "+ALIAS+".EnableOverride(),\nor ImportAs with an alias; for "
               + 'example:\n\n\tImportAs ("'+ shortName +'1", "'+ fullName +'");';
-              
+
       if(shortName == fullName)
          msg += "\n\nThe module is currently inaccessible.\n";
       else
          msg += "\n\nThe module can currently be accessed using its "
              +  "fully-qualified name:\n\n\t"+ fullName +"\n";
-         
+
       log(msg, arguments, DEBUG);
 
       return true;
    }
 
-   
+
    function $ieCC(cc)
    {
       return (new Function("return /*@cc_on @if(@_jscript)"+ cc +"@end @*/;"))();
@@ -1056,7 +1059,7 @@ paths:for(var path in paths)
 
    function ImportAs(shortName, fullName, url, notation, owner)
    {
-      ensureFailSafe();
+     ensureFailSafe();
 
       if(!fullName || fullName == "*")
       {
@@ -1151,15 +1154,15 @@ paths:for(var path in paths)
             ; return false
             }
 
-         isDOM05 ? (threadID = setTimeout (run, 15.625)) : stop();
+         threadID = setTimeout (run, 15.625);
          return false;
       }
 
       function start()
       {
-         thread =  threads[fullName];
+         thread =  threads [fullName];
          thread && thread.stop();
-         threads[fullName] = THIS;
+         threads [fullName] = THIS;
          terminatorID = setInterval (stop, (ttl = (ttl || 60000)));
          DEBUG && log ("ImportThread :: "+ fullName +"...START");
          return run();
@@ -1208,26 +1211,24 @@ paths:for(var path in paths)
    {
       if (typeof document == "undefined") return false;
 
-      var isSimple =  !!document.write && !!document.writeln;
+      var isSimple  = !!document.write && !!document.writeln
+        ; isDOM     = !!document.createElement
 
-      isDOM        =  !!document.createElement;
-
-      isDOM05      =  isDOM
+        ; isDOM05   = isDOM
                    && !!document.createTextNode
                    && !!document.getElementsByTagName
                    && !!(HEAD = document.getElementsByTagName ("head")[0]).appendChild
-                   && !!HEAD.removeChild;
+                   && !!HEAD.removeChild
 
-      isDOM1       =  isDOM05
+        ; isDOM1    = isDOM05
                    && !!document.firstChild
                    && !!document.lastChild
-                   && !!document.parentNode;
+                   && !!document.parentNode
 
-      isDOM2       =  isDOM1
-                   && !!document.ownerDocument;
+        ; isDOM2    = isDOM1
+                   && !!document.ownerDocument
+                    ;
 
-
-//**/    alert("LOADER: "+getMainLoader(document)+"\n\nisSimple: "+isSimple+"\nisDOM: "+isDOM+"\nisDOM05: "+isDOM05+"\nisDOM1: "+isDOM1+"\nisDOM2: "+isDOM2);
       return !(isSimple || isDOM || isDOM05 || isDOM1 || isDOM2);
    }
 
@@ -1281,220 +1282,177 @@ paths:for(var path in paths)
       this.item   = map.item;
       this.notify = map.notify;
    }
-   Listener.prototype.toString = Listener.prototype.valueOf  = function valueOfListener() {
-      return String (this.name);        // API: ajile 1.7.3-: Support treating Listener as a String.
-   };
+   ; Listener.prototype.toString
+   = Listener.prototype.valueOf
+   = function valueOfListener ()
+         { return String (this.name)        // API: ajile 1.7.3-: Support treating Listener as a String.
+         }
+         ;
 
 
-   function Load(url, container, code, defer, title, type, language)
+   function Load (url, container, code, defer, title, type, language)
    {
       ensureFailSafe();
 
-      if(!(container = getContainer(container)))
-      {
-         log("ERROR :: Container not found. Unable to load:\n\n[" + url + "]", arguments);
-         return false;
-      }
+      if (!(container = getContainer (container)))
+         { log ("ERROR :: Container not found. Unable to load:\n\n[" + url + "]", arguments)
+         ; return false
+         }
 
-      if(url)
-      {
-         modulePaths.add(unescape(url));
-         if(REFRESH) url = setRefresher(url);
-      }
+      if (url)
+         {  modulePaths.add  (unescape     (url))
+         ;  REFRESH && (url = setRefresher (url))
+         }
 
-      if(!(type || language))
-      {
-         language = "JavaScript";
-         type     = "text/javascript";
-      }
+      if ( !language || !type)
+         {  language = "JavaScript"
+         ;  type     = "text/javascript"
+         }
 
-      if(defer == undefined) defer = false;
+      (defer == undefined) && (defer = false);
 
       var script;
-      
-      if(isDOM && !isICab)
-         script = container.createElement("script");
 
-      if(!script)
-      {
-         if(code) code = "setTimeout('"+code+"',0);";
-         LoadSimple(url, container, code, defer, title, type, language);
-         return false;
-      }
+      isDOM && !isICab && (script = container.createElement("script"));
 
-      true      && (script.async    = !!defer); //HACK.API: async and defer have different purposes!
-      defer     && (script.defer    = defer);
-      language  && (script.language = language);
-      title     && (script.title    = title);
-      type      && (script.type     = type);
+      if (!script)
+         {  code    && (code = "setTimeout ('"+code+"', 0);")  //¿bug: runs before script@url, use inlineLoader?
+         ;  LoadSimple (url, container, code, defer, title, type, language)
+         ;  return false
+         }
 
-      if(url)
-      {
-         log ((url +"..."), arguments);
+      true      && (script.async    = !!defer   ); //HACK.API: async and defer have different purposes!
+      defer     && (script.defer    =   defer   );
+      language  && (script.language =   language);
+      title     && (script.title    =   title   );
+      type      && (script.type     =   type    );
 
-         if(isWebKit || !(isIE || isOpera))
-            script.src = url;
+      if (url)
+         {  log ((url +"..."), arguments)
+         ;  ( isWebKit || !(isIE || isOpera))   && (script.src = url)
+         ;  getMainLoader  (container).appendChild (script)
+         ;  (!isWebKit ||   isIE || isOpera)    && (script.src = url)
+         ;  log ((url +"...DONE"), arguments)
+         }
 
-         getMainLoader(container).appendChild(script);
+      if (!code) return true;
 
-         if(!isWebKit || isIE || isOpera)
-            script.src = url;
+      if (url)
+         { Load (undefined, container, code, defer, title, type, language)
+         ; return true
+         }
 
-         log ((url +"...DONE"), arguments);
-      }
+      (typeof script.canHaveChildren == "undefined" || script.canHaveChildren)
+         ?    script.appendChild     (container.createTextNode (code))
+         :  (!script.canHaveChildren && (script.text         =  code))
+         ;
 
-      if(!code) return true;
-
-      if(url)
-      {
-         Load(undefined, container, code, defer, title, type, language);
-         return true;
-      }
-
-      if(typeof(script.canHaveChildren) == "undefined" || script.canHaveChildren)
-         script.appendChild(container.createTextNode(code));
-
-      else if(!script.canHaveChildren)
-         script.text = code;
-
-      getMainLoader(container).appendChild(script);
+      getMainLoader (container).appendChild (script);
       return false;
    }
 
 
    function loadController()
    {
-      if(!(MVC || MVC_SHARE)) return;
+      if (!(MVC || MVC_SHARE)) return;
 
-      if(MVC_SHARE)
-         Load(INFO.path + CONTROLLER + EXTENSION, null, null, null, CONTROLLER);
+      MVC_SHARE
+         && Load (INFO.path + CONTROLLER + EXTENSION, null, null, null, CONTROLLER);
 
-      if(!MVC) return;
+      if (!MVC) return;
 
-      var name = unescape(window.location.pathname);
-      var iEnd = name.lastIndexOf(SEPARATOR);
-      name     = name.substring(++iEnd);
-      iEnd     = name.lastIndexOf('\x2e');
-      iEnd     = (iEnd == -1) ? 0 : iEnd;
-
-      if("" != (name = name.substring(0, iEnd)))
-         CONTROLLER = name;
-
-      Load(CONTROLLER + EXTENSION, null, null, null, CONTROLLER);
+      var name = unescape         (window.location.pathname)
+        , iEnd = name.lastIndexOf (SEPARATOR)
+        ; name = name.substring   (++iEnd)
+        ; iEnd = name.lastIndexOf ('\x2e')
+        ; iEnd = (iEnd == -1) ? 0 : iEnd
+        ;(name = name.substring   (0, iEnd)) && (CONTROLLER = name)
+        ;
+      Load (CONTROLLER + EXTENSION, null, null, null, CONTROLLER);
    }
 
 
    function loadOptions (path)
-   {
-      if (!path || !isString (path)) return;
-
-      var iQuery = path.lastIndexOf ("?") + 1
-        ;   path = path.substring (iQuery).toLowerCase()
-        ;
-
-      if (!path.length) return;
-
-      var option;
-
-      (option = RE_OPT_CLOAK.exec (path))
-         && (CLOAK = option == "cloak");
-
-      (option = RE_OPT_DEBUG.exec (path))
-         && (DEBUG = option == "debug");
-
-      (option = RE_OPT_LEGACY.exec (path))
-         && SetLegacy (option == "legacy");
-
-      (option = RE_OPT_MVC.exec (path))
-         && (MVC = option == "mvc");
-
-      (option = RE_OPT_MVC_SHARE.exec (path))
-         && (MVC_SHARE = option == "mvcshare");
-
-      (option = RE_OPT_OVERRIDE.exec (path))
-         && (OVERRIDE = option == "override");
-
-      (option = RE_OPT_REFRESH.exec (path))
-         && (REFRESH = option == "refresh");
-   }
-
-
-   function LoadSimple(src, container, code, defer, title, type, language)
-   {
-      if(!(container = getContainer((container || window || this))))
-         return;
-
-      var savedCode;
-
-      if(src)
-      {
-         log("...\t:: LoadSimple [ " + src + " ]", arguments);
-
-         if(code) { savedCode = code; code = undefined; }
+      {  if (!path || !isString (path)) return
+      ;
+      ;  var iQuery = path.lastIndexOf ("?") + 1
+      ;        path = path.substring   (iQuery).toLowerCase()
+      ;  if  (!path . length) return
+      ;
+      ;  var option
+      ;  (option = RE_OPT_CLOAK    .exec (path)) && (CLOAK     = option == "cloak"   )
+      ;  (option = RE_OPT_DEBUG    .exec (path)) && (DEBUG     = option == "debug"   )
+      ;  (option = RE_OPT_LEGACY   .exec (path)) &&  SetLegacy  (option == "legacy"  )
+      ;  (option = RE_OPT_MVC      .exec (path)) && (MVC       = option == "mvc"     )
+      ;  (option = RE_OPT_MVC_SHARE.exec (path)) && (MVC_SHARE = option == "mvcshare")
+      ;  (option = RE_OPT_OVERRIDE .exec (path)) && (OVERRIDE  = option == "override")
+      ;  (option = RE_OPT_REFRESH  .exec (path)) && (REFRESH   = option == "refresh" )
       }
 
+
+   function LoadSimple (src, container, code, defer, title, type, language)
+   {
+      if (!(container = getContainer ((container || window || this))))
+         return;
+
+      src && log ("...\t:: LoadSimple [ " + src + " ]", arguments)
+
       var scriptTag = '<'+"script"
-                    + (defer   ?  ' defer="defer"'                  : '')
-                    + (language? (' language="'  + language + '"')  : '')
-                    + (title   ? (' title="'     + title    + '"')  : '')
-                    + (type    ? (' type="'      + type     + '"')  : '')
-                    + (src     ? (' src="'       + src      + '">') : '>')
-                    + (code    ? (code                      + ';')  : '')
-                    + "<\/script>\n";
+                    + (defer   ?  ' defer="defer"'                   : '' )
+                    + (language? (' language="'  + language + '"' )  : '' )
+                    + (title   ? (' title="'     + title    + '"' )  : '' )
+                    + (type    ? (' type="'      + type     + '"' )  : '' )
+                    + (src     ? (' src="'       + src      + '">')  : '>')
+                    + (code    ? (  src?''       : code     + ';' )  : '' )
+                    + "<\/script>\n"
+                    ;
 
-      container.write(scriptTag);
-
-      if(src)
-         log("DONE\t:: LoadSimple [ " + src + " ]", arguments);
-
-      if(!(code = code || savedCode)) return;
-
-      if(src)
-         LoadSimple(undefined, container, code, defer, title, type, language);
+      container.write     (scriptTag);
+      var load;
+      src  &&  log        ("DONE\t:: LoadSimple [ " + src + " ]", arguments);
+      code && (load     =  LoadSimple.code = !LoadSimple.code);
+      load &&  LoadSimple (null, container, code, defer, title, type, language);
    }
 
 
    function log (message, _caller, showLog)
    {
-      if(!DEBUG && !showLog) return;
+      if (!DEBUG && !showLog) return;
 
-      var name     = !_caller ? [''] : (/function\s*([^(]*)\s*\(/).exec (String (_caller.callee))
-        , calledBy = !name    ? ''   : (name.length > 1 ? name[1] : name[0])
-        ;
+      var name     = !_caller ? ['']  : [_caller.callee.name]
+                                     || RE_FUNCTION_NAME.exec (String (_caller.callee));
+      var calledBy = !   name ?  ''   : (name.length > 1 ? name[1] : name[0]);
 
-      if(message != undefined)
-      {
-         var _LOG = LOG;
-         var now  = new Date();
-         LOG      = [now.getFullYear(), now.getMonth()+1, now.getDate()].join('.') + ','
-                  + [now.getHours(),    now.getMinutes(), now.getSeconds(), now.getMilliseconds()].join(':') + " :: "
-                  + currentModuleName + " :: "
-                  + (calledBy         ? (calledBy +" :: ") : "")
-                  + message           + "\r\n"
-                  ;
+      var _LOG = LOG;
+      var now  = new Date();
+      LOG      = [now.getFullYear(), now.getMonth()+1, now.getDate   ()                       ].join('.') + ','
+               + [now.getHours   (), now.getMinutes(), now.getSeconds(), now.getMilliseconds()].join(':') + " :: "
+               + currentModuleName + " :: "
+               + (calledBy         ? (calledBy +" :: ") : "")
+               + message           + "\r\n"
+               ;
 
-         var state = LOG.indexOf("ERROR") >= 0 ? "error"
-                   : LOG.indexOf("WARN")  >= 0 ? "warn"
-                   : "info"
-                   ;
+      var state = LOG.indexOf ("ERROR") >= 0 ? "error"
+                : LOG.indexOf ("WARN")  >= 0 ? "warn"
+                : "info"
+                ;
 
-         !log.is && (log.is = { Firebug : (typeof console  != "undefined" && isFunction(console.info))
-                              , MochiKit: (typeof MochiKit != "undefined" && isFunction(MochiKit.log))
-                              , YAHOO   : (typeof YAHOO    != "undefined" && isFunction(YAHOO.log))
-                              });
+      log.is || (log.is =  { Firebug : (typeof console  != "undefined" && isFunction ( console.info))
+                           , MochiKit: (typeof MochiKit != "undefined" && isFunction (MochiKit.log ))
+                           , YAHOO   : (typeof YAHOO    != "undefined" && isFunction (   YAHOO.log ))
+                           });
 
-         log.is.Firebug  && console[state](LOG);
-         log.is.YAHOO    && YAHOO.log(LOG, state);
-         log.is.MochiKit && ( state == "info"  ? MochiKit.log       (LOG)
-                            : state == "error" ? MochiKit.logError  (LOG)
-                            : state == "warn"  ? MochiKit.logWarning(LOG)
-                            : 0
-                            );
+      log.is.Firebug  && console[state](LOG);
+      log.is.YAHOO    && YAHOO.log(LOG, state);
+      log.is.MochiKit && ( state == "info"  ? MochiKit.log       (LOG)
+                         : state == "error" ? MochiKit.logError  (LOG)
+                         : state == "warn"  ? MochiKit.logWarning(LOG)
+                         : 0
+                         );
 
-         LOG += _LOG;
-      }
-
-      if(showLog) ShowLog();
+      showLog  = !(log.is.Firebug || log.is.MochiKit || log.is.YAHOO) && (showLog || DEBUG);
+      LOG     += _LOG;
+      showLog && ShowLog();
    }
 
 
@@ -1538,23 +1496,17 @@ paths:for(var path in paths)
 
       var nsInfo = nsInfoMap[_namespace];
 
-      if(nsInfo)
+      if (nsInfo)
       {
-         nsInfo.update(path, notation);
+         nsInfo.update (path, notation);
          log(nsInfo, arguments);
          return script;
       }
 
-      if(!path)
-         nsInfo = getNamespaceInfo(_namespace, notation);
-
-      if(path || !nsInfo)
-         nsInfo = new NamespaceInfo(path, notation, _namespace);
-
-      if(nsInfo && !nsInfoMap[_namespace])
-         nsInfoMap[_namespace] = nsInfo;
-
-      log(nsInfo, arguments);
+      !path              && (nsInfo =  getNamespaceInfo (_namespace, notation      ));
+      (path  || !nsInfo) && (nsInfo = new NamespaceInfo (path, notation, _namespace));
+      nsInfo && !nsInfoMap [_namespace]  &&  (nsInfoMap [_namespace] = nsInfo       );
+      log (nsInfo, arguments);
 
       return script;
    }
@@ -1727,6 +1679,7 @@ paths:for(var path in paths)
       cloakObject(THIS.GetVersion           = function(){ return VERSION; });
       THIS.GetVersion.toString              =
       THIS.GetVersion.prototype.toString    = THIS.GetVersion;
+      cloakObject(THIS.log                  = log);
       cloakObject(THIS.RemoveImportListener = RemoveImportListener);
       cloakObject(THIS.SetOption            = SetOption);
       cloakObject(THIS.ShowLog              = ShowLog);
@@ -1772,10 +1725,10 @@ paths:for(var path in paths)
               { listener   = moduleName.notify
               ; moduleName = moduleName.name
               }
-              
+
            if (!isArray (moduleName)) return false;                            // API: ajile 1.6.1+
            wasRemoved = true;
-         
+
            for (var m=0, ml=moduleName.length; m < ml; m++)
               wasRemoved = wasRemoved && RemoveImportListener (moduleName[m], listener);
 
@@ -1820,18 +1773,6 @@ paths:for(var path in paths)
       }
 
       return wasRemoved;
-   }
-
-
-   function setAttribution(meta)
-   {
-      if(!(isDOM05 && (meta = document.createElement("meta"))))
-         return;
-
-      meta.httpEquiv = ATTRIB + ALIAS + ' ' + VERSION;
-      ATTRIB         = QNAME.split('\x2e').reverse().join('\x2e');
-      meta.content   = ATTRIB + " :: Smart scripts that play nice ";
-      getMainLoader(window.document).appendChild(meta);
    }
 
 
@@ -1898,14 +1839,14 @@ paths:for(var path in paths)
    }
 
 
-   function setRefresher(url)
+   function setRefresher (url)
    {
-      if((/ajile.refresh/g).test(url))
-         return url;
-
-      return url
-           + ((/\?/g).test(url) ? '&' : '?')
-           + "ajile.refresh="+Math.random();
+      return (/ajile.refresh/g).test (url)
+               ? url
+               : url
+                  + ((/\?/g).test(url) ? '&' : '?')
+                  + "ajile.refresh="+Math.random()
+               ;
    }
 
 
@@ -1913,9 +1854,9 @@ paths:for(var path in paths)
    {
       ensureFailSafe();
 
-      if(isIE && !isDOM05) return;
+      if (!isDOM05) return;
 
-      if(!DEBUG)
+      if (!DEBUG)
          LOG = "\r\nTo enable debug logging, use <b>" + ALIAS + ".EnableDebug()"
              + "<\/b> from within any of your scripts or use " + ALIAS + "'s "
              + "debug load-time option as follows:<br><br>"
@@ -1928,7 +1869,8 @@ paths:for(var path in paths)
                  + 'font-family:"Tahoma";font-size:12px;}'
                  + "<\/style>\r\n<\/head>\r\n<body>"
                  + LOG.replace(/\r\n/g,"<br>")
-                 + "<\/body><\/html>";
+                 + "<\/body><\/html>"
+                 ;
 
       var width  = screen.width  / 1.5;
       var height = screen.height / 1.5;
@@ -1939,10 +1881,10 @@ paths:for(var path in paths)
                               +",addressbar=0,directories=0,location=0,menubar=0"
                               +",scrollbars=1,statusbar=0,toolbar=0,resizable=1"));
 
-      if(!(logWin && logWin.document)) return;
-      logWin.document.open();
-      logWin.document.writeln(output);
-      logWin.document.close();
+      if (!logWin || !logWin.document) return;
+      logWin.document.open    ();
+      logWin.document.writeln (output);
+      logWin.document.close   ();
    }
 
 
@@ -1961,7 +1903,7 @@ paths:for(var path in paths)
          THIS.getSize     = getSize;
          THIS.has         = has;
          THIS.remove      = remove;
-         
+
          return THIS;
       }
 
@@ -2048,24 +1990,24 @@ paths:for(var path in paths)
    }
 
    var currentModuleName =  QNAME
-     , dependence        =  new SimpleSet()
-     , importListeners   =  new SimpleSet()
+     , dependence        =  new SimpleSet ()
+     , importListeners   =  new SimpleSet ()
      , isIE              =  $ieCC("@_jscript_version")
      , isICab            =  typeof ScriptEngine != "undefined"
-                         && (/InScript/).test(ScriptEngine())
-     , isOpera           =  (  /Opera/i).test(window.navigator.userAgent)
-     , isWebKit          =  (/WebKit/i).test(window.navigator.userAgent)
-     , modulePaths       =  new SimpleSet()
-     , nsInfoMap         =  {clear: function() {
+                         && (/InScript/).test (ScriptEngine())
+     , isOpera           =  (  /Opera/i).test (window.navigator.userAgent)
+     , isWebKit          =  ( /WebKit/i).test (window.navigator.userAgent)
+     , modulePaths       =  new SimpleSet ()
+     , nsInfoMap         =  {clear: function () {
                                for (var moduleName in this)
-                                  if ("undefined" == typeof Object.prototype[moduleName])
-                                     delete this[moduleName];
+                                  if ("undefined" == typeof Object.prototype [moduleName])
+                                     delete this [moduleName];
                                }
                             }
-     , pendingImports    =  new SimpleSet()
-     , processed         =  new SimpleSet()
-     , usage             =  new SimpleSet()
+     , pendingImports    =  new SimpleSet ()
+     , processed         =  new SimpleSet ()
+     , usage             =  new SimpleSet ()
      ;
 
    $create();
-})("2017.12", this);
+})("2017.12.06", this);
