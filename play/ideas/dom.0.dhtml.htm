@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+   <title>DOM.0 DHTML Tests</title>
+</head>
+<body>
+  <ol>
+    <li><a name="First"   href="#First" >1st link</a></li>
+    <li><a name="Second"  href="#Second">2nd link</a></li>
+    <li><a name="Third"   href="#Third" >3rd link</a></li>
+  </ol>
+  <script language="JavaScript" type="text/javascript">
+    function initialize ()
+      { if (!document.links) return
+          ;
+        var PREFIX = 'javascript: void (alert ("¡'
+          , SUFFIX = '!"));'
+          , things = ""
+          ;
+        for ( var link, links = document.links, i = links.length
+            ; 0 <=-- i
+            ; (link = /*links [i] ||*/ links.item (i)) && (link.href = PREFIX + (link.name || link.hash) + SUFFIX)
+            ) for (var thing in link) things += thing + "\n"
+            ; alert ("target: "+ link.target + "\n" + things)
+            ;
+      }
+    window.onload = initialize;
+    alert ("inline scripts! & dom.links = "+ !!document.links +"\n"+ typeof document.links);
+    var t = ""; for (var n in document.links) t += n; alert (t);
+    alert (typeof document.links.item (0));
+</script>
+</body>
+</html>
