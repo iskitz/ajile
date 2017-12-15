@@ -515,19 +515,13 @@
    }
 
 
-   function getContainer(element)
-   {
-      if(!element) return window.document;
-
-      if(typeof element.write == "undefined")
-         if(typeof element.document != "undefined")
-            element = element.document;
-         else if(typeof element.parentNode != "undefined")
-            return getContainer(element.parentNode);
-         else return window.document;
-
-      return element;
-   }
+   function getContainer (element)
+      { if (!element           ) return window.document
+      ; if ( element.write     ) return element
+      ; if ( element.document  ) return element.document
+      ; if ( element.parentNode) return getContainer (element.parentNode)
+      ; return window.document
+      }
 
 
    function getImportInfo(shortName, fullName)
